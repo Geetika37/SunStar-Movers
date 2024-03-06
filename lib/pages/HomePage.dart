@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:sunstarmovers/pages/chart.dart';
 import 'package:sunstarmovers/pages/container2.dart';
 import 'package:sunstarmovers/pages/navBar.dart';
 
@@ -55,6 +56,13 @@ class _HomePageState extends State<HomePage> {
                 SizedBox(width: 15,),
                 Flexible(child: HomeCard(title: 'Total activities',title2: '+2.5%',title3: '378',image: 'assets/Group 427318358.png',),)
               ],
+            ),
+            Container(
+                child: Column(
+                  children: [
+                    Chart()
+                  ],
+                )
             ),
 
           ],
