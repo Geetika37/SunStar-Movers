@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:sunstarmovers/pages/HomePage.dart';
 
 class LoginPage extends StatelessWidget {
   const LoginPage({super.key});
@@ -76,10 +77,10 @@ class LoginPage extends StatelessWidget {
                 height: 60,
                 child: ElevatedButton(
                   onPressed: () {
-                    // Navigator.push(
-                    //   context,
-                    //   MaterialPageRoute(builder: (context) => HomePage()),
-                    // );
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => HomePage()),
+                    );
                   },
                   child: Text("Sign in",style: TextStyle(fontSize: 17 ),),
                   style: ElevatedButton.styleFrom(
