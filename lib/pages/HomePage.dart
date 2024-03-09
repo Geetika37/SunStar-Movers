@@ -14,7 +14,7 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  int CurrentPage=0;
+  int _currentIndex = 0;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -58,14 +58,14 @@ class _HomePageState extends State<HomePage> {
 
               Row(
                 children: [
-        
+
                   Flexible(child: HomeCard(title: 'Total Surveys',title2: '+2.5%',title3: '456',image: 'assets/Group 28.png',)),
                   SizedBox(width: 15,),
                   Flexible(child: HomeCard(title: 'Total activities',title2: '+2.5%',title3: '378',image: 'assets/Group 427318358.png',),)
                 ],
               ),
               SizedBox(height: 15,),
-        
+
               Container(
                 padding: EdgeInsets.all(10),
                 height: 360,
@@ -91,12 +91,12 @@ class _HomePageState extends State<HomePage> {
                           Text("Survey Report",style: TextStyle(fontSize: 16,fontWeight: FontWeight.w600,fontFamily: 'Poppins',),),
                           SizedBox(width: 110,),
                           Text("2017-2018",style: TextStyle(fontSize: 13,fontWeight: FontWeight.w400,fontFamily: 'Poppins',color: Colors.grey),),
-        
+
                         ],
                       ),
                       SizedBox(height: 15,),
                       Chart(),
-        
+
                       Divider(
                         height: 10,
                         color: Colors.grey.shade300,
@@ -118,7 +118,7 @@ class _HomePageState extends State<HomePage> {
               ),
 
               SizedBox(height: 20,),
-        
+
               Container(
                 // padding: EdgeInsets.all(10),
                 height: 310,
@@ -138,7 +138,7 @@ class _HomePageState extends State<HomePage> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     SizedBox(height: 10,),
-                    
+
                     Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: Row(
