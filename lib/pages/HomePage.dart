@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:sunstarmovers/pages/Row1.dart';
 import 'package:sunstarmovers/pages/Row2.dart';
+import 'package:sunstarmovers/pages/Survey.dart';
 import 'package:sunstarmovers/pages/chart.dart';
 import 'package:sunstarmovers/pages/container2.dart';
 import 'package:sunstarmovers/pages/navBar.dart';
@@ -13,6 +14,7 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  int CurrentPage=0;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -243,10 +245,10 @@ class _HomePageState extends State<HomePage> {
           switch (index)
           {
             case 0:
-              Navigator.pop(context);
+              Navigator.push(context, MaterialPageRoute(builder: (context)=>HomePage()));
               break;
             case 1:
-              //Navigator.push(context, MaterialPageRoute(builder: (context)=>))
+              Navigator.push(context, MaterialPageRoute(builder: (context)=>Survey()));
           }
         }
         ,
