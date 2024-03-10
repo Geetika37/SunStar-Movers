@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:sunstarmovers/pages/TextField1.dart';
+import 'package:sunstarmovers/pages/showDialog.dart';
 
 class AddSurvey extends StatefulWidget {
   const AddSurvey({super.key});
@@ -125,16 +126,23 @@ class _AddSurveyState extends State<AddSurvey> {
                         height: 50,
                         child: ElevatedButton(
                             onPressed: (){
-
+                              showDialog(context: context,
+                                  builder:(BuildContext context)
+                                  {
+                                    return showDialog1();
+                                  }
+                              );
                             } ,
                             child: Text('save',style: TextStyle(fontWeight: FontWeight.w600,fontFamily: 'Poppins',fontSize: 17)),
                           style: ElevatedButton.styleFrom(
                               backgroundColor: Colors.red,
                               foregroundColor:Colors.white,
-                              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)) ),),
+                              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)) ),
+                        ),
                       )
                   ),
                   SizedBox(width: 10,),
+
 
                   Expanded(
                       child: SizedBox(
