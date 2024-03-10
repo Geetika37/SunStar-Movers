@@ -10,55 +10,55 @@ class BottomNav extends StatefulWidget {
 }
 
 class _BottomNavState extends State<BottomNav> {
-  final List<Widget> pages=[
-    const HomePage(),
-    Survey(),
-  ];
-  int currentIndex = 0;
   @override
   Widget build(BuildContext context) {
-    return  Scaffold(
-      bottomNavigationBar: BottomNavigationBar(
-        onTap: (value){
-          setState(() {
-            currentIndex=value;
-          });
-        },
-        items: const [
-          BottomNavigationBarItem(
+    return BottomNavigationBar(
+      items: const [
+
+        BottomNavigationBarItem(
+          icon: ImageIcon(
+            AssetImage("assets/home.png"),
+            size: 20,
+            color: Colors.red,
+          ),
+          label: 'Home',
+        ),
+
+        BottomNavigationBarItem(
+          icon: ImageIcon(
+            AssetImage("assets/file-02.png"),
+            size: 20,
+          ),
+          label: 'Survey',
+        ),
+
+        BottomNavigationBarItem(
             icon: ImageIcon(
-              AssetImage("assets/home.png"),
-              size: 20,
-              color: Colors.red,
+              AssetImage("assets/Icon.png"),
+              size: 24,
             ),
-            label: 'Home',
-          ),
+            label: 'Notification'),
 
-          BottomNavigationBarItem(
-            icon: ImageIcon(
-              AssetImage("assets/file-02.png"),
-              size: 20,
-            ),
-            label: 'Survey',
-          ),
+      ],
 
-          BottomNavigationBarItem(
-              icon: ImageIcon(AssetImage("assets/Icon.png"),
-                size: 24,
-              ),
-              label: 'Notification'
-          ),
+      selectedItemColor: Colors.red,
+      selectedLabelStyle: TextStyle(fontWeight: FontWeight.bold, fontSize: 12),
+      unselectedLabelStyle:
+          TextStyle(fontWeight: FontWeight.bold, fontSize: 12),
 
+      onTap: (int index) {
+        switch (index) {
+          case 0:
+            Navigator.push(
+                context, MaterialPageRoute(builder: (context) => HomePage()));
+            break;
+          case 1:
+            Navigator.push(
+                context, MaterialPageRoute(builder: (context) => Survey()));
+            break;
 
-
-        ],
-        selectedItemColor: Colors.red,
-        selectedLabelStyle: TextStyle(fontWeight: FontWeight.bold,fontSize: 12),
-        unselectedLabelStyle: TextStyle(fontWeight: FontWeight.bold,fontSize: 12),
-
-
-      ),
+        }
+      },
     );
-
   }
 }

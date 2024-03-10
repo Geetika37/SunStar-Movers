@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:sunstarmovers/pages/BottomNav.dart';
 import 'package:sunstarmovers/pages/Row1.dart';
 import 'package:sunstarmovers/pages/Row2.dart';
 import 'package:sunstarmovers/pages/Survey.dart';
@@ -19,6 +20,8 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        elevation: 3.0,
+        shadowColor: Colors.red,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.only(bottomRight: Radius.circular(10),bottomLeft: Radius.circular(10))),
         backgroundColor: Colors.red,
         toolbarHeight: 80,
@@ -206,56 +209,7 @@ class _HomePageState extends State<HomePage> {
         ),
       ),
 
-      bottomNavigationBar: BottomNavigationBar(
-        items:  [
-
-          BottomNavigationBarItem(
-            icon: ImageIcon(
-              AssetImage("assets/home.png"),
-              size: 20,
-              color: Colors.red,
-            ),
-            label: 'Home',
-          ),
-
-          BottomNavigationBarItem(
-            icon: ImageIcon(
-              AssetImage("assets/file-02.png"),
-              size: 20,
-            ),
-            label: 'Survey',
-          ),
-
-          BottomNavigationBarItem(
-              icon: ImageIcon(AssetImage("assets/Icon.png"),
-              size: 24,
-              ),
-            label: 'Notification'
-          ),
-
-
-
-        ],
-        selectedItemColor: Colors.red,
-        selectedLabelStyle: TextStyle(fontWeight: FontWeight.bold,fontSize: 12),
-        unselectedLabelStyle: TextStyle(fontWeight: FontWeight.bold,fontSize: 12),
-
-        onTap: (int index)
-        {
-          switch (index)
-          {
-            case 0:
-              Navigator.push(context, MaterialPageRoute(builder: (context)=>HomePage()));
-              break;
-            case 1:
-              Navigator.push(context, MaterialPageRoute(builder: (context)=>Survey()));
-          }
-        }
-        ,
-      ),
-
-
-
+      bottomNavigationBar: BottomNav(),
 
     );
   }
