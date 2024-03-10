@@ -44,7 +44,7 @@ class Row2 extends StatelessWidget {
 
           ],
         ),
-        SizedBox(width: 70,),
+        SizedBox(width: 75,),
 
         Column(
           children: [
