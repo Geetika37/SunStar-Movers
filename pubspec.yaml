@@ -36,6 +36,7 @@ dependencies:
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.2
 
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -66,6 +67,27 @@ flutter:
     - assets/ic_Dropdown.png
     - assets/Group 28.png
     - assets/Group 427318358.png
+    - assets/Oval.png
+    - assets/Oval_pic.png
+    - assets/up.png
+    - assets/Group 162507.png
+    - assets/calendar.png
+    - assets/clock.png
+    - assets/Group 162508.png
+    - assets/Group 162509.png
+    - assets/home.png
+    - assets/file-02.png
+    - assets/Icon.png
+    - assets/user-01.png
+    - assets/plus-circle.png
+    - assets/3864_boolean_operation.png
+    - assets/3881_frame.png
+    - assets/startwork.png
+    - assets/complete.png
+    - assets/chevron-left.png
+    - assets/Group 33192.png
+    - assets/Icon1.png
+    - assets/Vector.png
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see
