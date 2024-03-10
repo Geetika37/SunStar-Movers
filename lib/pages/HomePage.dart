@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+
+import 'package:sunstarmovers/pages/BottomNav.dart';
 import 'package:sunstarmovers/pages/Row1.dart';
 import 'package:sunstarmovers/pages/Row2.dart';
+import 'package:sunstarmovers/pages/Survey.dart';
 import 'package:sunstarmovers/pages/chart.dart';
 import 'package:sunstarmovers/pages/container2.dart';
 import 'package:sunstarmovers/pages/navBar.dart';
@@ -13,10 +16,13 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  int _currentIndex = 0;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        elevation: 3.0,
+        shadowColor: Colors.red,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.only(bottomRight: Radius.circular(10),bottomLeft: Radius.circular(10))),
         backgroundColor: Colors.red,
         toolbarHeight: 80,
@@ -56,14 +62,14 @@ class _HomePageState extends State<HomePage> {
 
               Row(
                 children: [
-        
+
                   Flexible(child: HomeCard(title: 'Total Surveys',title2: '+2.5%',title3: '456',image: 'assets/Group 28.png',)),
                   SizedBox(width: 15,),
                   Flexible(child: HomeCard(title: 'Total activities',title2: '+2.5%',title3: '378',image: 'assets/Group 427318358.png',),)
                 ],
               ),
               SizedBox(height: 15,),
-        
+
               Container(
                 padding: EdgeInsets.all(10),
                 height: 360,
@@ -89,12 +95,12 @@ class _HomePageState extends State<HomePage> {
                           Text("Survey Report",style: TextStyle(fontSize: 16,fontWeight: FontWeight.w600,fontFamily: 'Poppins',),),
                           SizedBox(width: 110,),
                           Text("2017-2018",style: TextStyle(fontSize: 13,fontWeight: FontWeight.w400,fontFamily: 'Poppins',color: Colors.grey),),
-        
+
                         ],
                       ),
                       SizedBox(height: 15,),
                       Chart(),
-        
+
                       Divider(
                         height: 10,
                         color: Colors.grey.shade300,
@@ -116,7 +122,7 @@ class _HomePageState extends State<HomePage> {
               ),
 
               SizedBox(height: 20,),
-        
+
               Container(
                 // padding: EdgeInsets.all(10),
                 height: 310,
@@ -136,7 +142,7 @@ class _HomePageState extends State<HomePage> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     SizedBox(height: 10,),
-                    
+
                     Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: Row(
@@ -204,56 +210,7 @@ class _HomePageState extends State<HomePage> {
         ),
       ),
 
-      bottomNavigationBar: BottomNavigationBar(
-        items:  [
-
-          BottomNavigationBarItem(
-            icon: ImageIcon(
-              AssetImage("assets/home.png"),
-              size: 20,
-              color: Colors.red,
-            ),
-            label: 'Home',
-          ),
-
-          BottomNavigationBarItem(
-            icon: ImageIcon(
-              AssetImage("assets/file-02.png"),
-              size: 20,
-            ),
-            label: 'Survey',
-          ),
-
-          BottomNavigationBarItem(
-              icon: ImageIcon(AssetImage("assets/Icon.png"),
-              size: 24,
-              ),
-            label: 'Notification'
-          ),
-
-
-
-        ],
-        selectedItemColor: Colors.red,
-        selectedLabelStyle: TextStyle(fontWeight: FontWeight.bold,fontSize: 12),
-        unselectedLabelStyle: TextStyle(fontWeight: FontWeight.bold,fontSize: 12),
-
-        onTap: (int index)
-        {
-          switch (index)
-          {
-            case 0:
-              Navigator.pop(context);
-              break;
-            case 1:
-              //Navigator.push(context, MaterialPageRoute(builder: (context)=>))
-          }
-        }
-        ,
-      ),
-
-
-
+      bottomNavigationBar: BottomNav(),
 
     );
   }
