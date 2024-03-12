@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 
 class showDialog1 extends StatelessWidget {
-  const showDialog1({super.key});
+  final Color? backGroundColor;
+  const showDialog1({super.key,this.backGroundColor});
 
   @override
   Widget build(BuildContext context) {
@@ -10,11 +11,12 @@ class showDialog1 extends StatelessWidget {
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(15),
       ),
-      clipBehavior: Clip.none,
+      // clipBehavior: Clip.none,
       child:SizedBox(
         width: 300,
         child: Stack(
           //overflow:Overflow.visible,
+          clipBehavior: Clip.none,
           alignment: Alignment.topCenter,
           children: [
 
@@ -42,7 +44,7 @@ class showDialog1 extends StatelessWidget {
                            Navigator.pop(context);
                           }, child: Text('Close',style: TextStyle(fontWeight: FontWeight.w500,fontFamily: 'Poppins',fontSize: 17),),
                       style: ElevatedButton.styleFrom(
-                          backgroundColor: Colors.green,
+                          backgroundColor: backGroundColor ?? Colors.green,
                           foregroundColor: Colors.white,
                           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10))),
                       ),

@@ -16,57 +16,62 @@ class Row2 extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      children: [
+    return InkWell(
+      onTap: (){
 
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Row(
-              children: [
-                Text(name,style: TextStyle(fontWeight: FontWeight.w600,fontSize: 16,fontFamily: 'Poppins'),),
-                SizedBox(width: 15,),
-                Image(image: AssetImage(image1)),
-              ],
-            ),
-            SizedBox(height: 5,),
-            Row(
-              children: [
-                Image(image: AssetImage(image2)),
-                SizedBox(width: 5,),
-                Text(date,style: TextStyle(fontWeight: FontWeight.w400,fontSize: 12,fontFamily: 'Poppins',color: Colors.grey.shade500),),
-                SizedBox(width: 20,),
-                Image(image: AssetImage(image3)),
-                SizedBox(width: 5,),
-                Text(time,style: TextStyle(fontWeight: FontWeight.w400,fontSize: 12,fontFamily: 'Poppins',color: Colors.grey.shade500),)
-              ],
-            ),
+      },
+      child: Row(
+        children: [
 
-          ],
-        ),
-        SizedBox(width: 75,),
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
+                children: [
+                  Text(name,style: TextStyle(fontWeight: FontWeight.w600,fontSize: 16,fontFamily: 'Poppins'),),
+                  SizedBox(width: 15,),
+                  Image(image: AssetImage(image1)),
+                ],
+              ),
+              SizedBox(height: 5,),
+              Row(
+                children: [
+                  Image(image: AssetImage(image2)),
+                  SizedBox(width: 5,),
+                  Text(date,style: TextStyle(fontWeight: FontWeight.w400,fontSize: 12,fontFamily: 'Poppins',color: Colors.grey.shade500),),
+                  SizedBox(width: 20,),
+                  Image(image: AssetImage(image3)),
+                  SizedBox(width: 5,),
+                  Text(time,style: TextStyle(fontWeight: FontWeight.w400,fontSize: 12,fontFamily: 'Poppins',color: Colors.grey.shade500),)
+                ],
+              ),
 
-        Column(
-          children: [
-            Stack(
-                alignment: Alignment.center,
-                children:[
-                  CircularProgressIndicator(
-                    color: Colors.yellow.shade800,
-                    backgroundColor: Colors.yellow.withOpacity(0.1),
-                    value: 0.5,
-                    strokeWidth: 6,
-                    strokeAlign: 2,
-                    semanticsLabel: '50%',
-                    strokeCap: StrokeCap.round,
-                  ),
-                  Text(percentage,style: TextStyle(color: Colors.yellow.shade800,fontWeight: FontWeight.bold),)
-                ]
-            )
-          ],
-        ),
+            ],
+          ),
+          SizedBox(width: 75,),
 
-      ],
+          Column(
+            children: [
+              Stack(
+                  alignment: Alignment.center,
+                  children:[
+                    CircularProgressIndicator(
+                      color: Colors.yellow.shade800,
+                      backgroundColor: Colors.yellow.withOpacity(0.1),
+                      value: 0.5,
+                      strokeWidth: 6,
+                      strokeAlign: 2,
+                      semanticsLabel: '50%',
+                      strokeCap: StrokeCap.round,
+                    ),
+                    Text(percentage,style: TextStyle(color: Colors.yellow.shade800,fontWeight: FontWeight.bold),)
+                  ]
+              )
+            ],
+          ),
+
+        ],
+      ),
     );
   }
 }

@@ -13,6 +13,8 @@ class _BottomNavState extends State<BottomNav> {
   @override
   Widget build(BuildContext context) {
     return BottomNavigationBar(
+      showSelectedLabels: true,
+      type:BottomNavigationBarType.fixed ,
       items: const [
 
         BottomNavigationBarItem(
@@ -22,6 +24,7 @@ class _BottomNavState extends State<BottomNav> {
             color: Colors.red,
           ),
           label: 'Home',
+
         ),
 
         BottomNavigationBarItem(
@@ -32,13 +35,19 @@ class _BottomNavState extends State<BottomNav> {
           label: 'Survey',
         ),
 
+
         BottomNavigationBarItem(
             icon: ImageIcon(
               AssetImage("assets/Icon.png"),
               size: 24,
             ),
             label: 'Notification'),
-
+        BottomNavigationBarItem(
+            icon: ImageIcon(
+              AssetImage("assets/Icon.png"),
+              size: 24,
+            ),
+            label: 'Notification'),
       ],
 
       selectedItemColor: Colors.red,
