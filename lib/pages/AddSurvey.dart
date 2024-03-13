@@ -130,7 +130,7 @@ class _AddSurveyState extends State<AddSurvey> {
                           showDialog(context: context,
                               builder:(BuildContext context)
                               {
-                                return showDialog1();
+                                return showDialog1(title: 'Survey Added',subtitle: 'This Survey has been added successfully',image: 'assets/Group 427318220.png',buttonText1: 'Close',);
                               }
                           );
                         }, buttonName: 'Save' ,

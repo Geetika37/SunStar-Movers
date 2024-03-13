@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:sunstarmovers/pages/SurveyDetails.dart';
 // import 'package:percent_indicator/percent_indicator.dart';
 
 class Row2 extends StatelessWidget {
@@ -18,7 +19,7 @@ class Row2 extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: (){
-
+        Navigator.push(context, MaterialPageRoute(builder: (context)=>SurveyDetails()));
       },
       child: Row(
         children: [

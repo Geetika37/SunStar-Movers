@@ -7,14 +7,17 @@ class ButtonnOutlined extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return OutlinedButton(
-      onPressed: onPressed ,
-      child: Text(title,style: TextStyle(fontWeight: FontWeight.w600,fontFamily: 'Poppins',fontSize: 17)),
-      style: ElevatedButton.styleFrom(
-          foregroundColor:Colors.red,
-          side:BorderSide(color: Colors.red,width: 1) ,
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)
-          )
+    return SizedBox(
+      height: 50,
+      child: OutlinedButton(
+        onPressed: onPressed ,
+        child: Text(title,style: TextStyle(fontWeight: FontWeight.w600,fontFamily: 'Poppins',fontSize: 17)),
+        style: ElevatedButton.styleFrom(
+            foregroundColor:Colors.red,
+            side:BorderSide(color: Colors.red,width: 1) ,
+            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)
+            )
+        ),
       ),
     );
   }

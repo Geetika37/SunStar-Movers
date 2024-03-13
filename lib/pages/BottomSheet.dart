@@ -13,7 +13,8 @@ class BottomSheets extends StatelessWidget {
       height: 680,
       child: Padding(
         padding: const EdgeInsets.all(13.0),
-        child: Stack(children: [
+        child: Stack(
+            children: [
           ListView(
             // shrinkWrap: true,
             children: [
@@ -217,6 +218,7 @@ class BottomSheets extends StatelessWidget {
             bottom: 0,
             right: 0,
             child: Container(
+              height: 60,
               color: Colors.white,
               child: Row(
                 children: [
