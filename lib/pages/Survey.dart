@@ -61,7 +61,7 @@ class _SurveyState extends State<Survey> {
               Row(
                 children: [
                   Expanded(
-                    child: SearchBarr(),
+                    child: SearchBarr(title: 'Search for Survey', image: "assets/3864_boolean_operation.png",),
                   ),
                   IconButton(onPressed: (){
                       showModalBottomSheet(

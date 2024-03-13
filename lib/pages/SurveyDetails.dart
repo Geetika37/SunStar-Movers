@@ -40,7 +40,9 @@ class SurveyDetails extends StatelessWidget {
                 color: Colors.white),
           ),
         ),
+
         actions: [
+
           IconButton(
               onPressed: () {
                 showDialog(
@@ -68,7 +70,7 @@ class SurveyDetails extends StatelessWidget {
                     context: context,
                     builder: (BuildContext context)
                     {
-                      return BottomShet1(title: 'Add Comment', hintName: 'comment', labelName: 'comment',);
+                      return BottomShet1(title: 'Add Comment', hintName: 'comment', labelName: 'comment', buttonName1: 'Confirm', buttonName2: 'Cancel',);
                     }
                 );
               },
@@ -87,6 +89,8 @@ class SurveyDetails extends StatelessWidget {
               )),
         ],
       ),
+
+
       body: Padding(
         padding: const EdgeInsets.all(10.0),
         child: Stack(children: [
@@ -248,7 +252,7 @@ class SurveyDetails extends StatelessWidget {
                 ),
               ),
               SizedBox(
-                height: 60,
+                height: 90,
               ),
             ],
           ),
