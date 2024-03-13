@@ -1,7 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:sunstarmovers/pages/ButtonOutline.dart';
 
 class showDialog1 extends StatelessWidget {
-  const showDialog1({super.key});
+  final String title;
+  final String subtitle;
+  final String image;
+  final String buttonText1;
+
+  const showDialog1({super.key, required this.title, required this.subtitle, required this.image, required this.buttonText1, });
 
   @override
   Widget build(BuildContext context) {
@@ -10,11 +16,12 @@ class showDialog1 extends StatelessWidget {
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(15),
       ),
-      clipBehavior: Clip.none,
+      // clipBehavior: Clip.none,
       child:SizedBox(
         width: 300,
         child: Stack(
           //overflow:Overflow.visible,
+          clipBehavior: Clip.none,
           alignment: Alignment.topCenter,
           children: [
 
@@ -24,13 +31,14 @@ class showDialog1 extends StatelessWidget {
               child: Padding(
                 padding: const EdgeInsets.fromLTRB(10, 75, 10, 10),
                 child: Column(
+
                   children: [
 
-                    Text('Survey Added',
+                    Text(title,
                       style: TextStyle(fontWeight:FontWeight.w600,fontSize: 20, fontFamily: 'Poppins'),
                     ),
                     SizedBox(height: 5,),
-                    Text('The survey has been added successfully.',
+                    Text(subtitle,
                       style: TextStyle(fontSize: 12,fontFamily: 'Poppins' ,fontWeight: FontWeight.w400,color: Colors.grey.shade500),
                     ),
                     SizedBox(height: 15,),
@@ -40,20 +48,20 @@ class showDialog1 extends StatelessWidget {
                           onPressed: ()
                           {
                            Navigator.pop(context);
-                          }, child: Text('Close',style: TextStyle(fontWeight: FontWeight.w500,fontFamily: 'Poppins',fontSize: 17),),
+                          }, child: Text(buttonText1,style: TextStyle(fontWeight: FontWeight.w500,fontFamily: 'Poppins',fontSize: 17),),
                       style: ElevatedButton.styleFrom(
-                          backgroundColor: Colors.green,
+                          backgroundColor:  Colors.green,
                           foregroundColor: Colors.white,
                           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10))),
                       ),
-                    )
+                    ),
 
                   ],
                 ),
               ),
             ),
 
-            Positioned(child: Image(image: AssetImage('assets/Group 427318220.png'),
+            Positioned(child: Image(image: AssetImage(image),
             ),
             top: -80,
             ),

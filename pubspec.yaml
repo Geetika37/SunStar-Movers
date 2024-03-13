@@ -89,6 +89,29 @@ flutter:
     - assets/Icon1.png
     - assets/Vector.png
     - assets/Group 427318220.png
+    - assets/pendingsurvey.png
+    - assets/confirmedsurvey.png
+    - assets/cancelledsurvey.png
+    - assets/Startworkk.png
+    - assets/collectonpending.png
+    - assets/closedwork.png
+    - assets/marketing.png
+    - assets/Complaints.png
+    - assets/settings-01.png
+    - assets/building-06.png
+    - assets/truck-02.png
+    - assets/Global search.png
+    - assets/teamlead.png
+    - assets/Emirates.png
+    - assets/activity.png
+    - assets/logout.png
+    - assets/Delete.png
+    - assets/comment.png
+    - assets/back.png
+    - assets/Group 427318252.png
+    - assets/whatspp.png
+    - assets/close.png
+
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see

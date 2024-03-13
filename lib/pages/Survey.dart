@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:sunstarmovers/pages/AddSurvey.dart';
 import 'package:sunstarmovers/pages/BottomNav.dart';
+import 'package:sunstarmovers/pages/BottomSheet.dart';
 import 'package:sunstarmovers/pages/Row2.dart';
 import 'package:sunstarmovers/pages/navBar.dart';
 import 'package:sunstarmovers/pages/searchBar.dart';
@@ -62,7 +63,17 @@ class _SurveyState extends State<Survey> {
                   Expanded(
                     child: SearchBarr(),
                   ),
-                  IconButton(onPressed: (){}, icon: ImageIcon(AssetImage("assets/3881_frame.png"),size: 35,))
+                  IconButton(onPressed: (){
+                      showModalBottomSheet(
+                        isScrollControlled: true,
+                          context: context,
+                          builder: (BuildContext context)
+                          {
+                            return BottomSheets();
+                          }
+                      );
+                  }, icon: ImageIcon(AssetImage("assets/3881_frame.png"),size: 35,)
+                  )
                 ],
               ),
 

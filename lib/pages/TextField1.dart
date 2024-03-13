@@ -10,7 +10,8 @@ class TextField1 extends StatelessWidget {
   Widget build(BuildContext context) {
     return  TextField(
       decoration: InputDecoration(
-
+          isDense: true,
+          //contentPadding: EdgeInsets.all(),
           hintText: hintName,
           hintStyle: TextStyle(fontFamily: 'Poppins',fontSize: 14,fontWeight: FontWeight.w500,color: Colors.grey.withOpacity(.5)),
 

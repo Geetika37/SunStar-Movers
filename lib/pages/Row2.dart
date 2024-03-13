@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:sunstarmovers/pages/SurveyDetails.dart';
 // import 'package:percent_indicator/percent_indicator.dart';
 
 class Row2 extends StatelessWidget {
@@ -16,57 +17,62 @@ class Row2 extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      children: [
+    return InkWell(
+      onTap: (){
+        Navigator.push(context, MaterialPageRoute(builder: (context)=>SurveyDetails()));
+      },
+      child: Row(
+        children: [
 
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Row(
-              children: [
-                Text(name,style: TextStyle(fontWeight: FontWeight.w600,fontSize: 16,fontFamily: 'Poppins'),),
-                SizedBox(width: 15,),
-                Image(image: AssetImage(image1)),
-              ],
-            ),
-            SizedBox(height: 5,),
-            Row(
-              children: [
-                Image(image: AssetImage(image2)),
-                SizedBox(width: 5,),
-                Text(date,style: TextStyle(fontWeight: FontWeight.w400,fontSize: 12,fontFamily: 'Poppins',color: Colors.grey.shade500),),
-                SizedBox(width: 20,),
-                Image(image: AssetImage(image3)),
-                SizedBox(width: 5,),
-                Text(time,style: TextStyle(fontWeight: FontWeight.w400,fontSize: 12,fontFamily: 'Poppins',color: Colors.grey.shade500),)
-              ],
-            ),
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
+                children: [
+                  Text(name,style: TextStyle(fontWeight: FontWeight.w600,fontSize: 16,fontFamily: 'Poppins'),),
+                  SizedBox(width: 15,),
+                  Image(image: AssetImage(image1)),
+                ],
+              ),
+              SizedBox(height: 5,),
+              Row(
+                children: [
+                  Image(image: AssetImage(image2)),
+                  SizedBox(width: 5,),
+                  Text(date,style: TextStyle(fontWeight: FontWeight.w400,fontSize: 12,fontFamily: 'Poppins',color: Colors.grey.shade500),),
+                  SizedBox(width: 20,),
+                  Image(image: AssetImage(image3)),
+                  SizedBox(width: 5,),
+                  Text(time,style: TextStyle(fontWeight: FontWeight.w400,fontSize: 12,fontFamily: 'Poppins',color: Colors.grey.shade500),)
+                ],
+              ),
 
-          ],
-        ),
-        SizedBox(width: 75,),
+            ],
+          ),
+          SizedBox(width: 75,),
 
-        Column(
-          children: [
-            Stack(
-                alignment: Alignment.center,
-                children:[
-                  CircularProgressIndicator(
-                    color: Colors.yellow.shade800,
-                    backgroundColor: Colors.yellow.withOpacity(0.1),
-                    value: 0.5,
-                    strokeWidth: 6,
-                    strokeAlign: 2,
-                    semanticsLabel: '50%',
-                    strokeCap: StrokeCap.round,
-                  ),
-                  Text(percentage,style: TextStyle(color: Colors.yellow.shade800,fontWeight: FontWeight.bold),)
-                ]
-            )
-          ],
-        ),
+          Column(
+            children: [
+              Stack(
+                  alignment: Alignment.center,
+                  children:[
+                    CircularProgressIndicator(
+                      color: Colors.yellow.shade800,
+                      backgroundColor: Colors.yellow.withOpacity(0.1),
+                      value: 0.5,
+                      strokeWidth: 6,
+                      strokeAlign: 2,
+                      semanticsLabel: '50%',
+                      strokeCap: StrokeCap.round,
+                    ),
+                    Text(percentage,style: TextStyle(color: Colors.yellow.shade800,fontWeight: FontWeight.bold),)
+                  ]
+              )
+            ],
+          ),
 
-      ],
+        ],
+      ),
     );
   }
 }

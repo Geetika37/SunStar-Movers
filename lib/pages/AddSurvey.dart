@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:sunstarmovers/pages/ButtonOutline.dart';
+import 'package:sunstarmovers/pages/ButtonnElevated.dart';
 import 'package:sunstarmovers/pages/TextField1.dart';
 import 'package:sunstarmovers/pages/showDialog.dart';
 
@@ -120,24 +122,19 @@ class _AddSurveyState extends State<AddSurvey> {
               
               Row(
                 children: [
-
                   Expanded(
                       child: SizedBox(
                         height: 50,
-                        child: ElevatedButton(
-                            onPressed: (){
-                              showDialog(context: context,
-                                  builder:(BuildContext context)
-                                  {
-                                    return showDialog1();
-                                  }
-                              );
-                            } ,
-                            child: Text('save',style: TextStyle(fontWeight: FontWeight.w600,fontFamily: 'Poppins',fontSize: 17)),
-                          style: ElevatedButton.styleFrom(
-                              backgroundColor: Colors.red,
-                              foregroundColor:Colors.white,
-                              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)) ),
+                        child: ButtonnElevated(
+                          onPressed: (){
+                          showDialog(context: context,
+                              builder:(BuildContext context)
+                              {
+                                return showDialog1(title: 'Survey Added',subtitle: 'This Survey has been added successfully',image: 'assets/Group 427318220.png',buttonText1: 'Close',);
+                              }
+                          );
+                        }, buttonName: 'Save' ,
+
                         ),
                       )
                   ),
@@ -147,19 +144,16 @@ class _AddSurveyState extends State<AddSurvey> {
                   Expanded(
                       child: SizedBox(
                         height: 50,
-                        child: OutlinedButton(
-                          onPressed: (){
+                        child: ButtonnOutlined(
+                            title: 'Cancel',
+                            onPressed: ()
+                            {
 
-                          } ,
-                          child: Text('Cancel',style: TextStyle(fontWeight: FontWeight.w600,fontFamily: 'Poppins',fontSize: 17)),
-                          style: ElevatedButton.styleFrom(
-                              foregroundColor:Colors.red,
-                              side:BorderSide(color: Colors.red,width: 1) ,
-                              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)) ),),
+                            }
+                            ),
                       )
                   ),
 
-                  ElevatedButton(onPressed: (){}, child: Text(''))
 
                 ],
               )
