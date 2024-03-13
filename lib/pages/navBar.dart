@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:sunstarmovers/pages/ListTileNav.dart';
+import 'package:sunstarmovers/pages/Marketing.dart';
 import 'package:sunstarmovers/pages/loginPage.dart';
 
 class navBar extends StatelessWidget {
@@ -65,7 +66,9 @@ class navBar extends StatelessWidget {
                 DrawerWidget(
                     image: 'assets/marketing.png',
                     label: 'Marketing',
-                    onTap: () {}),
+                    onTap: () {
+                      Navigator.push(context, MaterialPageRoute(builder: (context)=>Marketing()));
+                    }),
             
                 // Complaints
                 ExpansionTile(

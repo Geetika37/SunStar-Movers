@@ -2,7 +2,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class SearchBarr extends StatelessWidget {
-  const SearchBarr({super.key});
+  final String title;
+  final String image;
+  const SearchBarr({super.key, required this.title, required this.image});
 
   @override
   Widget build(BuildContext context) {
@@ -17,11 +19,11 @@ class SearchBarr extends StatelessWidget {
 
         child: TextField(
           decoration: InputDecoration(
-            hintText: 'Search for Survey',
+            hintText: title,
             hintStyle: TextStyle(fontFamily: 'Poppins',fontWeight: FontWeight.w400,fontSize: 14,color: Colors.grey.shade500
             ),
             prefixIcon: Icon(Icons.search_outlined),
-            suffixIcon: ImageIcon(AssetImage("assets/3864_boolean_operation.png"),size: 30,),
+            suffixIcon: ImageIcon(AssetImage(image),size: 30,),
             border: InputBorder.none,
             contentPadding: EdgeInsets.symmetric(horizontal: 20, vertical: 18),
           ),

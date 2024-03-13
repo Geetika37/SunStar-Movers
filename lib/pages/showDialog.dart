@@ -27,7 +27,7 @@ class showDialog1 extends StatelessWidget {
 
             Container(
 
-              height: 210,
+              height: 220,
               child: Padding(
                 padding: const EdgeInsets.fromLTRB(10, 75, 10, 10),
                 child: Column(

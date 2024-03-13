@@ -8,12 +8,14 @@ class BottomShet1 extends StatelessWidget {
   final String title;
   final String hintName;
   final String labelName;
+  final String buttonName1;
+  final String buttonName2;
 
   const BottomShet1(
       {super.key,
       required this.title,
       required this.hintName,
-      required this.labelName});
+      required this.labelName, required this.buttonName1, required this.buttonName2});
 
   @override
   Widget build(BuildContext context) {
@@ -69,15 +71,17 @@ class BottomShet1 extends StatelessWidget {
             children: [
               Expanded(
                   child: ButtonnElevated(
-                buttonName: 'Done',
-                onPressed: () {},
+                buttonName: buttonName1,
+                onPressed: () {
+
+                },
               )),
               SizedBox(
                 width: 10,
               ),
               Expanded(
                   child: ButtonnOutlined(
-                title: 'Close',
+                title: buttonName2,
                 onPressed: () {
                   Navigator.pop(context);
                 },
