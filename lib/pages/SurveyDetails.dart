@@ -2,11 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:sunstarmovers/pages/BottomSheetCommon.dart';
 import 'package:sunstarmovers/pages/ButtonOutline.dart';
 import 'package:sunstarmovers/pages/ButtonnElevated.dart';
+import 'package:sunstarmovers/pages/SurveyClosed.dart';
+import 'package:sunstarmovers/pages/SurveyConfirm.dart';
+import 'package:sunstarmovers/pages/SurveyPendingConfirm.dart';
+import 'package:sunstarmovers/pages/SurveyStartwork.dart';
 import 'package:sunstarmovers/pages/showDialog.dart';
 import 'package:sunstarmovers/pages/showDialog2.dart';
 
 class SurveyDetails extends StatelessWidget {
-  const SurveyDetails({super.key});
+  final String status;
+  const SurveyDetails({super.key, required this.status});
 
   @override
   Widget build(BuildContext context) {
@@ -263,18 +268,49 @@ class SurveyDetails extends StatelessWidget {
             child: Container(
               height: 70,
               color: Colors.white,
-              child: Row(
+              child: status == 'Pending'? Row(
                 children: [
                   Expanded(
                     child: ButtonnElevated(
-                      buttonName: 'Collect',
+                      buttonName: 'Confirm',
                       onPressed: () {
-                        Navigator.pop(context);
+                        showModalBottomSheet(
+                          isScrollControlled: true,
+                            context: context,
+                            builder: (BuildContext context)
+                            {
+                              return SurveyPendingConfirm();
+                            }
+                        );
                       },
                     ),
                   ),
+                  SizedBox(width: 10,),
+                  Expanded(child: ButtonnOutlined(title: 'Cancel',onPressed: (){Navigator.pop(context);},))
                 ],
-              ),
+              ):
+              status== 'Confirm'? ButtonnElevated(buttonName: 'Start Work',onPressed: (){
+                      showModalBottomSheet(context: context, builder: (BuildContext context)
+                            {
+                              return SurveyConfirm();
+                            }
+                      );
+                },):
+              status=='Closed' ? ButtonnElevated(buttonName: 'Collect',onPressed: (){
+                      showModalBottomSheet(context: context, builder: (BuildContext context)
+                            {
+                              return SurveyClosed();
+                            }
+                      );
+              },):
+                  status == 'Start Work' ? ButtonnElevated(buttonName: 'Complete work',onPressed: (){
+                    showModalBottomSheet(context: context,isScrollControlled: true, builder: (BuildContext context)
+                      {
+                        return SurveyStartWork();
+                      }
+                    );
+                  },):
+                      SizedBox()
             ),
           ),
         ]),

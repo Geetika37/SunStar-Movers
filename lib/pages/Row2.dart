@@ -5,21 +5,25 @@ import 'package:sunstarmovers/pages/SurveyDetails.dart';
 
 class Row2 extends StatelessWidget {
   final String name;
-  final String image1;
   final String date;
   final String time;
   final String image2;
   final String image3;
   final String percentage;
+  final Color color1;
+  final Color color2;
+  final String status;
 
 
-  const Row2({super.key, required this.name, required this.image1, required this.date, required this.time, required this.image2, required this.image3, required this.percentage, });
+  const Row2({super.key, required this.name, required this.date, required this.time, required this.image2, required this.image3, required this.percentage, required this.color1, required this.color2, required this.status, });
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
       onTap: (){
-        Navigator.push(context, MaterialPageRoute(builder: (context)=>SurveyDetails()));
+        Navigator.push(context, MaterialPageRoute(builder: (context)=>SurveyDetails(
+          status: status,
+        )));
       },
       child: Row(
         children: [
@@ -31,7 +35,19 @@ class Row2 extends StatelessWidget {
                 children: [
                   Text(name,style: TextStyle(fontWeight: FontWeight.w600,fontSize: 16,fontFamily: 'Poppins'),),
                   SizedBox(width: 15,),
-                  Image(image: AssetImage(image1)),
+                  Container(
+                    decoration: BoxDecoration(
+                      color: color1,
+                    ),
+                    child: Padding(
+                      padding: const EdgeInsets.all(4.0),
+                      child: Column(
+                        children: [
+                          Text(status,style: TextStyle(fontSize: 13,color: color2,fontWeight: FontWeight.w500),),
+                        ],
+                      ),
+                    ),
+                  )
                 ],
               ),
               SizedBox(height: 5,),

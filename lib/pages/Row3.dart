@@ -9,15 +9,18 @@ class Row3 extends StatelessWidget {
   final String image1;
   final String image2;
   final String image3;
+  final Function()? onTap;
+  final Color color1;
+  final Color color2;
+  final String status;
 
-  const Row3({super.key, required this.name1, required this.name2, required this.name3, required this.image1, required this.image2, required this.image3});
+
+  const Row3({super.key, required this.name1, required this.name2, required this.name3, required this.image1, required this.image2, required this.image3, this.onTap, required this.color1, required this.color2, required this.status});
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: (){
-        Navigator.push(context, MaterialPageRoute(builder: (context)=>MarketingDetails()));
-      },
+      onTap: onTap,
       child: Row(
         children: [
 
@@ -48,7 +51,19 @@ class Row3 extends StatelessWidget {
 
           Column(
             children: [
-              Image.asset(image3)
+              Container(
+                decoration: BoxDecoration(
+                  color:color1 ,
+                ),
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Column(
+                    children: [
+                      Text(status,style: TextStyle(fontSize: 13,color: color2,fontWeight: FontWeight.w500),)
+                    ],
+                  ),
+                ),
+              )
             ],
           ),
 
@@ -74,5 +89,15 @@ class Text2 extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Text(name2,style: TextStyle(fontWeight: FontWeight.w400,fontSize: 12,fontFamily: 'Poppins',color: Colors.grey.shade500),);
+  }
+}
+
+class Text3 extends StatelessWidget {
+  final String name3;
+  const Text3({super.key, required this.name3});
+
+  @override
+  Widget build(BuildContext context) {
+    return Text(name3,style: TextStyle(fontWeight: FontWeight.w600,fontSize: 20,fontFamily: 'Poppins'),);
   }
 }

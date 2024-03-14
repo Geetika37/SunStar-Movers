@@ -115,6 +115,9 @@ flutter:
     - assets/meetng.png
     - assets/offcework.png
     - assets/visit.png
+    - assets/pending.png
+    - assets/closed.png
+    - assets/user-03.png
 
   #   - images/a_dot_ham.jpeg
 

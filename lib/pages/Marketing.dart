@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:sunstarmovers/pages/MarketingAdd.dart';
 import 'package:sunstarmovers/pages/MarketingBottomSheet.dart';
+import 'package:sunstarmovers/pages/MarketingDetails.dart';
 import 'package:sunstarmovers/pages/Row2.dart';
 import 'package:sunstarmovers/pages/Row3.dart';
 import 'package:sunstarmovers/pages/searchBar.dart';
@@ -93,7 +94,7 @@ class Marketing extends StatelessWidget {
                     ),
                     SizedBox(height: 30,),
                     
-                    Row3(name1: 'Zack Snyder', name2: '12/12/2023', name3: '12:45 PM', image1: 'assets/calendar.png', image2: 'assets/clock.png', image3: 'assets/offcework.png',),
+                    Row3( status: 'Marketing', color1:const Color(0xfffFFEFEF) ,color2:const Color(0xfffFC5A5A),onTap: (){Navigator.push(context, MaterialPageRoute(builder: (context)=>MarketingDetails()));},name1: 'Zack Snyder', name2: '12/12/2023', name3: '12:45 PM', image1: 'assets/calendar.png', image2: 'assets/clock.png', image3: 'assets/offcework.png', ),
                     SizedBox(height: 10,),
                     
                     new Divider(
@@ -101,7 +102,7 @@ class Marketing extends StatelessWidget {
                     ),
                     
                     SizedBox(height: 10,),
-                    Row3(name1: 'James Wan', name2: '12/12/2023', name3: '12:45 PM', image1: 'assets/calendar.png', image2: 'assets/clock.png', image3: 'assets/visit.png'),
+                    Row3(status: 'visit', color1:const Color(0xfffFFEFEF) ,color2:const Color(0xfffFC5A5A),onTap: (){Navigator.push(context, MaterialPageRoute(builder: (context)=>MarketingDetails()));},name1: 'James Wan', name2: '12/12/2023', name3: '12:45 PM', image1: 'assets/calendar.png', image2: 'assets/clock.png', image3: 'assets/visit.png'),
                     SizedBox(height: 10,),
                     
                     new Divider(
@@ -109,7 +110,7 @@ class Marketing extends StatelessWidget {
                     ),
                     
                     SizedBox(height: 10,),
-                    Row3(name1: 'Peter Parker', name2: '12/12/2023', name3: '12:45 PM', image1: 'assets/calendar.png', image2: 'assets/clock.png', image3: 'assets/marketnng.png'),
+                    Row3(status: 'Marketing', color1:const Color(0xfffFFEFEF) ,color2:const Color(0xfffFC5A5A),onTap: (){Navigator.push(context, MaterialPageRoute(builder: (context)=>MarketingDetails()));},name1: 'Peter Parker', name2: '12/12/2023', name3: '12:45 PM', image1: 'assets/calendar.png', image2: 'assets/clock.png', image3: 'assets/marketnng.png'),
                     SizedBox(height: 10,),
 
                     new Divider(
@@ -117,7 +118,7 @@ class Marketing extends StatelessWidget {
                     ),
                     
                     SizedBox(height: 10,),
-                    Row3(name1: 'James Anderson', name2: '12/12/2023', name3: '12:45 PM', image1: 'assets/calendar.png', image2: 'assets/clock.png', image3: 'assets/meetng.png'),
+                    Row3(status: 'Marketing', color1:const Color(0xfffFFEFEF) ,color2:const Color(0xfffFC5A5A),onTap: (){Navigator.push(context, MaterialPageRoute(builder: (context)=>MarketingDetails()));},name1: 'James Anderson', name2: '12/12/2023', name3: '12:45 PM', image1: 'assets/calendar.png', image2: 'assets/clock.png', image3: 'assets/meetng.png'),
                     SizedBox(height: 10,),
 
                     new Divider(
@@ -125,7 +126,7 @@ class Marketing extends StatelessWidget {
                     ),
                     
                     SizedBox(height: 10,),
-                    Row3(name1: 'Finn Balor', name2: '12/12/2023', name3: '12:45 PM', image1: 'assets/calendar.png', image2: 'assets/clock.png', image3: 'assets/complete.png')
+                    Row3(status: 'visit', color1:const Color(0xfffFFEFEF) ,color2:const Color(0xfffFC5A5A),onTap: (){Navigator.push(context, MaterialPageRoute(builder: (context)=>MarketingDetails()));},name1: 'Finn Balor', name2: '12/12/2023', name3: '12:45 PM', image1: 'assets/calendar.png', image2: 'assets/clock.png', image3: 'assets/complete.png')
 
                   ],
                 ),

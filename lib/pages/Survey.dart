@@ -96,7 +96,7 @@ class _SurveyState extends State<Survey> {
 
                       SizedBox(height: 30,),
 
-                      Row2(name: "Zack Snyder", image1: "assets/Group 162509.png", date: "12/12/2023", time: "12:45 PM", image2: 'assets/calendar.png', image3: 'assets/clock.png', percentage: '100%',),
+                      Row2(status: 'Pending',color1:const Color(0xffFFF6DF) ,color2:const Color(0xffFFB100) ,name: "Zack Snyder", date: "12/12/2023", time: "12:45 PM", image2: 'assets/calendar.png', image3: 'assets/clock.png', percentage: '100%',),
 
                       SizedBox(height: 10,),
                       new Divider(
@@ -104,7 +104,7 @@ class _SurveyState extends State<Survey> {
                       ),
                       SizedBox(height: 10,),
 
-                      Row2(name: "James Wan", image1: "assets/Group 162507.png", date: "12/12/2023", time: "12:45 PM", image2: 'assets/calendar.png', image3: 'assets/clock.png', percentage: '75%',),
+                      Row2(status: 'Confirm',color1:const Color(0xffDCFFF1) ,color2:const Color(0xff3DD598) ,name: "James Wan", date: "12/12/2023", time: "12:45 PM", image2: 'assets/calendar.png', image3: 'assets/clock.png', percentage: '75%',),
 
                       SizedBox(height: 10,),
                       new Divider(
@@ -112,7 +112,7 @@ class _SurveyState extends State<Survey> {
                       ),
                       SizedBox(height: 10,),
 
-                      Row2(name: "Peter Parker", image1: "assets/Group 162508.png", date: "12/12/2023", time: "12:45 PM", image2: 'assets/calendar.png', image3: 'assets/clock.png', percentage: '10%',),
+                      Row2(status: 'Closed',color1:const Color(0xffFFEFEF) ,color2:const Color(0xffFC5A5A) ,name: "Peter Parker",  date: "12/12/2023", time: "12:45 PM", image2: 'assets/calendar.png', image3: 'assets/clock.png', percentage: '10%',),
 
                       SizedBox(height: 10,),
                       new Divider(
@@ -121,7 +121,7 @@ class _SurveyState extends State<Survey> {
                       SizedBox(height: 10,),
 
 
-                      Row2(name: "James And", image1: "assets/startwork.png", date: "12/12/2023", time: "12:45 PM", image2: 'assets/calendar.png', image3: 'assets/clock.png', percentage: '10%',),
+                      Row2(status: 'Start Work',color1:const Color(0xffE8F2FE) ,color2:const Color(0xff157CF0) ,name: "James And", date: "12/12/2023", time: "12:45 PM", image2: 'assets/calendar.png', image3: 'assets/clock.png', percentage: '10%',),
 
                       SizedBox(height: 10,),
                       new Divider(
@@ -129,7 +129,7 @@ class _SurveyState extends State<Survey> {
                       ),
                       SizedBox(height: 10,),
 
-                      Row2(name: "Finn Balor", image1: "assets/complete.png", date: "12/12/2023", time: "12:45 PM", image2: 'assets/calendar.png', image3: 'assets/clock.png', percentage: '10%',),
+                      Row2(status: 'Canceled',color1:const Color(0xffE2FEEA) ,color2:const Color(0xff0B6623) ,name: "Finn Balor",  date: "12/12/2023", time: "12:45 PM", image2: 'assets/calendar.png', image3: 'assets/clock.png', percentage: '10%', ),
 
                     ],
                   ),

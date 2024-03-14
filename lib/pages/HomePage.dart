@@ -165,7 +165,7 @@ class _HomePageState extends State<HomePage> {
                         Row(
                           children: [
                             SizedBox(width: 20,),
-                            Row2(name: "James Wan", image1: "assets/Group 162507.png", date: "12/12/2023", time: "12:45 PM", image2: 'assets/calendar.png', image3: 'assets/clock.png', percentage: '75%',),
+                            Row2(status: 'Pending',color1:Colors.yellow.withOpacity(0.1) ,color2:Colors.yellow.shade800 ,name: "James Wan", date: "12/12/2023", time: "12:45 PM", image2: 'assets/calendar.png', image3: 'assets/clock.png', percentage: '75%',),
                           ],
                         ),
                         SizedBox(height: 10,),
@@ -179,7 +179,7 @@ class _HomePageState extends State<HomePage> {
                         Row(
                           children: [
                             SizedBox(width: 20,),
-                            Row2(name: "Peter Parker", image1: "assets/Group 162508.png", date: "12/12/2023", time: "12:45 PM", image2: 'assets/calendar.png', image3: 'assets/clock.png', percentage: '10%',),
+                            Row2(status: 'Pending',color1:Colors.yellow.withOpacity(0.1) ,color2:Colors.yellow.shade800 ,name: "Peter Parker", date: "12/12/2023", time: "12:45 PM", image2: 'assets/calendar.png', image3: 'assets/clock.png', percentage: '10%',),
                           ],
                         ),
                         SizedBox(height: 10,),
@@ -192,7 +192,7 @@ class _HomePageState extends State<HomePage> {
                         Row(
                           children: [
                             SizedBox(width: 20,),
-                            Row2(name: "Zack Snyder", image1: "assets/Group 162509.png", date: "12/12/2023", time: "12:45 PM", image2: 'assets/calendar.png', image3: 'assets/clock.png', percentage: '100%',),
+                            Row2(status: 'Pending',color1:Colors.yellow.withOpacity(0.1) ,color2:Colors.yellow.shade800 ,name: "Zack Snyder",  date: "12/12/2023", time: "12:45 PM", image2: 'assets/calendar.png', image3: 'assets/clock.png', percentage: '100%',),
                           ],
                         ),
 

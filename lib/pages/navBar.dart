@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:sunstarmovers/pages/Complaint.dart';
 import 'package:sunstarmovers/pages/ListTileNav.dart';
 import 'package:sunstarmovers/pages/Marketing.dart';
 import 'package:sunstarmovers/pages/loginPage.dart';
@@ -83,7 +84,9 @@ class navBar extends StatelessWidget {
                     DrawerWidget(
                         image: 'assets/Complaints.png',
                         label: 'Complaints',
-                        onTap: () {}),
+                        onTap: () {
+                          Navigator.push(context, MaterialPageRoute(builder: (context)=>Complaint()));
+                        }),
                     DrawerWidget(
                         image: 'assets/pendingsurvey.png',
                         label: 'Pending Complaints',

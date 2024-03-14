@@ -38,16 +38,17 @@ class _BottomNavState extends State<BottomNav> {
 
         BottomNavigationBarItem(
             icon: ImageIcon(
-              AssetImage("assets/Icon.png"),
+              AssetImage("assets/Group 33192.png"),
               size: 24,
             ),
-            label: 'Notification'),
+            label: 'Calender'),
+
         BottomNavigationBarItem(
             icon: ImageIcon(
-              AssetImage("assets/Icon.png"),
+              AssetImage("assets/user-01.png"),
               size: 24,
             ),
-            label: 'Notification'),
+            label: 'Account'),
       ],
 
       selectedItemColor: Colors.red,
@@ -65,6 +66,7 @@ class _BottomNavState extends State<BottomNav> {
             Navigator.push(
                 context, MaterialPageRoute(builder: (context) => Survey()));
             break;
+
 
         }
       },
