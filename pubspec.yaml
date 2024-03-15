@@ -127,6 +127,8 @@ flutter:
     - assets/cameraicon.png
     - assets/camera_svgrepo.com.png
     - assets/gallery_svgrepo.com.png
+    - assets/edit-05.png
+    - assets/trash-04.png
 
   #   - images/a_dot_ham.jpeg
 
