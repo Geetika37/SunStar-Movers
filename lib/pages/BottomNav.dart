@@ -69,7 +69,7 @@ class _BottomNavState extends State<BottomNav> {
                 context, MaterialPageRoute(builder: (context) => Survey()));
             break;
           case 2:
-            //Navigator.push(context, MaterialPageRoute(builder: (context)=>MyApp()));
+            Navigator.push(context, MaterialPageRoute(builder: (context)=>MyApp()));
             break;
           case 3:
             Navigator.push(context, MaterialPageRoute(builder: (context)=>Account()));
