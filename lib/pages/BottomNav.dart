@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:sunstarmovers/pages/Account.dart';
+import 'package:sunstarmovers/pages/Calender.dart';
 import 'package:sunstarmovers/pages/HomePage.dart';
 import 'package:sunstarmovers/pages/Survey.dart';
 
@@ -66,7 +68,11 @@ class _BottomNavState extends State<BottomNav> {
             Navigator.push(
                 context, MaterialPageRoute(builder: (context) => Survey()));
             break;
-
+          case 2:
+            //Navigator.push(context, MaterialPageRoute(builder: (context)=>MyApp()));
+            break;
+          case 3:
+            Navigator.push(context, MaterialPageRoute(builder: (context)=>Account()));
 
         }
       },

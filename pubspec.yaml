@@ -35,6 +35,7 @@ dependencies:
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.2
+  syncfusion_flutter_calendar: ^24.2.9
 
 
 dev_dependencies:
@@ -118,6 +119,14 @@ flutter:
     - assets/pending.png
     - assets/closed.png
     - assets/user-03.png
+    - assets/ProfilePic.png
+    - assets/fi-rr-user.png
+    - assets/notification.png
+    - assets/fi-rr-settings.png
+    - assets/fi-rr-sign-out.png
+    - assets/cameraicon.png
+    - assets/camera_svgrepo.com.png
+    - assets/gallery_svgrepo.com.png
 
   #   - images/a_dot_ham.jpeg
 
