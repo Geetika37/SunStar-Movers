@@ -2,6 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:sunstarmovers/pages/Complaint.dart';
 import 'package:sunstarmovers/pages/ListTileNav.dart';
 import 'package:sunstarmovers/pages/Marketing.dart';
+import 'package:sunstarmovers/pages/SettingActivity.dart';
+import 'package:sunstarmovers/pages/SettingEmirate.dart';
+import 'package:sunstarmovers/pages/SettingsBuilding.dart';
+import 'package:sunstarmovers/pages/SettingsLeadSource.dart';
+import 'package:sunstarmovers/pages/SettingsMoving.dart';
+import 'package:sunstarmovers/pages/SettingsTeamLead.dart';
 import 'package:sunstarmovers/pages/loginPage.dart';
 
 class navBar extends StatelessWidget {
@@ -110,32 +116,44 @@ class navBar extends StatelessWidget {
                     DrawerWidget(
                         image: 'assets/building-06.png',
                         label: 'Building Type',
-                        onTap:(){}
+                        onTap:(){
+                          Navigator.push(context, MaterialPageRoute(builder: (context)=>SettingsBuilding()));
+                        }
                     ),
                     DrawerWidget(
                         image: 'assets/truck-02.png',
                         label: 'Moving Type',
-                        onTap: (){}
+                        onTap: (){
+                          Navigator.push(context, MaterialPageRoute(builder: (context)=>SettingsMoving()));
+                        }
                     ),
                     DrawerWidget(
                         image: 'assets/Global search.png',
                         label: 'Lead Source',
-                        onTap: (){}
+                        onTap: (){
+                          Navigator.push(context, MaterialPageRoute(builder: (context)=>SettingLeadSource()));
+                        }
                     ),
                     DrawerWidget(
                         image: 'assets/teamlead.png',
                         label: 'Team Lead',
-                        onTap: (){}
+                        onTap: (){
+                          Navigator.push(context, MaterialPageRoute(builder: (context)=>SettingTeamLead()));
+                        }
                     ),
                     DrawerWidget(
                         image: 'assets/Emirates.png',
                         label: 'Emirates',
-                        onTap: (){}
+                        onTap: (){
+                          Navigator.push(context, MaterialPageRoute(builder: (context)=>SettingEmirate()));
+                        }
                     ),
                     DrawerWidget(
                         image: 'assets/activity.png',
                         label: 'Acitivity',
-                        onTap: (){}
+                        onTap: (){
+                          Navigator.push(context, MaterialPageRoute(builder: (context)=>SettingActivity()));
+                        }
                     )
                   ],
                 ),
