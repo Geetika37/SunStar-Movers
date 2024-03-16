@@ -76,7 +76,7 @@ class Account extends StatelessWidget {
 
         ],
       ),
-      bottomNavigationBar: BottomNav(),
+      // bottomNavigationBar: BottomNav(),
     );
   }
 }
@@ -113,7 +113,7 @@ class AccountRow extends StatelessWidget {
               ),
               SizedBox(width: 30,),
               Text4(text:text ,),
-              Icon(Icons.arrow_forward_ios_outlined,size: 15,)
+              // Icon(Icons.arrow_forward_ios_outlined,size: 15,)
             ],
           ),
 

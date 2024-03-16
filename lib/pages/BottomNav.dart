@@ -12,70 +12,112 @@ class BottomNav extends StatefulWidget {
 }
 
 class _BottomNavState extends State<BottomNav> {
+  int myIndex=0;
+
+
+
+  Widget callPage(currentIndex) {
+    switch (currentIndex) {
+      case 0:
+        return
+          HomePage();
+
+    // return MyHomePage();
+
+      case 1:
+        return Survey();
+      case 2:
+        return  CalanderScreen();
+      case 3:
+        return Account();
+
+      default:
+        return HomePage();
+    }
+  }
+
+
+
+
   @override
   Widget build(BuildContext context) {
-    return BottomNavigationBar(
-      showSelectedLabels: true,
-      type:BottomNavigationBarType.fixed ,
-      items: const [
-
+    void onTabTapped(int index){
+      setState(() {
+        myIndex = index;
+      });
+    }
+    BottomNavigationBarItem bottomNavigationBarItem({
+      String? label,
+      int? index,
+      Widget? icon,
+      Widget? activeIcon,
+    }) =>
         BottomNavigationBarItem(
-          icon: ImageIcon(
-            AssetImage("assets/home.png"),
-            size: 20,
-            color: Colors.red,
-          ),
-          label: 'Home',
+            icon: Padding(padding: const EdgeInsets.all(10.0), child: icon),
+            label: label,
+            activeIcon: Padding(
+              padding: const EdgeInsets.all(10.0),
+              child: activeIcon,
+            ));
+    return Scaffold(
+      body: callPage(myIndex),
+      bottomNavigationBar: BottomNavigationBar(
+        onTap:onTabTapped,
+        currentIndex: myIndex,
+        showSelectedLabels: true,
+        type:BottomNavigationBarType.fixed ,
+        items: <BottomNavigationBarItem> [
 
-        ),
-
-        BottomNavigationBarItem(
-          icon: ImageIcon(
-            AssetImage("assets/file-02.png"),
-            size: 20,
-          ),
-          label: 'Survey',
-        ),
-
-
-        BottomNavigationBarItem(
+          bottomNavigationBarItem(
+            activeIcon: Image.asset('assets/homeColor.png'),
+index: 0,
             icon: ImageIcon(
-              AssetImage("assets/Group 33192.png"),
-              size: 24,
+              AssetImage("assets/home-line.png"),
+              size: 20,
             ),
-            label: 'Calender'),
+            label: 'Home',
 
-        BottomNavigationBarItem(
+          ),
+
+          bottomNavigationBarItem(
+            activeIcon: Image.asset('assets/surveyColor.png'),
+            index: 1,
             icon: ImageIcon(
-              AssetImage("assets/user-01.png"),
-              size: 24,
+              AssetImage("assets/file-02.png"),
+              size: 20,
             ),
-            label: 'Account'),
-      ],
+            label: 'Survey',
+          ),
 
-      selectedItemColor: Colors.red,
-      selectedLabelStyle: TextStyle(fontWeight: FontWeight.bold, fontSize: 12),
-      unselectedLabelStyle:
-          TextStyle(fontWeight: FontWeight.bold, fontSize: 12),
 
-      onTap: (int index) {
-        switch (index) {
-          case 0:
-            Navigator.push(
-                context, MaterialPageRoute(builder: (context) => HomePage()));
-            break;
-          case 1:
-            Navigator.push(
-                context, MaterialPageRoute(builder: (context) => Survey()));
-            break;
-          case 2:
-            Navigator.push(context, MaterialPageRoute(builder: (context)=>MyApp()));
-            break;
-          case 3:
-            Navigator.push(context, MaterialPageRoute(builder: (context)=>Account()));
+          bottomNavigationBarItem(
+            activeIcon: Image.asset('assets/calenderColor.png'),
+              index: 2,
+              icon: ImageIcon(
+                AssetImage("assets/Group 33192.png"),
+                size: 24,
+              ),
+              label: 'Calender'),
 
-        }
-      },
+          bottomNavigationBarItem(
+            activeIcon: Image.asset('assets/accountcolor.png'),
+            index: 3,
+              icon: ImageIcon(
+                AssetImage("assets/user-01.png"),
+                size: 24,
+              ),
+              label: 'Account'),
+        ],
+
+        selectedItemColor: Colors.red,
+        selectedLabelStyle: TextStyle(fontWeight: FontWeight.bold, fontSize: 12),
+        unselectedLabelStyle:
+        TextStyle(fontWeight: FontWeight.bold, fontSize: 12),
+
+
+      ),
     );
   }
 }
+
+

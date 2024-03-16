@@ -141,7 +141,7 @@ class _SurveyState extends State<Survey> {
         ),
 
 
-      bottomNavigationBar: BottomNav(),
+      // bottomNavigationBar: BottomNav(),
     );
   }
 }

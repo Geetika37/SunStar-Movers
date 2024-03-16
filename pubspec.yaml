@@ -19,7 +19,7 @@ publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 version: 1.0.0+1
 
 environment:
-  sdk: '>=3.2.5 <4.0.0'
+  sdk: '>=3.2.2 <4.0.0'
 
 # Dependencies specify other packages that your package needs in order to work.
 # To automatically upgrade your package dependencies to the latest versions
@@ -30,12 +30,14 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  syncfusion_flutter_charts: ^24.2.9
+
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.2
-  syncfusion_flutter_calendar: ^24.2.9
+  syncfusion_flutter_datepicker: "22.2.12"
+  syncfusion_flutter_calendar: ^22.2.12
+  syncfusion_flutter_charts: ^22.2.12
 
 
 dev_dependencies:
@@ -129,6 +131,11 @@ flutter:
     - assets/gallery_svgrepo.com.png
     - assets/edit-05.png
     - assets/trash-04.png
+    - assets/home-line.png
+    - assets/surveyColor.png
+    - assets/homeColor.png
+    - assets/calenderColor.png
+    - assets/accountcolor.png
 
   #   - images/a_dot_ham.jpeg
 

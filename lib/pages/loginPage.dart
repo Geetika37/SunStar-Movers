@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:sunstarmovers/pages/BottomNav.dart';
 import 'package:sunstarmovers/pages/HomePage.dart';
 
 class LoginPage extends StatelessWidget {
@@ -79,7 +80,7 @@ class LoginPage extends StatelessWidget {
                   onPressed: () {
                     Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => HomePage()),
+                      MaterialPageRoute(builder: (context) => BottomNav()),
                     );
                   },
                   child: Text("Sign in",style: TextStyle(fontSize: 17 ),),

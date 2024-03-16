@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:sunstarmovers/pages/ButtonOutline.dart';
 import 'package:sunstarmovers/pages/ButtonnElevated.dart';
+import 'package:sunstarmovers/pages/SurveyPendingConfirm.dart';
 import 'package:sunstarmovers/pages/TextField1.dart';
 import 'package:sunstarmovers/pages/showDialog.dart';
 
@@ -56,7 +57,7 @@ class MarketingAdd extends StatelessWidget {
                 ],
               ),
               SizedBox(height: 10,),
-              TextField1(hintName: 'Acitivity', labelText: 'Activity',image1: 'assets/Vector.png',),
+              Dropdown(hintText: 'Acitivity'),
               SizedBox(height: 10,),
               TextField1(hintName: 'Phone Number', labelText: 'Phone Number'),
               SizedBox(height: 10,),
@@ -76,7 +77,7 @@ class MarketingAdd extends StatelessWidget {
               SizedBox(height: 10,),
               TextField1(hintName: 'Place', labelText: 'Place'),
               SizedBox(height: 10,),
-              TextField1(hintName: 'Emirate', labelText: 'Emirate',image1: 'assets/Vector.png',),
+              Dropdown(hintText: 'Emirate'),
               SizedBox(height: 20,),
               Row(
                 children: [

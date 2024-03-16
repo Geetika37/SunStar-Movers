@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:sunstarmovers/pages/ButtonOutline.dart';
 import 'package:sunstarmovers/pages/ButtonnElevated.dart';
+import 'package:sunstarmovers/pages/SurveyPendingConfirm.dart';
 import 'package:sunstarmovers/pages/TextField1.dart';
 import 'package:sunstarmovers/pages/showDialog.dart';
 
@@ -90,31 +91,31 @@ class _AddSurveyState extends State<AddSurvey> {
               TextField1(hintName: 'Company Name', labelText: 'Company Name'),
               SizedBox(height: 10,),
         
-              TextField1(hintName: 'Building Type', labelText: 'Building Type',image1: 'assets/Vector.png'),
+              Dropdown(hintText: 'Building Type'),
               SizedBox(height: 10,),
         
-              TextField1(hintName: 'Moving Type', labelText: 'Moving Type',image1: 'assets/Vector.png'),
+              Dropdown(hintText: 'Moving Type'),
               SizedBox(height: 10,),
         
               TextField1(hintName: 'Volume', labelText: 'Volume'),
               SizedBox(height: 10,),
 
-              TextField1(hintName: 'Place From', labelText: 'Place From',image1: 'assets/Vector.png'),
+              Dropdown(hintText: 'Place From'),
               SizedBox(height: 10,),
 
-              TextField1(hintName: 'Place To', labelText: 'Place To',image1: 'assets/Vector.png'),
+              Dropdown(hintText: 'Place To'),
               SizedBox(height: 10,),
 
               TextField1(hintName: 'Quoted Price', labelText: 'Quoted Price'),
               SizedBox(height: 10,),
 
-              TextField1(hintName: 'Lead Source', labelText: 'Lead Source',image1: 'assets/Vector.png'),
+              Dropdown(hintText: 'Lead Source'),
               SizedBox(height: 10,),
 
               TextField1(hintName: 'Moving Date', labelText: 'Moving Date',image1: 'assets/Group 33192.png'),
               SizedBox(height: 10,),
 
-              TextField1(hintName: 'Lead Quality', labelText: 'Lead Quality',image1: 'assets/Vector.png'),
+              Dropdown(hintText: 'Lead Quality'),
               SizedBox(height: 10,),
 
               TextField1(hintName: 'Requirement', labelText: 'Requirement'),

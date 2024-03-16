@@ -1,73 +1,98 @@
 import 'package:flutter/material.dart';
 import 'package:syncfusion_flutter_calendar/calendar.dart';
 
+class CalanderScreen extends StatefulWidget {
+  const CalanderScreen({super.key});
 
-class MyApp extends StatelessWidget {
-  // This widget is the root of your application.
+  @override
+  State<CalanderScreen> createState() => _CalanderScreenState();
+}
+
+class _CalanderScreenState extends State<CalanderScreen> {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Calendar Getting Started',
-      home: Scaffold(
-        body: SfCalendar(
-          view: CalendarView.month,
-          dataSource: MeetingDataSource(_getDataSource()),
-          monthViewSettings: MonthViewSettings(
-              appointmentDisplayMode: MonthAppointmentDisplayMode.appointment),
+    return Scaffold(
+      appBar: AppBar(
+        elevation: 3.0,
+        shadowColor: Colors.red,
+        automaticallyImplyLeading: false,
+        shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.only(
+                bottomRight: Radius.circular(10),
+                bottomLeft: Radius.circular(10))),
+        backgroundColor: Colors.red,
+        toolbarHeight: 80,
+        title: Padding(
+          padding: const EdgeInsets.all(5.0),
+          child: Text(
+              "Calender",
+            style: TextStyle(
+                fontSize: 20, fontWeight: FontWeight.w500, fontFamily: 'Poppins',color: Colors.white),
+          ),
+        ),
+
+      ),
+      body: Center(
+        child: SfCalendar(
+
+          scheduleViewSettings:ScheduleViewSettings(
+
+          ) ,
+          view: CalendarView.schedule,
+          dataSource: _getCalendarDataSource(),
         ),
       ),
     );
   }
+}
 
-  List<Meeting> _getDataSource() {
-    final List<Meeting> meetings = <Meeting>[];
-    final DateTime today = DateTime.now();
-    final DateTime startTime =
-    DateTime(today.year, today.month, today.day, 9, 0, 0);
-    final DateTime endTime = startTime.add(Duration(hours: 2));
-    meetings.add(
-        Meeting("Conference", startTime, endTime, Color(0xFF0F8644), false));
-    return meetings;
-  }
+
+
+
+
+
+MeetingDataSource _getCalendarDataSource() {
+  List<Meeting> appointments = <Meeting>[];
+
+  appointments.add(Meeting(
+    from: DateTime.now().subtract(Duration(days: 2)),
+    to: DateTime.now().subtract(Duration(days: 2)),
+    eventName: 'Meeting with John',
+    background: Colors.red,
+    isAllDay: true,
+  ));
+
+  appointments.add(Meeting(
+    from: DateTime.now().subtract(Duration(days: 1)),
+    to: DateTime.now().subtract(Duration(days: 1)),
+    eventName: 'Team lunch',
+    background: Colors.green,
+    isAllDay: true,
+  ));
+
+  appointments.add(Meeting(
+    from: DateTime.now().add(Duration(days: 1)),
+    to: DateTime.now().add(Duration(days: 1)),
+    eventName: 'Client meeting',
+    background: Colors.blue,
+    isAllDay: true,
+  ));
+
+  return MeetingDataSource(appointments);
 }
 
 class MeetingDataSource extends CalendarDataSource {
-  MeetingDataSource(List<Meeting> source){
+  MeetingDataSource(List<Meeting> source) {
     appointments = source;
-  }
-
-  @override
-  DateTime getStartTime(int index) {
-    return appointments![index].from;
-  }
-
-  @override
-  DateTime getEndTime(int index) {
-    return appointments![index].to;
-  }
-
-  @override
-  String getSubject(int index) {
-    return appointments![index].eventName;
-  }
-
-  @override
-  Color getColor(int index) {
-    return appointments![index].background;
-  }
-
-  @override
-  bool isAllDay(int index) {
-    return appointments![index].isAllDay;
   }
 }
 
 class Meeting {
-  Meeting(this.eventName, this.from, this.to, this.background, this.isAllDay);
+  Meeting({required this.from, required this.to, required this.eventName, this.background, this.isAllDay = false});
 
-  String eventName;
   DateTime from;
   DateTime to;
-  Color background;
+  String eventName;
+  Color? background;
   bool isAllDay;
 }
