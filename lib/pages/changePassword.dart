@@ -1,11 +1,22 @@
 import 'package:flutter/material.dart';
+import 'package:sunstarmovers/Apis/profile_Api.dart';
 import 'package:sunstarmovers/pages/ButtonnElevated.dart';
 import 'package:sunstarmovers/pages/TextField1.dart';
 import 'package:sunstarmovers/pages/showDialog.dart';
 
-class ChangePassword extends StatelessWidget {
+class ChangePassword extends StatefulWidget {
   const ChangePassword({super.key});
 
+  @override
+  State<ChangePassword> createState() => _ChangePasswordState();
+}
+
+class _ChangePasswordState extends State<ChangePassword> {
+  TextEditingController currentPassCt=TextEditingController();
+  TextEditingController newPassCt=TextEditingController();
+  TextEditingController confirmPassCt=TextEditingController();
+
+  final _formKey=GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -44,29 +55,68 @@ class ChangePassword extends StatelessWidget {
           padding: const EdgeInsets.all(10.0),
           child: Stack(
               children: [
-                ListView(
-                    children: [
-                      SizedBox(height: 30,),
-                      TextField1(hintName: 'Old Password', labelText: 'Old Password'),
-                      SizedBox(height: 20,),
-                      TextField1(hintName: 'New Password', labelText: 'New Password'),
-                      SizedBox(height: 20,),
-                      TextField1(hintName: 'Confirm Password', labelText: 'Confirm Password')
-                    ]
+                Form(
+                  key: _formKey,
+                  child: ListView(
+                      children: [
+                        SizedBox(height: 30,),
+                        TextField1(hintName: 'Old Password', labelText: 'Old Password',controller: currentPassCt,
+                            validator:(value)
+                            {
+                              if(value!.isEmpty)
+                              {
+                                return 'Required';
+                              }
+                              return null;
+                            },
+                        ),
+                        SizedBox(height: 20,),
+                        TextField1(hintName: 'New Password', labelText: 'New Password',controller: newPassCt,
+                          validator:(value)
+                          {
+                            if(value!.isEmpty)
+                            {
+                              return 'Required';
+                            }
+                            return null;
+                          },
+                        ),
+                        SizedBox(height: 20,),
+                        TextField1(hintName: 'Confirm Password', labelText: 'Confirm Password',controller: confirmPassCt,
+                          validator:(value)
+                          {
+                            if(value!.isEmpty)
+                            {
+                              return 'Required';
+                            }
+                            return null;
+                          },
+                        )
+                      ]
+                  ),
                 ),
                 Positioned(
                     bottom: 0,
                     left: 0,
                     right: 0,
-                    child: ButtonnElevated(buttonName: 'Update',onPressed: (){
-                        showDialog(
-                            context: context,
-                            builder: (BuildContext context)
+                    child: ButtonnElevated(buttonName: 'Update',onPressed: () async
+                    {
+                        if(_formKey.currentState!.validate())
+                          {
+                            var isSuccess=await ProfileApi().changePassword(currentPassCt.text, newPassCt.text, confirmPassCt.text);
+                            if(isSuccess)
                             {
-                              return showDialog1(title: 'Password Changed', subtitle: 'The password has been updated successfully', image: 'assets/Group 427318220.png', buttonText1: 'Close');
+                              showDialog(
+                                  context: context,
+                                  builder: (BuildContext context)
+                                  {
+                                    return showDialog1(title: 'Password Changed', subtitle: 'The password has been updated successfully', image: 'assets/Group 427318220.png', buttonText1: 'Close');
+                                  }
+                              );
                             }
-                        );
-                    },)
+                          }
+                    },
+                    )
                 )
               ]
           ),

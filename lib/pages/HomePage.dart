@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:sunstarmovers/Apis/dashboard_Api.dart';
+import 'package:sunstarmovers/controller/appController.dart';
 
 import 'package:sunstarmovers/pages/BottomNav.dart';
 import 'package:sunstarmovers/pages/Row1.dart';
@@ -16,6 +19,20 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  AppController appCt=Get.find();
+
+  @override
+  void initState() {
+    appCt.getProfile();
+    getCount();
+    super.initState();
+  }
+
+  getCount() async
+  {
+    appCt. dashboardCountResponse=await DashboardApi().dashboardCountResponse();
+  }
+
   int _currentIndex = 0;
   @override
   Widget build(BuildContext context) {
@@ -33,7 +50,7 @@ class _HomePageState extends State<HomePage> {
               }, icon: Icon(Icons.menu,color: Colors.white,),);
             }
         ),
-        title: Text("Hello Steve ,",style: TextStyle(color: Colors.white,fontWeight: FontWeight.w500,fontFamily: 'Poppins'),),
+        title: Text("Hello ${appCt.profileDetailResponse?.firstName}${appCt.profileDetailResponse?.middleName}",style: TextStyle(color: Colors.white,fontWeight: FontWeight.w500,fontFamily: 'Poppins'),),
         actions: [
           Padding(
             padding: const EdgeInsets.all(10.0),
@@ -63,9 +80,9 @@ class _HomePageState extends State<HomePage> {
               Row(
                 children: [
 
-                  Flexible(child: HomeCard(title: 'Total Surveys',title2: '+2.5%',title3: '456',image: 'assets/Group 28.png',)),
+                  Flexible(child: HomeCard(title: 'Total Surveys',title2: '${appCt.dashboardCountResponse!.surveyCount!.currentYearSurvey!- appCt.dashboardCountResponse!.surveyCount!.lastYearSurvey!}',title3: '${appCt.dashboardCountResponse!.surveyCount!.currentYearSurvey!}',image: 'assets/Group 28.png',)),
                   SizedBox(width: 15,),
-                  Flexible(child: HomeCard(title: 'Total activities',title2: '+2.5%',title3: '378',image: 'assets/Group 427318358.png',),)
+                  Flexible(child: HomeCard(title: 'Total activities',title2: '${appCt.dashboardCountResponse!.marketingCount!.currentYearActivity!- appCt.dashboardCountResponse!.marketingCount!.lastYearActivity!}',title3: '${appCt.dashboardCountResponse!.marketingCount!.currentYearActivity!}',image: 'assets/Group 427318358.png',),)
                 ],
               ),
               SizedBox(height: 15,),

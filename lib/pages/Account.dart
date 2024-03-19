@@ -1,13 +1,40 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:sunstarmovers/Apis/profile_Api.dart';
+import 'package:sunstarmovers/controller/appController.dart';
 import 'package:sunstarmovers/pages/BottomNav.dart';
 import 'package:sunstarmovers/pages/Notifications.dart';
 import 'package:sunstarmovers/pages/Profile.dart';
 import 'package:sunstarmovers/pages/Row3.dart';
 import 'package:sunstarmovers/pages/changePassword.dart';
 import 'package:sunstarmovers/pages/loginPage.dart';
+import 'package:sunstarmovers/responses/ProfileDetailsResponse.dart';
 
-class Account extends StatelessWidget {
+class Account extends StatefulWidget {
   const Account({super.key});
+
+  @override
+  State<Account> createState() => _AccountState();
+}
+
+class _AccountState extends State<Account> {
+AppController appCt = Get.find();
+  bool screenLoad = true;
+
+  @override
+  void initState() {
+     getProfile();
+    super.initState();
+  }
+
+  getProfile()
+  {
+    appCt.getProfile();
+    setState(() {
+      screenLoad = false;
+    });
+  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -36,45 +63,49 @@ class Account extends StatelessWidget {
       ),
 
 
-      body: ListView(
-        children: [
-          SizedBox(height: 40,),
-          Column(
+      body: screenLoad? Center(child: CircularProgressIndicator()): GetBuilder<AppController>(
+        builder: (ct) {
+          return ListView(
             children: [
-              CircleAvatar(
-                    radius: (30),
-                backgroundImage: AssetImage('assets/ProfilePic.png'),
-              ),
-            ],
-          ),
-
-
-          SizedBox(height: 10,),
-          Align(
-            alignment: Alignment.center,
-              child: Column(
+              SizedBox(height: 40,),
+              Column(
                 children: [
-                  Text1(name1: 'Geetika'),
-                  Text('1234',style: TextStyle(fontSize: 16),)
+                  CircleAvatar(
+                        radius: (30),
+                    backgroundImage: AssetImage('assets/ProfilePic.png'),
+                  ),
                 ],
+              ),
+
+
+              SizedBox(height: 10,),
+              Align(
+                alignment: Alignment.center,
+                  child: Column(
+                    children: [
+                      Text1(name1: '${ct.profileDetailResponse?.firstName} ${ct.profileDetailResponse?.middleName} ${ct.profileDetailResponse?.lastName}'),
+                      Text('${ct.profileDetailResponse?.phone}',style: TextStyle(fontSize: 16),)
+                    ],
+                  )
+              ),
+              SizedBox(height: 40,),
+
+              AccountRow(onTap:()=>Navigator.push(context, MaterialPageRoute(builder: (context)=>Profile())), image: 'assets/fi-rr-user.png', text: 'Profile'),
+              SizedBox(height: 20,),
+              AccountRow(onTap: ()=>Navigator.push(context, MaterialPageRoute(builder: (context)=>Notifications())), image: 'assets/notification.png', text: 'Notifications'),
+              SizedBox(height: 20,),
+              AccountRow(onTap: ()=>Navigator.push(context, MaterialPageRoute(builder: (context)=>ChangePassword())), image: 'assets/fi-rr-settings.png', text: 'Change Password'),
+              SizedBox(height: 20,),
+              AccountRow(onTap: ()=>Navigator.push(context, MaterialPageRoute(builder: (context)=>LoginPage())), image: 'assets/fi-rr-sign-out.png', text: 'Logout'),
+              SizedBox(height: 30,),
+              Align(
+                alignment: Alignment.center,
+                child:Text('Delete Account',style: TextStyle(color: Colors.red,fontWeight: FontWeight.w500,fontFamily: 'Poppins',fontSize: 16),) ,
               )
-          ),
-          SizedBox(height: 40,),
 
-          AccountRow(onTap:()=>Navigator.push(context, MaterialPageRoute(builder: (context)=>Profile())), image: 'assets/fi-rr-user.png', text: 'Profile'),
-          SizedBox(height: 20,),
-          AccountRow(onTap: ()=>Navigator.push(context, MaterialPageRoute(builder: (context)=>Notifications())), image: 'assets/notification.png', text: 'Notifications'),
-          SizedBox(height: 20,),
-          AccountRow(onTap: ()=>Navigator.push(context, MaterialPageRoute(builder: (context)=>ChangePassword())), image: 'assets/fi-rr-settings.png', text: 'Change Password'),
-          SizedBox(height: 20,),
-          AccountRow(onTap: ()=>Navigator.push(context, MaterialPageRoute(builder: (context)=>LoginPage())), image: 'assets/fi-rr-sign-out.png', text: 'Logout'),
-          SizedBox(height: 30,),
-          Align(
-            alignment: Alignment.center,
-            child:Text('Delete Account',style: TextStyle(color: Colors.red,fontWeight: FontWeight.w500,fontFamily: 'Poppins',fontSize: 16),) ,
-          )
-
-        ],
+            ],
+          );
+        }
       ),
       // bottomNavigationBar: BottomNav(),
     );

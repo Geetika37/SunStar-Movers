@@ -6,8 +6,9 @@ class showDialog1 extends StatelessWidget {
   final String subtitle;
   final String image;
   final String buttonText1;
+  final Function()? onTap;
 
-  const showDialog1({super.key, required this.title, required this.subtitle, required this.image, required this.buttonText1, });
+  const showDialog1({super.key, required this.title, required this.subtitle, required this.image, required this.buttonText1, this.onTap, });
 
   @override
   Widget build(BuildContext context) {
@@ -45,10 +46,8 @@ class showDialog1 extends StatelessWidget {
                     SizedBox(
                       width: 200,
                       child: ElevatedButton(
-                          onPressed: ()
-                          {
-                           Navigator.pop(context);
-                          }, child: Text(buttonText1,style: TextStyle(fontWeight: FontWeight.w500,fontFamily: 'Poppins',fontSize: 17),),
+                          onPressed: onTap
+                        , child: Text(buttonText1,style: TextStyle(fontWeight: FontWeight.w500,fontFamily: 'Poppins',fontSize: 17),),
                       style: ElevatedButton.styleFrom(
                           backgroundColor:  Colors.green,
                           foregroundColor: Colors.white,

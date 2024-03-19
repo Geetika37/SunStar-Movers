@@ -4,14 +4,21 @@ class TextField1 extends StatelessWidget {
   final String hintName;
   final String labelText;
   final String? image1;
-  const TextField1({super.key, required this.hintName, required this.labelText, this.image1});
+  final TextEditingController? controller;
+  final String? Function(String?)? validator;
+
+  const TextField1({super.key, required this.hintName, required this.labelText, this.image1, this.controller, this.validator});
 
   @override
   Widget build(BuildContext context) {
-    return  TextField(
+    return  TextFormField(
+      validator: validator,
+
+      controller: controller,
       decoration: InputDecoration(
           isDense: true,
           //contentPadding: EdgeInsets.all(),
+
           hintText: hintName,
           hintStyle: TextStyle(fontFamily: 'Poppins',fontSize: 14,fontWeight: FontWeight.w500,color: Colors.grey.withOpacity(.5)),
 

@@ -38,6 +38,8 @@ dependencies:
   syncfusion_flutter_datepicker: "22.2.12"
   syncfusion_flutter_calendar: ^22.2.12
   syncfusion_flutter_charts: ^22.2.12
+  dio: ^5.4.1
+  get: ^4.6.6
 
 
 dev_dependencies:
