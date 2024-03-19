@@ -19,7 +19,7 @@ publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 version: 1.0.0+1
 
 environment:
-  sdk: '>=3.2.5 <4.0.0'
+  sdk: '>=3.2.2 <4.0.0'
 
 # Dependencies specify other packages that your package needs in order to work.
 # To automatically upgrade your package dependencies to the latest versions
@@ -35,6 +35,12 @@ dependencies:
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.2
+  syncfusion_flutter_datepicker: "22.2.12"
+  syncfusion_flutter_calendar: ^22.2.12
+  syncfusion_flutter_charts: ^22.2.12
+  dio: ^5.4.1
+  get: ^4.6.6
+
 
 dev_dependencies:
   flutter_test:
@@ -59,8 +65,80 @@ flutter:
   uses-material-design: true
 
   # To add assets to your application, add an assets section, like this:
-  # assets:
-  #   - images/a_dot_burr.jpeg
+  assets:
+    - assets/logo.png
+    - assets/login.png
+    - assets/Group.png
+    - assets/ic_Dropdown.png
+    - assets/Group 28.png
+    - assets/Group 427318358.png
+    - assets/Oval.png
+    - assets/Oval_pic.png
+    - assets/up.png
+    - assets/Group 162507.png
+    - assets/calendar.png
+    - assets/clock.png
+    - assets/Group 162508.png
+    - assets/Group 162509.png
+    - assets/home.png
+    - assets/file-02.png
+    - assets/Icon.png
+    - assets/user-01.png
+    - assets/plus-circle.png
+    - assets/3864_boolean_operation.png
+    - assets/3881_frame.png
+    - assets/startwork.png
+    - assets/complete.png
+    - assets/chevron-left.png
+    - assets/Group 33192.png
+    - assets/Icon1.png
+    - assets/Vector.png
+    - assets/Group 427318220.png
+    - assets/pendingsurvey.png
+    - assets/confirmedsurvey.png
+    - assets/cancelledsurvey.png
+    - assets/Startworkk.png
+    - assets/collectonpending.png
+    - assets/closedwork.png
+    - assets/marketing.png
+    - assets/Complaints.png
+    - assets/settings-01.png
+    - assets/building-06.png
+    - assets/truck-02.png
+    - assets/Global search.png
+    - assets/teamlead.png
+    - assets/Emirates.png
+    - assets/activity.png
+    - assets/logout.png
+    - assets/Delete.png
+    - assets/comment.png
+    - assets/back.png
+    - assets/Group 427318252.png
+    - assets/whatspp.png
+    - assets/close.png
+    - assets/marketnng.png
+    - assets/meetng.png
+    - assets/offcework.png
+    - assets/visit.png
+    - assets/pending.png
+    - assets/closed.png
+    - assets/user-03.png
+    - assets/ProfilePic.png
+    - assets/fi-rr-user.png
+    - assets/notification.png
+    - assets/fi-rr-settings.png
+    - assets/fi-rr-sign-out.png
+    - assets/cameraicon.png
+    - assets/camera_svgrepo.com.png
+    - assets/gallery_svgrepo.com.png
+    - assets/edit-05.png
+    - assets/trash-04.png
+    - assets/home-line.png
+    - assets/surveyColor.png
+    - assets/homeColor.png
+    - assets/calenderColor.png
+    - assets/accountcolor.png
+
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see
@@ -74,17 +152,18 @@ flutter:
   # "family" key with the font family name, and a "fonts" key with a
   # list giving the asset and other descriptors for the font. For
   # example:
-  # fonts:
-  #   - family: Schyler
-  #     fonts:
-  #       - asset: fonts/Schyler-Regular.ttf
-  #       - asset: fonts/Schyler-Italic.ttf
-  #         style: italic
-  #   - family: Trajan Pro
-  #     fonts:
-  #       - asset: fonts/TrajanPro.ttf
-  #       - asset: fonts/TrajanPro_Bold.ttf
-  #         weight: 700
+  fonts:
+     - family: Poppins
+       fonts:
+         - asset: assets/fonts/Poppins-SemiBold.ttf
+           weight: 600
+         - asset: assets/fonts/Poppins-ExtraLight.ttf
+           weight: 200
+         - asset: assets/fonts/Poppins-Medium.ttf
+           weight: 500
+         - asset: assets/fonts/Poppins-Regular.ttf
+           weight: 400
+
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages
