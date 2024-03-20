@@ -1,0 +1,1 @@
+enum OrderStatus { dummy, Pending, Canceled, Confirmed, StartWork, Closed }

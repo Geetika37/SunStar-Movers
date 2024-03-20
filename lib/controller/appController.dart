@@ -1,7 +1,9 @@
 import 'package:get/get.dart';
 import 'package:sunstarmovers/Apis/profile_Api.dart';
 import 'package:sunstarmovers/responses/DashboardCountResponse.dart';
+import 'package:sunstarmovers/responses/LatestSurveyResponse.dart';
 import 'package:sunstarmovers/responses/ProfileDetailsResponse.dart';
+import 'package:sunstarmovers/responses/SurveyDetailsResponse.dart';
 
 class AppController extends GetxController
 {
@@ -15,4 +17,8 @@ class AppController extends GetxController
   }
 
   DashboardCountResponse? dashboardCountResponse;
+
+  List<LatestSurveyResponse>? lastestSurvey;
+
+  SurveyDetailsResponse? surveyDetailsResponse;
 }

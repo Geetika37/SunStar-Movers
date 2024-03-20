@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sunstarmovers/Apis/dashboard_Api.dart';
 import 'package:sunstarmovers/controller/appController.dart';
+import 'package:sunstarmovers/enums/enum.dart';
 
 import 'package:sunstarmovers/pages/BottomNav.dart';
 import 'package:sunstarmovers/pages/Row1.dart';
@@ -10,6 +11,7 @@ import 'package:sunstarmovers/pages/Survey.dart';
 import 'package:sunstarmovers/pages/chart.dart';
 import 'package:sunstarmovers/pages/container2.dart';
 import 'package:sunstarmovers/pages/navBar.dart';
+import 'package:sunstarmovers/responses/LatestSurveyResponse.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -25,12 +27,21 @@ class _HomePageState extends State<HomePage> {
   void initState() {
     appCt.getProfile();
     getCount();
+    getDetails();
     super.initState();
   }
 
   getCount() async
   {
     appCt. dashboardCountResponse=await DashboardApi().dashboardCountResponse();
+  }
+
+  getDetails() async
+  {
+    appCt.lastestSurvey=await DashboardApi().LastestSurvey();
+    setState(() {
+
+    });
   }
 
   int _currentIndex = 0;
@@ -50,7 +61,7 @@ class _HomePageState extends State<HomePage> {
               }, icon: Icon(Icons.menu,color: Colors.white,),);
             }
         ),
-        title: Text("Hello ${appCt.profileDetailResponse?.firstName}${appCt.profileDetailResponse?.middleName}",style: TextStyle(color: Colors.white,fontWeight: FontWeight.w500,fontFamily: 'Poppins'),),
+        title: Text("Hello ${appCt.profileDetailResponse?.firstName}${appCt.profileDetailResponse?.middleName}",style: TextStyle(color: Colors.white,fontSize:16,fontWeight: FontWeight.w500,fontFamily: 'Poppins'),),
         actions: [
           Padding(
             padding: const EdgeInsets.all(10.0),
@@ -141,8 +152,8 @@ class _HomePageState extends State<HomePage> {
               SizedBox(height: 20,),
 
               Container(
-                // padding: EdgeInsets.all(10),
-                height: 310,
+                 padding: EdgeInsets.symmetric(horizontal: 15,vertical: 10),
+
                 decoration: BoxDecoration(
                   color: Colors.white,
                   borderRadius: BorderRadius.circular(20),
@@ -158,64 +169,89 @@ class _HomePageState extends State<HomePage> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    SizedBox(height: 10,),
 
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Row(
-                        children: [
-                          SizedBox(width: 10,),
-                          Text("Surveys",style: TextStyle(fontWeight: FontWeight.w600,fontSize: 18,fontFamily: 'Poppins'),),
-                          SizedBox(width: 150,),
-                          Text("View all",style: TextStyle(fontWeight: FontWeight.w400,fontSize: 13,fontFamily: 'Poppins',color: Colors.red),)
-                        ],
-                      ),
-                    ),
 
-                    new Divider(
-                      color: Colors.grey.shade300,
-                    ),
-                    SizedBox(height: 10,),
-
-                    Column(
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Row(
-                          children: [
-                            SizedBox(width: 20,),
-                            Row2(status: 'Pending',color1:Colors.yellow.withOpacity(0.1) ,color2:Colors.yellow.shade800 ,name: "James Wan", date: "12/12/2023", time: "12:45 PM", image2: 'assets/calendar.png', image3: 'assets/clock.png', percentage: '75%',),
-                          ],
-                        ),
-                        SizedBox(height: 10,),
 
-                        new Divider(
-                          color: Colors.grey.shade300,
-                        ),
-                        SizedBox(height: 10,),
+                        Text("Surveys",style: TextStyle(fontWeight: FontWeight.w600,fontSize: 18,fontFamily: 'Poppins'),),
 
-
-                        Row(
-                          children: [
-                            SizedBox(width: 20,),
-                            Row2(status: 'Pending',color1:Colors.yellow.withOpacity(0.1) ,color2:Colors.yellow.shade800 ,name: "Peter Parker", date: "12/12/2023", time: "12:45 PM", image2: 'assets/calendar.png', image3: 'assets/clock.png', percentage: '10%',),
-                          ],
-                        ),
-                        SizedBox(height: 10,),
-
-                        new Divider(
-                          color: Colors.grey.shade300,
-                        ),
-                        SizedBox(height: 10,),
-
-                        Row(
-                          children: [
-                            SizedBox(width: 20,),
-                            Row2(status: 'Pending',color1:Colors.yellow.withOpacity(0.1) ,color2:Colors.yellow.shade800 ,name: "Zack Snyder",  date: "12/12/2023", time: "12:45 PM", image2: 'assets/calendar.png', image3: 'assets/clock.png', percentage: '100%',),
-                          ],
-                        ),
-
-
+                        Text("View all",style: TextStyle(fontWeight: FontWeight.w400,fontSize: 13,fontFamily: 'Poppins',color: Colors.red),)
                       ],
-                    )
+                    ),
+
+                    ListView.builder(
+                      shrinkWrap: true,
+                        itemCount: appCt.lastestSurvey!.length,
+                        itemBuilder: (context, index){
+
+                      return Column(
+                        children: [
+                          new Divider(
+                            color: Colors.grey.shade300,
+                          ),
+                          Row2(status: orderStatusList.firstWhere((element) =>  element.id == appCt.lastestSurvey![index].orderStatus).value !  ,
+                            color1: orderStatusList.firstWhere((element) => element.id == appCt.lastestSurvey![index].orderStatus).backgroundColor! ,
+                            color2:orderStatusList.firstWhere((element) => element.id == appCt.lastestSurvey![index].orderStatus).textColor! ,
+                            name: '${appCt.lastestSurvey![index].customerName}',
+                            date: "${appCt.lastestSurvey![index].date}",
+                            time: "${appCt.lastestSurvey![index].time}",
+                            image2: 'assets/calendar.png',
+                            image3: 'assets/clock.png',
+                            percentage: '${appCt.lastestSurvey![index].leadQuality}',
+                            bgcolor: circularProg.firstWhere((element) => element.value==appCt.surveyDetailsResponse!.data![index].leadQuality).backgroundColor!,
+                            fgcolor: circularProg.firstWhere((element) => element.value==appCt.surveyDetailsResponse!.data![index].leadQuality).foregroundColor!,
+                            textColor: circularProg.firstWhere((element) => element.value==appCt.surveyDetailsResponse!.data![index].leadQuality).backgroundColor!,
+                          ),
+                        ],
+                      );
+                    })
+
+                    // new Divider(
+                    //   color: Colors.grey.shade300,
+                    // ),
+                    // SizedBox(height: 10,),
+                    //
+                    // Column(
+                    //   children: [
+                    //     Row(
+                    //       children: [
+                    //         SizedBox(width: 20,),
+                    //         Row2(status: '${appCt.LastestSurvey?.orderStatus}',color1:Colors.yellow.withOpacity(0.1) ,color2:Colors.yellow.shade800 ,name: '${appCt.LastestSurvey!.customerName}', date: "12/12/2023", time: "12:45 PM", image2: 'assets/calendar.png', image3: 'assets/clock.png', percentage: '75%',),
+                    //       ],
+                    //     ),
+                    //     SizedBox(height: 10,),
+                    //
+                    //     new Divider(
+                    //       color: Colors.grey.shade300,
+                    //     ),
+                    //     SizedBox(height: 10,),
+                    //
+                    //
+                    //     Row(
+                    //       children: [
+                    //         SizedBox(width: 20,),
+                    //         Row2(status: 'Pending',color1:Colors.yellow.withOpacity(0.1) ,color2:Colors.yellow.shade800 ,name: "Peter Parker", date: "12/12/2023", time: "12:45 PM", image2: 'assets/calendar.png', image3: 'assets/clock.png', percentage: '10%',),
+                    //       ],
+                    //     ),
+                    //     SizedBox(height: 10,),
+                    //
+                    //     new Divider(
+                    //       color: Colors.grey.shade300,
+                    //     ),
+                    //     SizedBox(height: 10,),
+                    //
+                    //     Row(
+                    //       children: [
+                    //         SizedBox(width: 20,),
+                    //         Row2(status: 'Pending',color1:Colors.yellow.withOpacity(0.1) ,color2:Colors.yellow.shade800 ,name: "Zack Snyder",  date: "12/12/2023", time: "12:45 PM", image2: 'assets/calendar.png', image3: 'assets/clock.png', percentage: '100%',),
+                    //       ],
+                    //     ),
+
+
+                      // ],
+                    // )
 
 
                   ],
@@ -232,3 +268,22 @@ class _HomePageState extends State<HomePage> {
     );
   }
 }
+
+
+class IdValue{
+  int? id;
+  String? value;
+  Color? backgroundColor;
+  Color? textColor;
+  IdValue({this.value,this.id,this.backgroundColor,this.textColor});
+}
+
+
+List<IdValue> orderStatusList = [
+  IdValue(id: OrderStatus.Pending.index,value: OrderStatus.Pending.name,backgroundColor: Color(0xfffFFF6DF),textColor: Color(0xfffFFB100)),
+  IdValue(id: OrderStatus.Canceled.index,value: OrderStatus.Canceled.name,backgroundColor: Color(0xfffE2FEEA),textColor: Color(0xfff0B6623)),
+  IdValue(id: OrderStatus.Confirmed.index,value: OrderStatus.Confirmed.name,backgroundColor: Color(0xfffDCFFF1),textColor: Color(0xfff3DD598)),
+  IdValue(id: OrderStatus.StartWork.index,value: OrderStatus.StartWork.name,backgroundColor: Color(0xfffE8F2FE),textColor: Color(0xfff157CF0)),
+  IdValue(id: OrderStatus.Closed.index,value: OrderStatus.Closed.name,backgroundColor: Color(0xfffFFEFEF),textColor: Color(0xfffFC5A5A)),
+
+];
