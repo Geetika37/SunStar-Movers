@@ -1,7 +1,13 @@
 import 'package:get/get.dart';
 import 'package:sunstarmovers/Apis/profile_Api.dart';
+import 'package:sunstarmovers/Apis/survey_api.dart';
+import 'package:sunstarmovers/responses/BuildingTypeResponse.dart';
 import 'package:sunstarmovers/responses/DashboardCountResponse.dart';
+import 'package:sunstarmovers/responses/EmirateResponse.dart';
 import 'package:sunstarmovers/responses/LatestSurveyResponse.dart';
+import 'package:sunstarmovers/responses/LeadSourceResponse.dart';
+import 'package:sunstarmovers/responses/MovingTypeResponse.dart';
+import 'package:sunstarmovers/responses/OrderNumberResponse.dart';
 import 'package:sunstarmovers/responses/ProfileDetailsResponse.dart';
 import 'package:sunstarmovers/responses/SurveyDetailsResponse.dart';
 
@@ -21,4 +27,19 @@ class AppController extends GetxController
   List<LatestSurveyResponse>? lastestSurvey;
 
   SurveyDetailsResponse? surveyDetailsResponse;
+
+  OrderNumberResponse? orderNumberResponse;
+
+  getOrderNumber()async
+  {
+    orderNumberResponse=await SurveyApi().orderNumber();
+  }
+
+  List<BuildingTypeResponse>? buildingTypeResponse;
+
+  List<MovingTypeResponse>? movingTypeResponse;
+
+  List<EmiratesResponse>? emiratesResponse;
+
+  List<LeadSourceResponse>? leadSourceResponse;
 }

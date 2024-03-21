@@ -40,6 +40,8 @@ class AuthApi
       "accessibleUserTypes": null,
       "machineID": null
     };
+
+    print(data);
     var response =await Dio().post('https://ssmovers.progbiz.io/api/Auth/login',data: data,
         options: Options(
         headers: appCt.token == null
@@ -58,6 +60,8 @@ class AuthApi
     print(response.data);
     if(response.statusCode==200)
       {
+
+        print('11111111111111');
         var data = LoginResponse.fromJson(response.data);
         isSuccess=true;
         appCt.token = data.accessToken;

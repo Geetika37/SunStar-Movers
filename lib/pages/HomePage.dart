@@ -22,6 +22,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   AppController appCt=Get.find();
+  bool screenLoad =true;
 
   @override
   void initState() {
@@ -34,13 +35,16 @@ class _HomePageState extends State<HomePage> {
   getCount() async
   {
     appCt. dashboardCountResponse=await DashboardApi().dashboardCountResponse();
+    setState(() {
+      screenLoad=false;
+    });
   }
 
   getDetails() async
   {
     appCt.lastestSurvey=await DashboardApi().LastestSurvey();
     setState(() {
-
+      screenLoad=false;
     });
   }
 
@@ -71,196 +75,200 @@ class _HomePageState extends State<HomePage> {
       ),
       drawer: navBar(),
 
-      body: SingleChildScrollView(
-        child: Container(
-          padding: EdgeInsets.all(15),
-          child: Column(
-            children: [
-
-              Row(
-                children: [
-                  Text("Overview",style: TextStyle(fontWeight: FontWeight.w600,fontSize: 18,fontFamily: 'Poppins'),),
-                  SizedBox(width: 120,),
-                  Text("Show:",style: TextStyle(fontSize: 14,color: Colors.grey,fontFamily: 'Poppins',fontWeight: FontWeight.w400),),
-                  Text("This Year",style: TextStyle(fontSize: 14,fontFamily: 'Poppins',fontWeight: FontWeight.w400),),
-                  Image(image: AssetImage("assets/ic_Dropdown.png"))
-                ],
-              ),
-              SizedBox(height: 20,),
-
-              Row(
+      body: screenLoad? Center(child: CircularProgressIndicator()): GetBuilder<AppController>(
+        builder: (ct) {
+          return SingleChildScrollView(
+            child: Container(
+              padding: EdgeInsets.all(15),
+              child: Column(
                 children: [
 
-                  Flexible(child: HomeCard(title: 'Total Surveys',title2: '${appCt.dashboardCountResponse!.surveyCount!.currentYearSurvey!- appCt.dashboardCountResponse!.surveyCount!.lastYearSurvey!}',title3: '${appCt.dashboardCountResponse!.surveyCount!.currentYearSurvey!}',image: 'assets/Group 28.png',)),
-                  SizedBox(width: 15,),
-                  Flexible(child: HomeCard(title: 'Total activities',title2: '${appCt.dashboardCountResponse!.marketingCount!.currentYearActivity!- appCt.dashboardCountResponse!.marketingCount!.lastYearActivity!}',title3: '${appCt.dashboardCountResponse!.marketingCount!.currentYearActivity!}',image: 'assets/Group 427318358.png',),)
-                ],
-              ),
-              SizedBox(height: 15,),
-
-              Container(
-                padding: EdgeInsets.all(10),
-                height: 360,
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(20),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.grey.withOpacity(0.3),
-                      spreadRadius: 5,
-                      blurRadius: 7,
-                      offset: Offset(0, 3)
-                    )
-                  ]
-                ),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
+                  Row(
                     children: [
-                      SizedBox(height: 5,),
-                      Row(
-                        children: [
-                          SizedBox(width: 10,),
-                          Text("Survey Report",style: TextStyle(fontSize: 16,fontWeight: FontWeight.w600,fontFamily: 'Poppins',),),
-                          SizedBox(width: 110,),
-                          Text("2017-2018",style: TextStyle(fontSize: 13,fontWeight: FontWeight.w400,fontFamily: 'Poppins',color: Colors.grey),),
+                      Text("Overview",style: TextStyle(fontWeight: FontWeight.w600,fontSize: 18,fontFamily: 'Poppins'),),
+                      SizedBox(width: 120,),
+                      Text("Show:",style: TextStyle(fontSize: 14,color: Colors.grey,fontFamily: 'Poppins',fontWeight: FontWeight.w400),),
+                      Text("This Year",style: TextStyle(fontSize: 14,fontFamily: 'Poppins',fontWeight: FontWeight.w400),),
+                      Image(image: AssetImage("assets/ic_Dropdown.png"))
+                    ],
+                  ),
+                  SizedBox(height: 20,),
 
-                        ],
-                      ),
-                      SizedBox(height: 15,),
-                      Chart(),
+                  Row(
+                    children: [
 
-                      Divider(
-                        height: 10,
-                        color: Colors.grey.shade300,
-                        thickness: 1,
-                        indent : 10,
-                        endIndent : 10,
-                      ),
-                      SizedBox(height: 10,),
-                      Row(
+                      Flexible(child: HomeCard(title: 'Total Surveys',title2: '${ct.dashboardCountResponse!.surveyCount!.currentYearSurvey!- ct.dashboardCountResponse!.surveyCount!.lastYearSurvey!}',title3: '${ct.dashboardCountResponse!.surveyCount!.currentYearSurvey!}',image: 'assets/Group 28.png',)),
+                      SizedBox(width: 15,),
+                      Flexible(child: HomeCard(title: 'Total activities',title2: '${ct.dashboardCountResponse!.marketingCount!.currentYearActivity!- ct.dashboardCountResponse!.marketingCount!.lastYearActivity!}',title3: '${appCt.dashboardCountResponse!.marketingCount!.currentYearActivity!}',image: 'assets/Group 427318358.png',),)
+                    ],
+                  ),
+                  SizedBox(height: 15,),
+
+                  Container(
+                    padding: EdgeInsets.all(10),
+                    height: 360,
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(20),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.grey.withOpacity(0.3),
+                          spreadRadius: 5,
+                          blurRadius: 7,
+                          offset: Offset(0, 3)
+                        )
+                      ]
+                    ),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          SizedBox(width: 50,),
-                            Row1(image: 'assets/Oval.png',title1: ' Last year',title2: '989',),
-                            SizedBox(width: 40,),
-                            Row1(image: 'assets/Oval_pic.png',title1: ' This Year ',image1: 'assets/up.png',title2: '1223',title3: " 1.2%",)
+                          SizedBox(height: 5,),
+                          Row(
+                            children: [
+                              SizedBox(width: 10,),
+                              Text("Survey Report",style: TextStyle(fontSize: 16,fontWeight: FontWeight.w600,fontFamily: 'Poppins',),),
+                              SizedBox(width: 110,),
+                              Text("2017-2018",style: TextStyle(fontSize: 13,fontWeight: FontWeight.w400,fontFamily: 'Poppins',color: Colors.grey),),
+
+                            ],
+                          ),
+                          SizedBox(height: 15,),
+                          Chart(),
+
+                          Divider(
+                            height: 10,
+                            color: Colors.grey.shade300,
+                            thickness: 1,
+                            indent : 10,
+                            endIndent : 10,
+                          ),
+                          SizedBox(height: 10,),
+                          Row(
+                            children: [
+                              SizedBox(width: 50,),
+                                Row1(image: 'assets/Oval.png',title1: ' Last year',title2: '989',),
+                                SizedBox(width: 40,),
+                                Row1(image: 'assets/Oval_pic.png',title1: ' This Year ',image1: 'assets/up.png',title2: '1223',title3: " 1.2%",)
+                            ],
+                          )
                         ],
                       )
-                    ],
-                  )
-              ),
+                  ),
 
-              SizedBox(height: 20,),
+                  SizedBox(height: 20,),
 
-              Container(
-                 padding: EdgeInsets.symmetric(horizontal: 15,vertical: 10),
+                  Container(
+                     padding: EdgeInsets.symmetric(horizontal: 15,vertical: 10),
 
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(20),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.grey.withOpacity(0.3),
-                      spreadRadius: 5,
-                      blurRadius: 7,
-                      offset: Offset(0, 3)
-                    )
-                  ]
-                ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-
-
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(20),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.grey.withOpacity(0.3),
+                          spreadRadius: 5,
+                          blurRadius: 7,
+                          offset: Offset(0, 3)
+                        )
+                      ]
+                    ),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
 
-                        Text("Surveys",style: TextStyle(fontWeight: FontWeight.w600,fontSize: 18,fontFamily: 'Poppins'),),
 
-                        Text("View all",style: TextStyle(fontWeight: FontWeight.w400,fontSize: 13,fontFamily: 'Poppins',color: Colors.red),)
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+
+                            Text("Surveys",style: TextStyle(fontWeight: FontWeight.w600,fontSize: 18,fontFamily: 'Poppins'),),
+
+                            Text("View all",style: TextStyle(fontWeight: FontWeight.w400,fontSize: 13,fontFamily: 'Poppins',color: Colors.red),)
+                          ],
+                        ),
+
+                        ListView.builder(
+                          shrinkWrap: true,
+                            itemCount: appCt.lastestSurvey!.length,
+                            itemBuilder: (context, index){
+
+                          return Column(
+                            children: [
+                              new Divider(
+                                color: Colors.grey.shade300,
+                              ),
+                              Row2(status: orderStatusList.firstWhere((element) =>  element.id == ct.lastestSurvey![index].orderStatus).value !  ,
+                                color1: orderStatusList.firstWhere((element) => element.id == ct.lastestSurvey![index].orderStatus).backgroundColor! ,
+                                color2:orderStatusList.firstWhere((element) => element.id == ct.lastestSurvey![index].orderStatus).textColor! ,
+                                name: '${ct.lastestSurvey![index].customerName}',
+                                date: "${ct.lastestSurvey![index].date}",
+                                time: "${ct.lastestSurvey![index].time}",
+                                image2: 'assets/calendar.png',
+                                image3: 'assets/clock.png',
+                                percentage: '${ct.lastestSurvey![index].leadQuality}',
+                                bgcolor: circularProg.firstWhere((element) => element.value==ct.surveyDetailsResponse!.data![index].leadQuality).backgroundColor!,
+                                fgcolor: circularProg.firstWhere((element) => element.value==ct.surveyDetailsResponse!.data![index].leadQuality).foregroundColor!,
+                                textColor: circularProg.firstWhere((element) => element.value==ct.surveyDetailsResponse!.data![index].leadQuality).backgroundColor!,
+                              ),
+                            ],
+                          );
+                        })
+
+                        // new Divider(
+                        //   color: Colors.grey.shade300,
+                        // ),
+                        // SizedBox(height: 10,),
+                        //
+                        // Column(
+                        //   children: [
+                        //     Row(
+                        //       children: [
+                        //         SizedBox(width: 20,),
+                        //         Row2(status: '${appCt.LastestSurvey?.orderStatus}',color1:Colors.yellow.withOpacity(0.1) ,color2:Colors.yellow.shade800 ,name: '${appCt.LastestSurvey!.customerName}', date: "12/12/2023", time: "12:45 PM", image2: 'assets/calendar.png', image3: 'assets/clock.png', percentage: '75%',),
+                        //       ],
+                        //     ),
+                        //     SizedBox(height: 10,),
+                        //
+                        //     new Divider(
+                        //       color: Colors.grey.shade300,
+                        //     ),
+                        //     SizedBox(height: 10,),
+                        //
+                        //
+                        //     Row(
+                        //       children: [
+                        //         SizedBox(width: 20,),
+                        //         Row2(status: 'Pending',color1:Colors.yellow.withOpacity(0.1) ,color2:Colors.yellow.shade800 ,name: "Peter Parker", date: "12/12/2023", time: "12:45 PM", image2: 'assets/calendar.png', image3: 'assets/clock.png', percentage: '10%',),
+                        //       ],
+                        //     ),
+                        //     SizedBox(height: 10,),
+                        //
+                        //     new Divider(
+                        //       color: Colors.grey.shade300,
+                        //     ),
+                        //     SizedBox(height: 10,),
+                        //
+                        //     Row(
+                        //       children: [
+                        //         SizedBox(width: 20,),
+                        //         Row2(status: 'Pending',color1:Colors.yellow.withOpacity(0.1) ,color2:Colors.yellow.shade800 ,name: "Zack Snyder",  date: "12/12/2023", time: "12:45 PM", image2: 'assets/calendar.png', image3: 'assets/clock.png', percentage: '100%',),
+                        //       ],
+                        //     ),
+
+
+                          // ],
+                        // )
+
+
                       ],
                     ),
+                  ),
 
-                    ListView.builder(
-                      shrinkWrap: true,
-                        itemCount: appCt.lastestSurvey!.length,
-                        itemBuilder: (context, index){
-
-                      return Column(
-                        children: [
-                          new Divider(
-                            color: Colors.grey.shade300,
-                          ),
-                          Row2(status: orderStatusList.firstWhere((element) =>  element.id == appCt.lastestSurvey![index].orderStatus).value !  ,
-                            color1: orderStatusList.firstWhere((element) => element.id == appCt.lastestSurvey![index].orderStatus).backgroundColor! ,
-                            color2:orderStatusList.firstWhere((element) => element.id == appCt.lastestSurvey![index].orderStatus).textColor! ,
-                            name: '${appCt.lastestSurvey![index].customerName}',
-                            date: "${appCt.lastestSurvey![index].date}",
-                            time: "${appCt.lastestSurvey![index].time}",
-                            image2: 'assets/calendar.png',
-                            image3: 'assets/clock.png',
-                            percentage: '${appCt.lastestSurvey![index].leadQuality}',
-                            bgcolor: circularProg.firstWhere((element) => element.value==appCt.surveyDetailsResponse!.data![index].leadQuality).backgroundColor!,
-                            fgcolor: circularProg.firstWhere((element) => element.value==appCt.surveyDetailsResponse!.data![index].leadQuality).foregroundColor!,
-                            textColor: circularProg.firstWhere((element) => element.value==appCt.surveyDetailsResponse!.data![index].leadQuality).backgroundColor!,
-                          ),
-                        ],
-                      );
-                    })
-
-                    // new Divider(
-                    //   color: Colors.grey.shade300,
-                    // ),
-                    // SizedBox(height: 10,),
-                    //
-                    // Column(
-                    //   children: [
-                    //     Row(
-                    //       children: [
-                    //         SizedBox(width: 20,),
-                    //         Row2(status: '${appCt.LastestSurvey?.orderStatus}',color1:Colors.yellow.withOpacity(0.1) ,color2:Colors.yellow.shade800 ,name: '${appCt.LastestSurvey!.customerName}', date: "12/12/2023", time: "12:45 PM", image2: 'assets/calendar.png', image3: 'assets/clock.png', percentage: '75%',),
-                    //       ],
-                    //     ),
-                    //     SizedBox(height: 10,),
-                    //
-                    //     new Divider(
-                    //       color: Colors.grey.shade300,
-                    //     ),
-                    //     SizedBox(height: 10,),
-                    //
-                    //
-                    //     Row(
-                    //       children: [
-                    //         SizedBox(width: 20,),
-                    //         Row2(status: 'Pending',color1:Colors.yellow.withOpacity(0.1) ,color2:Colors.yellow.shade800 ,name: "Peter Parker", date: "12/12/2023", time: "12:45 PM", image2: 'assets/calendar.png', image3: 'assets/clock.png', percentage: '10%',),
-                    //       ],
-                    //     ),
-                    //     SizedBox(height: 10,),
-                    //
-                    //     new Divider(
-                    //       color: Colors.grey.shade300,
-                    //     ),
-                    //     SizedBox(height: 10,),
-                    //
-                    //     Row(
-                    //       children: [
-                    //         SizedBox(width: 20,),
-                    //         Row2(status: 'Pending',color1:Colors.yellow.withOpacity(0.1) ,color2:Colors.yellow.shade800 ,name: "Zack Snyder",  date: "12/12/2023", time: "12:45 PM", image2: 'assets/calendar.png', image3: 'assets/clock.png', percentage: '100%',),
-                    //       ],
-                    //     ),
-
-
-                      // ],
-                    // )
-
-
-                  ],
-                ),
+                ],
               ),
-
-            ],
-          ),
-        ),
+            ),
+          );
+        }
       ),
 
       // bottomNavigationBar:  BottomNav(),
