@@ -101,7 +101,7 @@ class Complaint extends StatelessWidget {
                     ),
                     SizedBox(height: 30,),
 
-                    Row3(status: 'Pending', color1:const Color(0xfffFFEFEF) ,color2:const Color(0xfffFC5A5A),onTap: (){Navigator.push(context, MaterialPageRoute(builder: (context)=>ComplaintDetails(status: 'Pending')));},name1: 'Zack Snyder', name2: '12/12/2023', name3: 'Steve', image1: 'assets/calendar.png', image2: 'assets/user-03.png', image3: 'assets/pending.png',),
+                    Row3(status: 'Pending', color1:const Color(0xfffFFEFEF) ,color2:const Color(0xfffFC5A5A),onTap: (){Navigator.push(context, MaterialPageRoute(builder: (context)=>ComplaintDetails(status: 'Pending')));},name1: 'Zack Snyder', date: '12/12/2023', time: 'Steve', image1: 'assets/calendar.png', image2: 'assets/user-03.png', image3: 'assets/pending.png',),
                     SizedBox(height: 10,),
 
                     new Divider(
@@ -109,7 +109,7 @@ class Complaint extends StatelessWidget {
                     ),
 
                     SizedBox(height: 10,),
-                    Row3(status: 'Closed', color1:const Color(0xfffE8F2FE) ,color2:const Color(0xfff157CF0),onTap: (){Navigator.push(context, MaterialPageRoute(builder: (context)=>ComplaintDetails(status: 'Closed',)));},name1: 'Zack Snyder', name2: '12/12/2023', name3: 'Steve', image1: 'assets/calendar.png', image2: 'assets/user-03.png', image3: 'assets/closed.png',),
+                    Row3(status: 'Closed', color1:const Color(0xfffE8F2FE) ,color2:const Color(0xfff157CF0),onTap: (){Navigator.push(context, MaterialPageRoute(builder: (context)=>ComplaintDetails(status: 'Closed',)));},name1: 'Zack Snyder', date: '12/12/2023', time: 'Steve', image1: 'assets/calendar.png', image2: 'assets/user-03.png', image3: 'assets/closed.png',),
                     SizedBox(height: 10,),
 
                     new Divider(
@@ -117,7 +117,7 @@ class Complaint extends StatelessWidget {
                     ),
 
                     SizedBox(height: 10,),
-                    Row3(status: 'Pending', color1:const Color(0xfffFFEFEF) ,color2:const Color(0xfffFC5A5A),onTap: (){Navigator.push(context, MaterialPageRoute(builder: (context)=>ComplaintDetails(status: 'Pending',)));},name1: 'Zack Snyder', name2: '12/12/2023', name3: 'Steve', image1: 'assets/calendar.png', image2: 'assets/user-03.png', image3: 'assets/pending.png',),
+                    Row3(status: 'Pending', color1:const Color(0xfffFFEFEF) ,color2:const Color(0xfffFC5A5A),onTap: (){Navigator.push(context, MaterialPageRoute(builder: (context)=>ComplaintDetails(status: 'Pending',)));},name1: 'Zack Snyder', date: '12/12/2023', time: 'Steve', image1: 'assets/calendar.png', image2: 'assets/user-03.png', image3: 'assets/pending.png',),
                     SizedBox(height: 10,),
 
                     new Divider(
@@ -125,7 +125,7 @@ class Complaint extends StatelessWidget {
                     ),
 
                     SizedBox(height: 10,),
-                    Row3(status: 'Closed', color1:const Color(0xfffE8F2FE) ,color2:const Color(0xfff157CF0),onTap: (){Navigator.push(context, MaterialPageRoute(builder: (context)=>ComplaintDetails(status:'Closed' ,)));},name1: 'Zack Snyder', name2: '12/12/2023', name3: 'Steve', image1: 'assets/calendar.png', image2: 'assets/user-03.png', image3: 'assets/closed.png',),
+                    Row3(status: 'Closed', color1:const Color(0xfffE8F2FE) ,color2:const Color(0xfff157CF0),onTap: (){Navigator.push(context, MaterialPageRoute(builder: (context)=>ComplaintDetails(status:'Closed' ,)));},name1: 'Zack Snyder', date: '12/12/2023', time: 'Steve', image1: 'assets/calendar.png', image2: 'assets/user-03.png', image3: 'assets/closed.png',),
                     SizedBox(height: 10,),
 
                   ],

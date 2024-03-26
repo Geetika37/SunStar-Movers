@@ -75,7 +75,7 @@ class _HomePageState extends State<HomePage> {
       ),
       drawer: navBar(),
 
-      body: screenLoad? Center(child: CircularProgressIndicator()): GetBuilder<AppController>(
+      body: screenLoad? Center(child: CircularProgressIndicator(color: Colors.red,)): GetBuilder<AppController>(
         builder: (ct) {
           return SingleChildScrollView(
             child: Container(
@@ -201,6 +201,7 @@ class _HomePageState extends State<HomePage> {
                                 color1: orderStatusList.firstWhere((element) => element.id == ct.lastestSurvey![index].orderStatus).backgroundColor! ,
                                 color2:orderStatusList.firstWhere((element) => element.id == ct.lastestSurvey![index].orderStatus).textColor! ,
                                 name: '${ct.lastestSurvey![index].customerName}',
+                                surveyId: ct.lastestSurvey![index].surveyID,
                                 date: "${ct.lastestSurvey![index].date}",
                                 time: "${ct.lastestSurvey![index].time}",
                                 image2: 'assets/calendar.png',

@@ -1,11 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:sunstarmovers/pages/MarketingDetails.dart';
 
 class Row3 extends StatelessWidget {
   final String name1;
-  final String name2;
-  final String name3;
+  final String date;
+  final String time;
   final String image1;
   final String image2;
   final String image3;
@@ -15,13 +16,14 @@ class Row3 extends StatelessWidget {
   final String status;
 
 
-  const Row3({super.key, required this.name1, required this.name2, required this.name3, required this.image1, required this.image2, required this.image3, this.onTap, required this.color1, required this.color2, required this.status});
+  const Row3({super.key, required this.name1,  required this.image1, required this.image2, required this.image3, this.onTap, required this.color1, required this.color2, required this.status, required this.date, required this.time});
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
       onTap: onTap,
       child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
 
           Column(
@@ -37,19 +39,25 @@ class Row3 extends StatelessWidget {
                 children: [
                   Image(image: AssetImage(image1)),
                   SizedBox(width: 5,),
-                  Text2(name2: name2),
-                  SizedBox(width: 20,),
+                  Text(
+                    DateFormat('dd-MM-yyyy').format(DateTime.parse(date)) ,
+                    style: TextStyle(
+                      fontWeight: FontWeight.w400,
+                      fontSize: 12,
+                      fontFamily: 'Poppins',
+                      color: Colors.grey.shade500,
+                    ),
+                  ),
+                  SizedBox(width: 10,),
                   Image(image: AssetImage(image2)),
                   SizedBox(width: 5,),
-                  Text2(name2: name3,)
+                  Text2(name2: time,)
                 ],
               ),
 
             ],
           ),
-          SizedBox(width: 65,),
-
-          Column(
+          Stack(
             children: [
               Container(
                 decoration: BoxDecoration(
@@ -66,6 +74,7 @@ class Row3 extends StatelessWidget {
               )
             ],
           ),
+
 
         ],
       ),

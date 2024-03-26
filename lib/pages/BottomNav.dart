@@ -25,7 +25,7 @@ class _BottomNavState extends State<BottomNav> {
     // return MyHomePage();
 
       case 1:
-        return Survey();
+        return Survey(Id: 1,);
       case 2:
         return  CalanderScreen();
       case 3:

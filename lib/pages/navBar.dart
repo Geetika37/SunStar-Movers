@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:sunstarmovers/Apis/survey_api.dart';
+import 'package:sunstarmovers/controller/appController.dart';
 import 'package:sunstarmovers/pages/Complaint.dart';
 import 'package:sunstarmovers/pages/ListTileNav.dart';
 import 'package:sunstarmovers/pages/Marketing.dart';
@@ -8,10 +11,19 @@ import 'package:sunstarmovers/pages/SettingsBuilding.dart';
 import 'package:sunstarmovers/pages/SettingsLeadSource.dart';
 import 'package:sunstarmovers/pages/SettingsMoving.dart';
 import 'package:sunstarmovers/pages/SettingsTeamLead.dart';
+import 'package:sunstarmovers/pages/Survey.dart';
 import 'package:sunstarmovers/pages/loginPage.dart';
 
-class navBar extends StatelessWidget {
+class navBar extends StatefulWidget {
+
   const navBar({super.key});
+
+  @override
+  State<navBar> createState() => _navBarState();
+}
+
+class _navBarState extends State<navBar> {
+  AppController appCt=Get.find();
 
   @override
   Widget build(BuildContext context) {
@@ -26,7 +38,7 @@ class navBar extends StatelessWidget {
                 SizedBox(
                   height: 70,
                 ),
-            
+
                 ExpansionTile(
                   title: Text('Survey',
                       style: TextStyle(
@@ -37,38 +49,50 @@ class navBar extends StatelessWidget {
                   leading: ImageIcon(AssetImage('assets/file-02.png')),
                   children: [
                     DrawerWidget(
-                      onTap: () {},
+                      onTap: () async{
+                        Get.to(()=>Survey(Id: 2,));
+                      },
                       label: "Pending Survey",
                       image: 'assets/pendingsurvey.png',
                     ),
                     DrawerWidget(
-                      onTap: () {},
+                      onTap: () {
+                        Get.to(()=>Survey(Id: 3,));
+                      },
                       label: 'Confirmed Survey ',
                       image: 'assets/confirmedsurvey.png',
                     ),
                     DrawerWidget(
-                      onTap: () {},
+                      onTap: () {
+                        Get.to(()=>Survey(Id: 4,));
+                      },
                       label: 'Cancelled Survey',
                       image: 'assets/cancelledsurvey.png',
                     ),
                     DrawerWidget(
-                      onTap: () {},
+                      onTap: () {
+                        Get.to(()=>Survey(Id: 5,));
+                      },
                       label: 'Start Work',
                       image: 'assets/Startworkk.png',
                     ),
                     DrawerWidget(
-                      onTap: () {},
+                      onTap: () {
+                        Get.to(()=>Survey(Id: 6,));
+                      },
                       label: 'Collection Pending',
                       image: 'assets/collectonpending.png',
                     ),
                     DrawerWidget(
-                      onTap: () {},
+                      onTap: () {
+                        Get.to(()=>Survey(Id: 7,));
+                      },
                       label: 'Closed Work',
                       image: 'assets/closedwork.png',
                     ),
                   ],
                 ),
-            
+
                 //  Marketing
                 DrawerWidget(
                     image: 'assets/marketing.png',
@@ -76,7 +100,7 @@ class navBar extends StatelessWidget {
                     onTap: () {
                       Navigator.push(context, MaterialPageRoute(builder: (context)=>Marketing()));
                     }),
-            
+
                 // Complaints
                 ExpansionTile(
                   title: Text('Complaints',
@@ -103,7 +127,7 @@ class navBar extends StatelessWidget {
                         onTap: () {})
                   ],
                 ),
-                
+
                 ExpansionTile(
                     title:Text('Basic Settings',
                     style: TextStyle(
@@ -167,7 +191,7 @@ class navBar extends StatelessWidget {
                 )
 
 
-                
+
               ],
             ),
           ),

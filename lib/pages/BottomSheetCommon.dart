@@ -1,22 +1,34 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:sunstarmovers/Apis/survey_api.dart';
 import 'package:sunstarmovers/pages/ButtonOutline.dart';
 import 'package:sunstarmovers/pages/ButtonnElevated.dart';
 import 'package:sunstarmovers/pages/TextField1.dart';
 
-class BottomShet1 extends StatelessWidget {
+class BottomShet1 extends StatefulWidget {
+
   final String title;
   final String hintName;
   final String labelName;
   final String buttonName1;
   final String buttonName2;
+  final Function()? onTap;
+  final int? SurveyId;
 
   const BottomShet1(
-      {super.key,
+      {
+        super.key,
       required this.title,
       required this.hintName,
-      required this.labelName, required this.buttonName1, required this.buttonName2});
+      required this.labelName, required this.buttonName1, required this.buttonName2, this.onTap, this.SurveyId});
 
+  @override
+  State<BottomShet1> createState() => _BottomShet1State();
+}
+
+class _BottomShet1State extends State<BottomShet1> {
+  TextEditingController _commentController=TextEditingController();
   @override
   Widget build(BuildContext context) {
     return SizedBox(
@@ -30,7 +42,7 @@ class BottomShet1 extends StatelessWidget {
                 height: 10,
               ),
               Text(
-                title,
+                widget.title,
                 style: TextStyle(
                     fontWeight: FontWeight.w600,
                     fontFamily: 'Poppins',
@@ -40,15 +52,16 @@ class BottomShet1 extends StatelessWidget {
                 height: 10,
               ),
               TextFormField(
+                controller: _commentController,
                 maxLines: 4,
                 decoration: InputDecoration(
-                    hintText: hintName,
+                    hintText: widget.hintName,
                     hintStyle: TextStyle(
                         fontFamily: 'Poppins',
                         fontSize: 14,
                         fontWeight: FontWeight.w500,
                         color: Colors.grey.withOpacity(.5)),
-                    labelText: labelName,
+                    labelText: widget.labelName,
                     labelStyle: TextStyle(
                       fontFamily: 'Poppins',
                       fontSize: 14,
@@ -71,9 +84,10 @@ class BottomShet1 extends StatelessWidget {
             children: [
               Expanded(
                   child: ButtonnElevated(
-                buttonName: buttonName1,
-                onPressed: () {
-
+                buttonName: widget.buttonName1,
+                onPressed: ()async{
+                  var isSuccess=await SurveyApi().commentSurvey(remark: _commentController.text,SurveyID:widget.SurveyId);
+                  Get.back(result: true);
                 },
               )),
               SizedBox(
@@ -81,7 +95,7 @@ class BottomShet1 extends StatelessWidget {
               ),
               Expanded(
                   child: ButtonnOutlined(
-                title: buttonName2,
+                title: widget.buttonName2,
                 onPressed: () {
                   Navigator.pop(context);
                 },

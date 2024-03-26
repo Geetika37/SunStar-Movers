@@ -23,6 +23,7 @@ class TextField1 extends StatelessWidget {
       onTap: onTap,
       validator: validator,
       readOnly: isKey,
+
       controller: controller,
       keyboardType: keyBoardType,
       decoration: InputDecoration(

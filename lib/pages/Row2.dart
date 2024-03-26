@@ -5,6 +5,7 @@ import 'package:sunstarmovers/pages/SurveyDetails.dart';
 // import 'package:percent_indicator/percent_indicator.dart';
 
 class Row2 extends StatelessWidget {
+  final  int? surveyId;
   final String name;
   final String date;
   final String time;
@@ -17,19 +18,16 @@ class Row2 extends StatelessWidget {
   final Color bgcolor;
   final Color? fgcolor;
   final Color textColor;
+  final Function()? onTap;
 
 
-  const Row2({super.key, required this.name, required this.date, required this.time, required this.image2, required this.image3, required this.percentage, required this.color1, required this.color2, required this.status, required this.bgcolor, this.fgcolor, required this.textColor, });
+  const Row2({super.key, this.surveyId, required this.name, required this.date, required this.time, required this.image2, required this.image3, required this.percentage, required this.color1, required this.color2, required this.status, required this.bgcolor, this.fgcolor, required this.textColor, this.onTap, });
 
   @override
   Widget build(BuildContext context) {
     double progress = double.tryParse(percentage.replaceAll('%', '')) ?? 0.0;
     return InkWell(
-      onTap: (){
-        Navigator.push(context, MaterialPageRoute(builder: (context)=>SurveyDetails(
-          status: status,
-        )));
-      },
+      onTap: onTap,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
@@ -61,7 +59,16 @@ class Row2 extends StatelessWidget {
                 children: [
                   Image(image: AssetImage(image2)),
                   SizedBox(width: 5,),
-                  Text(DateFormat('dd/MM/yyyy').format(DateTime.parse(date)),style: TextStyle(fontWeight: FontWeight.w400,fontSize: 12,fontFamily: 'Poppins',color: Colors.grey.shade500),),
+                  date == "null" ? SizedBox():   Text(
+                     DateFormat('dd-MM-yyyy').format(DateTime.parse(date)) ,
+                    style: TextStyle(
+                      fontWeight: FontWeight.w400,
+                      fontSize: 12,
+                      fontFamily: 'Poppins',
+                      color: Colors.grey.shade500,
+                    ),
+                  ),
+
                   SizedBox(width: 20,),
                   Image(image: AssetImage(image3)),
                   SizedBox(width: 5,),
