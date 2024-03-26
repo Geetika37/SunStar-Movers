@@ -22,6 +22,7 @@ class _ProfileState extends State<Profile> {
   TextEditingController phoneNumCt=TextEditingController();
   TextEditingController emailAddressCt=TextEditingController();
 
+
   AppController appCt=Get.find();
   @override
 

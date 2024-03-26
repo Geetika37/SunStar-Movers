@@ -7,7 +7,8 @@ class showDialog2 extends StatelessWidget {
   final String subtitle;
   final String button1;
   final String button2;
-  const showDialog2({super.key, required this.title, required this.subtitle, required this.button1, required this.button2});
+  final Function()? onPressed;
+  const showDialog2({super.key, required this.title, required this.subtitle, required this.button1, required this.button2,  this.onPressed});
 
   @override
   Widget build(BuildContext context) {
@@ -38,7 +39,7 @@ class showDialog2 extends StatelessWidget {
                       SizedBox(height: 15,),
                       Row(
                         children: [
-                          Expanded(child: ButtonnElevated(buttonName: button1,onPressed: (){},)),
+                          Expanded(child: ButtonnElevated(buttonName: button1,onPressed: onPressed,)),
                           SizedBox(width: 10,),
                           Expanded(child: ButtonnOutlined(title: button2,onPressed: (){Navigator.pop(context);},))
                         ],
