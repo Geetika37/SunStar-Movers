@@ -4,6 +4,7 @@ import 'package:intl/intl.dart';
 import 'package:sunstarmovers/pages/MarketingDetails.dart';
 
 class Row3 extends StatelessWidget {
+  final int? MarketingId;
   final String name1;
   final String date;
   final String time;
@@ -16,7 +17,7 @@ class Row3 extends StatelessWidget {
   final String status;
 
 
-  const Row3({super.key, required this.name1,  required this.image1, required this.image2, required this.image3, this.onTap, required this.color1, required this.color2, required this.status, required this.date, required this.time});
+  const Row3({super.key, required this.name1,  required this.image1, required this.image2, required this.image3, this.onTap, required this.color1, required this.color2, required this.status, required this.date, required this.time, this.MarketingId});
 
   @override
   Widget build(BuildContext context) {

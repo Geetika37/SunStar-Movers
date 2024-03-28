@@ -131,10 +131,27 @@ class _MarketingState extends State<Marketing> {
                                 return Column(
                                   children: [
                                     Row3(
-                                      status: 'Marketing',
+                                      MarketingId: appCt.marketingDetailResponse!.data![index].marketingID,
+                                      status: '${appCt.marketingDetailResponse!.data![index].marketingTypeName}',
                                       color1:const Color(0xfffFFEFEF) ,
                                       color2:const Color(0xfffFC5A5A),
-                                      onTap: (){Navigator.push(context, MaterialPageRoute(builder: (context)=>MarketingDetails()));},
+                                      onTap: (){
+                                        Navigator.push(context, MaterialPageRoute(builder: (context)=>MarketingDetails(
+                                          MarketingId: ct.marketingDetailResponse!.data![index].marketingID,
+
+                                        ))).
+                                        then((value)async
+                                        {
+                                          if(value=true)
+                                            {
+                                              setState(() {
+                                                screenLoad=true;
+                                              });
+                                              await getMarketingDetails();
+                                            }
+                                        }
+                                        );
+                                        },
                                       name1: '${appCt.marketingDetailResponse!.data![index].customerName!}',
                                       date: '${appCt.marketingDetailResponse!.data![index].date}',
                                       time: '${appCt.marketingDetailResponse!.data![index].time}',
