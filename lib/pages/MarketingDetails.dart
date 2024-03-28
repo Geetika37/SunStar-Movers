@@ -1,13 +1,40 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:sunstarmovers/Apis/marketing_api.dart';
+import 'package:sunstarmovers/controller/appController.dart';
 import 'package:sunstarmovers/pages/BottomSheetCommon.dart';
 import 'package:sunstarmovers/pages/ButtonnElevated.dart';
 import 'package:sunstarmovers/pages/Row3.dart';
 import 'package:sunstarmovers/pages/SurveyDetails.dart';
 
-class MarketingDetails extends StatelessWidget {
-  const MarketingDetails({super.key});
+class MarketingDetails extends StatefulWidget {
+  final int? MarketingId;
+  const MarketingDetails({super.key, this.MarketingId});
 
   @override
+  State<MarketingDetails> createState() => _MarketingDetailsState();
+}
+
+class _MarketingDetailsState extends State<MarketingDetails> {
+  AppController appCt=Get.find();
+  bool screenLoad=true;
+
+  @override
+
+  void initState() {
+    getDetails();
+    super.initState();
+  }
+
+  getDetails()async
+  {
+    print('------------${widget.MarketingId}');
+    appCt.allMarketingDetailResponse=await MarketingApi().allMarketing(marketingId: widget.MarketingId);
+    setState(() {
+      screenLoad=false;
+    });
+  }
+
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
@@ -73,61 +100,65 @@ class MarketingDetails extends StatelessWidget {
         padding: const EdgeInsets.all(13.0),
         child: Stack(
           children:[
-            ListView(
-              children: [
-                Text3(name3: 'Customer Details'),
-                SizedBox(height: 10,),
-                new Divider(color: Colors.grey.shade300,),
-                SizedBox(height: 10,),
-                Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
+            screenLoad? Center(child: CircularProgressIndicator(color: Colors.red,)):GetBuilder<AppController>(
+              builder: (ct) {
+                return ListView(
                   children: [
+                    Text3(name3: 'Customer Details'),
                     SizedBox(height: 10,),
-                    Image.asset('assets/Group 427318252.png'),
-                    SizedBox(width: 20,),
-                    Column(
+                    new Divider(color: Colors.grey.shade300,),
+                    SizedBox(height: 10,),
+                    Row(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text3(name3: 'Zack Snyder'),
-                        CustomerDetail(title: 'Designation : ', title1: 'kannur'),
-                        CustomerDetail(title: 'Company Name : ', title1: 'Progbiz'),
-                        CustomerDetail(title: 'Email : ', title1: 'marketing@gmail.com'),
-                        CustomerDetail(title: 'Phone : ', title1: '+971 5436 78645'),
-                        CustomerDetail(title: 'Whatsapp No : ', title1: '+971 5436 78645'),
-                        CustomerDetail(title: 'Nationality : ', title1: 'India'),
-                        CustomerDetail(title: 'Salesman : ', title1: 'ssmovers ss'),
-                        CustomerDetail(title: 'Address : ', title1: 'kannur 1'),
+                        SizedBox(height: 10,),
+                        Image.asset('assets/Group 427318252.png'),
+                        SizedBox(width: 20,),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text3(name3: '${ct.allMarketingDetailResponse?.customerName??''}'),
+                            CustomerDetail(title: 'Designation : ', title1: '${ct.allMarketingDetailResponse?.designation??''}'),
+                            CustomerDetail(title: 'Company Name : ', title1: '${ct.allMarketingDetailResponse?.companyName??''}'),
+                            CustomerDetail(title: 'Email : ', title1: '${ct.allMarketingDetailResponse?.emailAddress??''}'),
+                            CustomerDetail(title: 'Phone : ', title1: '${ct.allMarketingDetailResponse?.customerPhone??''}'),
+                            CustomerDetail(title: 'Whatsapp No : ', title1: '${ct.allMarketingDetailResponse?.customerPhone2??''}'),
+                            CustomerDetail(title: 'Nationality : ', title1: '${ct.allMarketingDetailResponse?.nationality??''}'),
+                            CustomerDetail(title: 'Salesman : ', title1: '${ct.allMarketingDetailResponse?.name??''}'),
+                            CustomerDetail(title: 'Address : ', title1: '${ct.allMarketingDetailResponse?.address??''}'),
+                          ],
+                        )
                       ],
+                    ),
+                    SizedBox(height: 10,),
+                    new Divider(
+                      color: Colors.grey.shade300,
+                    ),
+
+                    SizedBox(height: 15,),
+
+                    Text('Marketing Details',style: TextStyle(fontSize: 20,fontFamily: 'Poppins',fontWeight: FontWeight.w600),),
+                    SizedBox(height: 10,),
+
+                    Container(
+                      padding: EdgeInsets.all(10),
+                      decoration: BoxDecoration(
+                          border: Border.all(width: 1,color: Colors.grey.shade500),
+                          borderRadius: BorderRadius.circular(8)
+                      ),
+                      child: Column(
+                        children: [
+                          SurveyRow(title3: 'Ref No', title4: '${ct.allMarketingDetailResponse?.marketingNo??''}'),
+                          SurveyRow(title3: 'Date & Time', title4: '${ct.allMarketingDetailResponse?.date??''}|${ct.allMarketingDetailResponse?.time??''}'),
+                          SurveyRow(title3: 'Activity', title4: '${ct.allMarketingDetailResponse?.marketingTypeName??''}'),
+                          SurveyRow(title3: 'Activity Details', title4: '${ct.allMarketingDetailResponse?.activityDetails??''}'),
+                        ],
+                      ),
                     )
+
                   ],
-                ),
-                SizedBox(height: 10,),
-                new Divider(
-                  color: Colors.grey.shade300,
-                ),
-
-                SizedBox(height: 15,),
-
-                Text('Marketing Details',style: TextStyle(fontSize: 20,fontFamily: 'Poppins',fontWeight: FontWeight.w600),),
-                SizedBox(height: 10,),
-
-                Container(
-                  padding: EdgeInsets.all(10),
-                  decoration: BoxDecoration(
-                      border: Border.all(width: 1,color: Colors.grey.shade500),
-                      borderRadius: BorderRadius.circular(8)
-                  ),
-                  child: Column(
-                    children: [
-                      SurveyRow(title3: 'Ref No', title4: '24'),
-                      SurveyRow(title3: 'Date & Time', title4: '14/03/2024 | 8 PM'),
-                      SurveyRow(title3: 'Activity', title4: 'Marketing'),
-                      SurveyRow(title3: 'Activity Details', title4: 'Details'),
-                    ],
-                  ),
-                )
-
-              ],
+                );
+              }
             ),
             Positioned(
               left: 0,
@@ -138,8 +169,10 @@ class MarketingDetails extends StatelessWidget {
                   color: Colors.white,
                   child: ButtonnElevated(
                       buttonName: 'Delete',
-                    onPressed: (){
-                        Navigator.pop(context);
+                    onPressed: ()async{
+                        var isSuccess=await MarketingApi().deleteMarketing(widget.MarketingId);
+                        Get.back(result: true);
+                        await getDetails();
                     },
                   ),
                 ),

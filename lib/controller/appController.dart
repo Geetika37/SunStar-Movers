@@ -1,12 +1,16 @@
 import 'package:get/get.dart';
 import 'package:sunstarmovers/Apis/profile_Api.dart';
 import 'package:sunstarmovers/Apis/survey_api.dart';
+import 'package:sunstarmovers/responses/ActivityResponse.dart';
 import 'package:sunstarmovers/responses/AllSurveyResponse.dart';
 import 'package:sunstarmovers/responses/BuildingTypeResponse.dart';
 import 'package:sunstarmovers/responses/DashboardCountResponse.dart';
 import 'package:sunstarmovers/responses/EmirateResponse.dart';
 import 'package:sunstarmovers/responses/LatestSurveyResponse.dart';
 import 'package:sunstarmovers/responses/LeadSourceResponse.dart';
+import 'package:sunstarmovers/responses/MarketingDetailResponse.dart';
+import 'package:sunstarmovers/responses/MarketingEmirateResponse.dart';
+import 'package:sunstarmovers/responses/MarketingOrderNumberResponse.dart';
 import 'package:sunstarmovers/responses/MarketingResponse.dart';
 import 'package:sunstarmovers/responses/MovingTypeResponse.dart';
 import 'package:sunstarmovers/responses/OrderNumberResponse.dart';
@@ -31,8 +35,10 @@ class AppController extends GetxController
 
   SurveyDetailsResponse? surveyDetailsResponse;
   MarketingDetailResponse? marketingDetailResponse;
+
   NavSurveyResponse? navSurveyResponse;
 
+  MarketingOrderNumberResponse? marketingOrderNumberResponse;
   OrderNumberResponse? orderNumberResponse;
 
   getOrderNumber()async
@@ -49,4 +55,10 @@ class AppController extends GetxController
   List<LeadSourceResponse>? leadSourceResponse;
 
   AllSurveyResponse? allSurveyResponse;
+
+  List<ActivityResponse>? activityResponse;
+
+  List<MarketingEmirateResponse>? marketingEmirateResponse;
+
+  AllMarketingDetailResponse? allMarketingDetailResponse;
 }
