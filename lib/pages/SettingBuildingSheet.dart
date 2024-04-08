@@ -1,13 +1,43 @@
 import 'package:flutter/cupertino.dart';
+import 'package:get/get.dart';
+import 'package:sunstarmovers/Apis/basicSettings_api.dart';
 import 'package:sunstarmovers/pages/ButtonOutline.dart';
 import 'package:sunstarmovers/pages/ButtonnElevated.dart';
 import 'package:sunstarmovers/pages/Row3.dart';
 import 'package:sunstarmovers/pages/TextField1.dart';
+import 'package:sunstarmovers/responses/BuildingTypeSettingsResponse.dart';
 
-class SettingBuildingSheet extends StatelessWidget {
-  const SettingBuildingSheet({super.key});
+class SettingBuildingSheet extends StatefulWidget {
+  final String? buildingTypeName;
+  final int? buildingTypeID;
+  const SettingBuildingSheet({super.key, this.buildingTypeID, this.buildingTypeName});
 
   @override
+  State<SettingBuildingSheet> createState() => _SettingBuildingSheetState();
+}
+
+class _SettingBuildingSheetState extends State<SettingBuildingSheet> {
+  TextEditingController _buildingTypeController=TextEditingController();
+
+  @override
+  void initState() {
+
+        _buildingTypeController.text = widget.buildingTypeName??'';
+
+    super.initState();
+  }
+
+  // @override
+  // void initState() {
+  //   if (widget.buildingTypeSettingsResponse != null &&
+  //       widget.buildingTypeSettingsResponse!.data != null &&
+  //       widget.buildingTypeSettingsResponse!.data!.isNotEmpty) {
+  //     _buildingTypeController.text = '${widget.buildingTypeSettingsResponse!.data![0].buildingTypeName}';
+  //   }
+  //   super.initState();
+  // }
+
+
   Widget build(BuildContext context) {
     return SizedBox(
       height: 220,
@@ -24,7 +54,7 @@ class SettingBuildingSheet extends StatelessWidget {
                   ],
                 ),
                 SizedBox(height: 15,),
-                TextField1(hintName: 'Building Type Name', labelText: 'Building Type Name'),
+                TextField1(hintName: 'Building Type Name', labelText: 'Building Type Name',controller: _buildingTypeController,),
 
               ],
             ),
@@ -35,7 +65,24 @@ class SettingBuildingSheet extends StatelessWidget {
                 child: Container(
                   child: Row(
                     children: [
-                      Expanded(child: ButtonnElevated(buttonName: 'Done',onPressed: (){},)),
+                      Expanded(child: ButtonnElevated(buttonName: 'Done',
+                        onPressed: ()async{
+                        var data={
+                          "buildingTypeID": widget.buildingTypeID
+                          ?? 0,
+                          "buildingTypeName": _buildingTypeController.text,
+                          "branchID": 0
+                        };
+
+                        var isSuccess=await BasicSettingApi().BuildingTypeSettingAdd(data);
+                        if(isSuccess)
+                          {
+                            Get.back(result: true);
+                          }
+
+                      },
+                      )
+                      ),
                       SizedBox(width: 10,),
                       Expanded(child: ButtonnOutlined(title: 'Close',onPressed: (){},))
                     ],

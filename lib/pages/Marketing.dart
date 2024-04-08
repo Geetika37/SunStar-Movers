@@ -139,7 +139,9 @@ class _MarketingState extends State<Marketing> {
                                         Navigator.push(context, MaterialPageRoute(builder: (context)=>MarketingDetails(
                                           MarketingId: ct.marketingDetailResponse!.data![index].marketingID,
 
-                                        ))).
+                                        )
+                                        )
+                                        ).
                                         then((value)async
                                         {
                                           if(value=true)

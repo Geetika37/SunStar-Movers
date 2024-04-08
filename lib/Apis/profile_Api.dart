@@ -20,7 +20,7 @@ class ProfileApi
       "newPassword": newPass,
       "confirmPassword": confirmPass
     };
-    var response=await Dio().post('https://ssmovers.progbiz.io/api/Profile/change-password',data: data,
+    var response=await Dio().post('https://sunstar-project.progbiz.io/api/Profile/change-password',data: data,
         options: Options(
         headers: appCt.token == null
         ? {
@@ -51,7 +51,7 @@ class ProfileApi
   Future< ProfileDetailsResponse ?> profileDetails() async
   {
     ProfileDetailsResponse? profileDetailResponse;
-    var response=await Dio().get('https://ssmovers.progbiz.io/api/Profile/get-profile-details',data: {},
+    var response=await Dio().get('https://sunstar-project.progbiz.io/api/Profile/get-profile-details',data: {},
         options: Options(
             headers: appCt.token == null
                 ? {
@@ -89,7 +89,7 @@ class ProfileApi
       "qrCode": null
     };
     
-    var response=await Dio().post('https://ssmovers.progbiz.io/api/Profile/update-profile',data: data,
+    var response=await Dio().post('https://sunstar-project.progbiz.io/api/Profile/update-profile',data: data,
         options: Options(
             headers: appCt.token == null
                 ? {

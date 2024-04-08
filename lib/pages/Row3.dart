@@ -6,7 +6,7 @@ import 'package:sunstarmovers/pages/MarketingDetails.dart';
 class Row3 extends StatelessWidget {
   final int? MarketingId;
   final String name1;
-  final String date;
+  final String? date;
   final String time;
   final String image1;
   final String image2;
@@ -17,7 +17,7 @@ class Row3 extends StatelessWidget {
   final String status;
 
 
-  const Row3({super.key, required this.name1,  required this.image1, required this.image2, required this.image3, this.onTap, required this.color1, required this.color2, required this.status, required this.date, required this.time, this.MarketingId});
+  const Row3({super.key, required this.name1,  required this.image1, required this.image2, required this.image3, this.onTap, required this.color1, required this.color2, required this.status,  this.date, required this.time, this.MarketingId});
 
   @override
   Widget build(BuildContext context) {
@@ -41,7 +41,7 @@ class Row3 extends StatelessWidget {
                   Image(image: AssetImage(image1)),
                   SizedBox(width: 5,),
                   Text(
-                    DateFormat('dd-MM-yyyy').format(DateTime.parse(date)) ,
+                    DateFormat('dd-MM-yyyy').format(DateTime.parse(date!)) ,
                     style: TextStyle(
                       fontWeight: FontWeight.w400,
                       fontSize: 12,

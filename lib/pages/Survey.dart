@@ -10,6 +10,8 @@ import 'package:sunstarmovers/pages/Row2.dart';
 import 'package:sunstarmovers/pages/SurveyDetails.dart';
 import 'package:sunstarmovers/pages/navBar.dart';
 import 'package:sunstarmovers/pages/searchBar.dart';
+import 'package:sunstarmovers/responses/SurveyDetailsResponse.dart';
+import 'package:sunstarmovers/responses/navSurveyResponse.dart';
 
 class Survey extends StatefulWidget {
   final int? Id;
@@ -20,10 +22,13 @@ class Survey extends StatefulWidget {
 }
 
 class _SurveyState extends State<Survey> {
+  SurveyDetailsResponse? surveyDetailsResponse;
+  NavSurveyResponse? navSurveyResponse;
   AppController appCt = Get.find();
   bool screenLoad = true;
   @override
   void initState() {
+
     switch (widget.Id) {
       case 1:
         getSurveyDetails();
@@ -51,49 +56,49 @@ class _SurveyState extends State<Survey> {
   }
 
   getClosedDetails() async {
-    appCt.navSurveyResponse = await SurveyApi().closedDetails();
+    navSurveyResponse = await SurveyApi().closedDetails();
     setState(() {
       screenLoad = false;
     });
   }
 
   getCollectionPendingDetails() async {
-    appCt.navSurveyResponse = await SurveyApi().collectionPendingDetails();
+    navSurveyResponse = await SurveyApi().collectionPendingDetails();
     setState(() {
       screenLoad = false;
     });
   }
 
   getstartWorkDetails() async {
-    appCt.navSurveyResponse = await SurveyApi().startWorkDetails();
+    navSurveyResponse = await SurveyApi().startWorkDetails();
     setState(() {
       screenLoad = false;
     });
   }
 
   getCanceledDetails() async {
-    appCt.navSurveyResponse = await SurveyApi().canceledDetails();
+    navSurveyResponse = await SurveyApi().canceledDetails();
     setState(() {
       screenLoad = false;
     });
   }
 
   getConfirmedDetails() async {
-    appCt.navSurveyResponse = await SurveyApi().confirmedDetails();
+    navSurveyResponse = await SurveyApi().confirmedDetails();
     setState(() {
       screenLoad = false;
     });
   }
 
   getPendingDetails() async {
-    appCt.navSurveyResponse = await SurveyApi().pendingDetails();
+    navSurveyResponse = await SurveyApi().pendingDetails();
     setState(() {
       screenLoad = false;
     });
   }
 
   getSurveyDetails() async {
-    appCt.surveyDetailsResponse = await SurveyApi().surevyDetails();
+    surveyDetailsResponse = await SurveyApi().surevyDetails();
     setState(() {
       screenLoad = false;
     });
@@ -145,8 +150,7 @@ class _SurveyState extends State<Survey> {
               child: CircularProgressIndicator(
               color: Colors.red,
             ))
-          : GetBuilder<AppController>(builder: (ct) {
-              return ListView(
+          :  ListView(
                 padding: EdgeInsets.symmetric(horizontal: 15, vertical: 10),
                 children: [
                   Row(
@@ -213,68 +217,103 @@ class _SurveyState extends State<Survey> {
                         ListView.builder(
                             physics: NeverScrollableScrollPhysics(),
                             shrinkWrap: true,
-                            itemCount: widget.Id == 1 ? ct.surveyDetailsResponse!.data!.length
-                                                      : ct.navSurveyResponse!.data!.length,
+                            itemCount: widget.Id == 1 ? surveyDetailsResponse!.data!.length
+                                                      : navSurveyResponse!.data!.length,
                             itemBuilder: (context, index) {
                               return Column(
                                 children: [
                                   Row2(
-                                    status: widget.Id == 1 ? orderStatusList.firstWhere((element) => element.id == ct.surveyDetailsResponse!.data![index].orderStatus,).value!
-                                          : orderStatusList.firstWhere((element) => element.id == ct.navSurveyResponse!.data![index].orderStatus).value!,
+                                    status: widget.Id == 1 ? orderStatusList.firstWhere((element) => element.id == surveyDetailsResponse!.data![index].orderStatus,).value!
+                                          : orderStatusList.firstWhere((element) => element.id == navSurveyResponse!.data![index].orderStatus).value!,
 
-                                    color1: widget.Id == 1 ? orderStatusList.firstWhere((element) => element.id == ct.surveyDetailsResponse!.data![index].orderStatus).backgroundColor!
-                                          : orderStatusList.firstWhere((element) => element.id == ct.navSurveyResponse!.data![index].orderStatus).backgroundColor!,
+                                    color1: widget.Id == 1 ? orderStatusList.firstWhere((element) => element.id == surveyDetailsResponse!.data![index].orderStatus).backgroundColor!
+                                          : orderStatusList.firstWhere((element) => element.id == navSurveyResponse!.data![index].orderStatus).backgroundColor!,
 
-                                    color2: widget.Id == 1 ? orderStatusList.firstWhere((element) => element.id == ct.surveyDetailsResponse!.data![index].orderStatus).textColor!
-                                          : orderStatusList.firstWhere((element) => element.id == ct.navSurveyResponse!.data![index].orderStatus).textColor!,
+                                    color2: widget.Id == 1 ? orderStatusList.firstWhere((element) => element.id == surveyDetailsResponse!.data![index].orderStatus).textColor!
+                                          : orderStatusList.firstWhere((element) => element.id == navSurveyResponse!.data![index].orderStatus).textColor!,
 
-                                    name: widget.Id == 1 ? '${ct.surveyDetailsResponse!.data![index].customerName}'
-                                                         : ct.navSurveyResponse!.data![index].customerName!,
+                                    name: widget.Id == 1 ? '${surveyDetailsResponse!.data![index].customerName}'
+                                                         : navSurveyResponse!.data![index].customerName!,
 
-                                    surveyId: widget.Id == 1 ? ct.surveyDetailsResponse!.data![index].surveyID
-                                                             : ct.navSurveyResponse!.data![index].surveyID,
+                                    surveyId: widget.Id == 1 ? surveyDetailsResponse!.data![index].surveyID
+                                                             : navSurveyResponse!.data![index].surveyID,
 
-                                    date: widget.Id == 1 ? '${ct.surveyDetailsResponse!.data![index].date}'
-                                                         : ct.navSurveyResponse!.data![index].date ?? 'null',
+                                    date: widget.Id == 1 ? '${surveyDetailsResponse!.data![index].date}'
+                                                         : navSurveyResponse!.data![index].date ?? 'null',
 
-                                    time: widget.Id == 1 ? "${ct.surveyDetailsResponse!.data![index].time}"
-                                                         : ct.navSurveyResponse!.data![index].time ?? 'null',
+                                    time: widget.Id == 1 ? "${surveyDetailsResponse!.data![index].time}"
+                                                         : navSurveyResponse!.data![index].time ?? 'null',
 
                                     image2: 'assets/calendar.png',
                                     image3: 'assets/clock.png',
 
-                                    percentage: widget.Id == 1 ? '${ct.surveyDetailsResponse!.data![index].leadQuality}'
-                                                               : ct.navSurveyResponse!.data![index].leadQuality!,
+                                    percentage: widget.Id == 1 ? '${surveyDetailsResponse!.data![index].leadQuality}'
+                                                               : navSurveyResponse!.data![index].leadQuality!,
 
-                                    bgcolor: widget.Id == 1 ? circularProg.firstWhere((element) => element.value == ct.surveyDetailsResponse!.data![index].leadQuality).backgroundColor!
-                                                    : circularProg.firstWhere((element) => element.value == ct.navSurveyResponse!.data![index].leadQuality).backgroundColor!,
+                                    bgcolor: widget.Id == 1 ? circularProg.firstWhere((element) => element.value == surveyDetailsResponse!.data![index].leadQuality).backgroundColor!
+                                                    : circularProg.firstWhere((element) => element.value == navSurveyResponse!.data![index].leadQuality).backgroundColor!,
 
-                                    fgcolor: widget.Id == 1 ? circularProg.firstWhere((element) => element.value == ct.surveyDetailsResponse!.data![index].leadQuality).foregroundColor!
-                                                    : circularProg.firstWhere((element) => element.value == ct.navSurveyResponse!.data![index]!.leadQuality).foregroundColor!,
+                                    fgcolor: widget.Id == 1 ? circularProg.firstWhere((element) => element.value == surveyDetailsResponse!.data![index].leadQuality).foregroundColor!
+                                                    : circularProg.firstWhere((element) => element.value == navSurveyResponse!.data![index]!.leadQuality).foregroundColor!,
 
-                                    textColor: widget.Id == 1 ? circularProg.firstWhere((element) => element.value == ct.surveyDetailsResponse!.data![index].leadQuality).backgroundColor!
-                                                    : circularProg.firstWhere((element) => element.value == ct.navSurveyResponse!.data![index].leadQuality).backgroundColor!,
+                                    textColor: widget.Id == 1 ? circularProg.firstWhere((element) => element.value == surveyDetailsResponse!.data![index].leadQuality).backgroundColor!
+                                                    : circularProg.firstWhere((element) => element.value == navSurveyResponse!.data![index].leadQuality).backgroundColor!,
 
                                     onTap: () {
                                       // print(
                                       //     '------------------------------- ${ct.surveyDetailsResponse!.data![index].surveyID}');
-                                      Navigator.push(context, MaterialPageRoute(builder: (context) =>
-                                                  SurveyDetails(
-                                                    status: widget.Id == 1 ? orderStatusList.firstWhere((element) => element.id == ct.surveyDetailsResponse!.data![index].orderStatus,).value!
-                                                                : orderStatusList.firstWhere((element) => element.id == ct.navSurveyResponse!.data![index].orderStatus).value!,
+                                      Get.to(() =>
+                                          SurveyDetails(
 
-                                                    surveyId: widget.Id == 1 ? ct.surveyDetailsResponse!.data![index].surveyID
-                                                                             : ct.navSurveyResponse!.data![index].surveyID!,
-                                                  )
-                                      )).then((value) async {
+
+                                            surveyId: widget.Id == 1 ? surveyDetailsResponse!.data![index].surveyID
+                                                : navSurveyResponse!.data![index].surveyID!,
+                                          )
+                                      )!.then((value) async {
                                         if (value == true) {
+                                          print(
+                                              '---------------------------------------${widget.Id}');
                                           setState(() {
                                             screenLoad = true;
                                           });
-                                          await getSurveyDetails();
+                                          switch (widget.Id) {
+                                            case 1:
+                                              getSurveyDetails();
+                                              break;
+                                            case 2:
+                                              getPendingDetails();
+                                              break;
+                                            case 3:
+                                              getConfirmedDetails();
+                                              break;
+                                            case 4:
+                                              getCanceledDetails();
+                                              break;
+                                            case 5:
+                                              getstartWorkDetails();
+                                              break;
+                                            case 6:
+                                              getCollectionPendingDetails();
+                                              break;
+                                            case 7:
+                                              getClosedDetails();
+                                              break;
+                                          }
                                         }
                                       });
-                                    },
+                                    }                               // Navigator.push(context, MaterialPageRoute(builder: (context) =>
+                                      //
+                                      // )
+                                    //   .then((value) async {
+                                    //     if (value == true) {
+                                    //       print('---------------------------------------${value}');
+                                    //       setState(() {
+                                    //         screenLoad = true;
+                                    //       });
+                                    //       await getSurveyDetails();
+                                    //     }
+                                    //   });
+                                    // },
                                   ),
                                   SizedBox(
                                     height: 10,
@@ -325,8 +364,8 @@ class _SurveyState extends State<Survey> {
                     ),
                   )
                 ],
-              );
-            }),
+              )
+
 
       // bottomNavigationBar: BottomNav(),
     );

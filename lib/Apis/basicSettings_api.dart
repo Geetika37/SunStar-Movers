@@ -1,20 +1,32 @@
 import 'package:dio/dio.dart';
 import 'package:get/get.dart';
 import 'package:sunstarmovers/controller/appController.dart';
-import 'package:sunstarmovers/responses/DashboardCountResponse.dart';
-import 'package:sunstarmovers/responses/LatestSurveyResponse.dart';
+import 'package:sunstarmovers/responses/BuildingTypeSettingsResponse.dart';
 
-class DashboardApi
+class BasicSettingApi
 {
   AppController appCt=Get.find();
 
+  // ---------SETTINGS-------
 
-  // GET dashboard count
+  // ********** BUILIDNG TYPE *********
 
-  Future<DashboardCountResponse ?> dashboardCountResponse() async
+  // POST BUILDING TYPE SETTINGS DETAILS
+
+  Future<BuildingTypeSettingsResponse?> buildingTypeSettings()async
   {
-    DashboardCountResponse? dashboardCountResponse;
-    var response=await Dio().get('https://sunstar-project.progbiz.io/api/Dashboard/get-dashboard-count',data: {},
+    BuildingTypeSettingsResponse? buildingTypeSettingsResponse;
+    var data={
+      "pageIndex": 1,
+      "pageSize": 100,
+      "searchString": "",
+      "currentFollowupNature": -1,
+      "filterByIdOptions": [],
+      "filterByDateOptions": [],
+      "filterByBooleanOptions": [],
+      "filterByFieldOptions": []
+    };
+    var response=await Dio().post('https://sunstar-project.progbiz.io/api/Common/get-building-type-paged-list',data: data,
         options: Options(
             headers: appCt.token == null
                 ? {
@@ -32,18 +44,17 @@ class DashboardApi
     print(response.data);
     if(response.statusCode==200)
       {
-        dashboardCountResponse=DashboardCountResponse.fromJson(response.data);
+        buildingTypeSettingsResponse=BuildingTypeSettingsResponse.fromJson(response.data);
       }
-    return dashboardCountResponse;
+    return buildingTypeSettingsResponse;
   }
-  
-  
-  // GET latest survey details
 
-  Future<List<LatestSurveyResponse> ?>  LastestSurvey() async
+  // ADD BUILDING TYPE SETTING
+
+  Future<bool> BuildingTypeSettingAdd(dynamic data)async
   {
-    List<LatestSurveyResponse>? latestSurveyResponse;
-    var response=await Dio().get('https://sunstar-project.progbiz.io/api/Dashboard/get-latest-survey-list',data: {},
+    var isSuccess;
+    var response=await Dio().post('https://sunstar-project.progbiz.io/api/Orders/save-building-type',data: data,
         options: Options(
             headers: appCt.token == null
                 ? {
@@ -61,9 +72,9 @@ class DashboardApi
     print(response.data);
     if(response.statusCode==200)
       {
-        latestSurveyResponse= (response.data as List).map((e) =>  LatestSurveyResponse.fromJson(e)).toList();
-
+        isSuccess=true;
       }
-    return latestSurveyResponse;
+    return isSuccess;
   }
+
 }

@@ -9,11 +9,14 @@ import 'package:sunstarmovers/pages/SurveyPendingConfirm.dart';
 import 'package:sunstarmovers/pages/TextField1.dart';
 import 'package:sunstarmovers/pages/showDialog.dart';
 import 'package:sunstarmovers/responses/ActivityResponse.dart';
+import 'package:sunstarmovers/responses/MarketingDetailResponse.dart';
 import 'package:sunstarmovers/responses/MarketingEmirateResponse.dart';
+import 'package:sunstarmovers/responses/MarketingResponse.dart';
 
 class MarketingAdd extends StatefulWidget {
+  final AllMarketingDetailResponse? allMarketingDetailResponse;
   final int? MarketingId;
-  const MarketingAdd({super.key, this.MarketingId});
+  const MarketingAdd({super.key, this.MarketingId, this.allMarketingDetailResponse, });
 
   @override
   State<MarketingAdd> createState() => _MarketingAddState();
@@ -45,6 +48,34 @@ class _MarketingAddState extends State<MarketingAdd> {
   AppController appCt = Get.find();
   @override
   void initState() {
+
+    if(widget.allMarketingDetailResponse!=null)
+      {
+        _marketingOrderNumber.text='${appCt.allMarketingDetailResponse?.marketingNo}';
+
+        if(widget.allMarketingDetailResponse?.date!=null)
+          {
+            _dateeController.text='${widget.allMarketingDetailResponse?.date}';
+            _picked3=DateTime.parse(widget.allMarketingDetailResponse!.date!);
+          }
+
+        _time1='${widget.allMarketingDetailResponse?.time}';
+        _activityDetailController.text='${widget.allMarketingDetailResponse!.activityDetails}';
+        _isd1Controller.text='${widget.allMarketingDetailResponse!.phoneCountryID}';
+
+        _phoneNumber1Controller.text='${widget.allMarketingDetailResponse!.customerPhone}';
+        _isd2Controller.text='${widget.allMarketingDetailResponse!.phone2CountryID}';
+        _phoneNumber2Controller.text='${widget.allMarketingDetailResponse!.customerPhone2}';
+        _customerNameController.text='${widget.allMarketingDetailResponse!.customerName}';
+        _emailController.text='${widget.allMarketingDetailResponse!.emailAddress}';
+        _companyNameController.text='${widget.allMarketingDetailResponse!.companyName}';
+        _designationController.text='${widget.allMarketingDetailResponse!.designation}';
+        _addressController.text='${widget.allMarketingDetailResponse!.address}';
+        _nationalityController.text='${widget.allMarketingDetailResponse!.nationality}';
+        _placeController.text='${widget.allMarketingDetailResponse!.place}';
+
+
+      }
     getEmirate();
     getMarketingOrderNumber();
     getActivity();
@@ -53,6 +84,10 @@ class _MarketingAddState extends State<MarketingAdd> {
 
   getEmirate() async {
     appCt.marketingEmirateResponse = await MarketingApi().marketingEmirate();
+    if(widget.allMarketingDetailResponse!=null)
+      {
+        _emirate=appCt.marketingEmirateResponse!.firstWhere((element) => element.id ==appCt.allMarketingDetailResponse?.emirateID);
+      }
     setState(() {
       screenLoad = false;
     });
@@ -60,16 +95,21 @@ class _MarketingAddState extends State<MarketingAdd> {
 
   getActivity() async {
     appCt.activityResponse = await MarketingApi().activity();
+    if(widget.allMarketingDetailResponse!=null)
+      {
+        _activity=appCt.activityResponse!.firstWhere((element) => element.id ==appCt.allMarketingDetailResponse?.activityID);
+      }
     setState(() {
       screenLoad = false;
     });
   }
 
   getMarketingOrderNumber() async {
-    appCt.marketingOrderNumberResponse =
-        await MarketingApi().marketingOrderNumber();
-    _marketingOrderNumber.text =
-        appCt.marketingOrderNumberResponse!.orderNo.toString() ?? '';
+    appCt.marketingOrderNumberResponse = await MarketingApi().marketingOrderNumber();
+    if(widget.allMarketingDetailResponse==null)
+      {
+        _marketingOrderNumber.text = appCt.marketingOrderNumberResponse!.orderNo.toString() ?? '';
+      }
     if (mounted) {
       setState(() {
         screenLoad = false;
@@ -344,7 +384,8 @@ class _MarketingAddState extends State<MarketingAdd> {
                                 buttonName: 'Save',
                                 onPressed: () async {
                                   var data = {
-                                    "marketingID": 0,
+                                    "marketingID": widget.allMarketingDetailResponse!=null?
+                                    widget.allMarketingDetailResponse?.marketingID:0,
                                     "marketingNo": int.parse(_marketingOrderNumber.text),
                                     "activityID": _activity?.id,
                                     "activityDetails": _activityDetailController.text,

@@ -21,7 +21,7 @@ class SurveyApi {
   Future<SurveyDetailsResponse?> surevyDetails() async {
     SurveyDetailsResponse? suveryDetailResponse;
     var response = await Dio()
-        .post('https://ssmovers.progbiz.io/api/Orders/get-orders-paged-list',
+        .post('https://sunstar-project.progbiz.io/api/Orders/get-orders-paged-list',
             data: {
               "pageIndex": 1,
               "pageSize": 100,
@@ -61,7 +61,7 @@ class SurveyApi {
 
     try {
       var response =
-          await Dio().post('https://ssmovers.progbiz.io/api/Orders/save-orders',
+          await Dio().post('https://sunstar-project.progbiz.io/api/Orders/save-orders',
               data: data,
               options: Options(
                   headers: appCt.token == null
@@ -92,7 +92,7 @@ class SurveyApi {
   Future<OrderNumberResponse?> orderNumber() async {
     OrderNumberResponse? orderNumberResponse;
     var response = await Dio()
-        .get('https://ssmovers.progbiz.io/api/Orders/get-order-number',
+        .get('https://sunstar-project.progbiz.io/api/Orders/get-order-number',
             data: {},
             options: Options(
                 headers: appCt.token == null
@@ -125,7 +125,7 @@ class SurveyApi {
       "dropdownMode": 0
     };
     var response = await Dio().post(
-        'https://ssmovers.progbiz.io/api/Common/get-list-of-building-types',
+        'https://sunstar-project.progbiz.io/api/Common/get-list-of-building-types',
         data: data,
         options: Options(
             headers: appCt.token == null
@@ -161,7 +161,7 @@ class SurveyApi {
       "dropdownMode": 0
     };
     var response = await Dio()
-        .post('https://ssmovers.progbiz.io/api/Common/get-list-of-moving-types',
+        .post('https://sunstar-project.progbiz.io/api/Common/get-list-of-moving-types',
             data: data,
             options: Options(
                 headers: appCt.token == null
@@ -196,7 +196,7 @@ class SurveyApi {
       "dropdownMode": 0
     };
     var response = await Dio()
-        .post('https://ssmovers.progbiz.io/api/Common/get-list-of-emirates',
+        .post('https://sunstar-project.progbiz.io/api/Common/get-list-of-emirates',
             data: data,
             options: Options(
                 headers: appCt.token == null
@@ -231,7 +231,7 @@ class SurveyApi {
       "dropdownMode": 0
     };
     var response = await Dio()
-        .post('https://ssmovers.progbiz.io/api/Common/get-list-of-lead-source',
+        .post('https://sunstar-project.progbiz.io/api/Common/get-list-of-lead-source',
             data: data,
             options: Options(
                 headers: appCt.token == null
@@ -261,7 +261,7 @@ class SurveyApi {
   {
     AllSurveyResponse? allSurveyResponse;
 print(appCt.token);
-    var response=await Dio().get('https://ssmovers.progbiz.io/api/Orders/get-all-servey/${surveyID}',data: {},
+    var response=await Dio().get('https://sunstar-project.progbiz.io/api/Orders/get-all-servey/${surveyID}',data: {},
         options: Options(
             headers: appCt.token == null
                 ? {
@@ -291,7 +291,7 @@ print(appCt.token);
   {
       var isSuccess;
       print(appCt.token);
-      var response=await Dio().get('https://ssmovers.progbiz.io/api/Orders/detete-survey/${surveyID}',data: {},
+      var response=await Dio().get('https://sunstar-project.progbiz.io/api/Orders/detete-survey/${surveyID}',data: {},
           options: Options(
               headers: appCt.token == null
                   ? {
@@ -330,7 +330,7 @@ print(appCt.token);
       "entityID": 0,
       "remark": remark
     };
-    var response=await Dio().post('https://ssmovers.progbiz.io/api/Orders/save-survey-remark',data:data,
+    var response=await Dio().post('https://sunstar-project.progbiz.io/api/Orders/save-survey-remark',data:data,
         options: Options(
             headers: appCt.token == null
                 ? {
@@ -364,7 +364,7 @@ print(appCt.token);
       "surveyID": surevyID,
       "canceledReason": cancelReason
     };
-    var response=await Dio().post('https://ssmovers.progbiz.io/api/Orders/save-canceled-reason',data: data,
+    var response=await Dio().post('https://sunstar-project.progbiz.io/api/Orders/save-canceled-reason',data: data,
         options: Options(
             headers: appCt.token == null
                 ? {
@@ -413,7 +413,7 @@ print(appCt.token);
 
       ]
     };
-    var response=await Dio().post('https://ssmovers.progbiz.io/api/Orders/get-survey-pending-paged-list',data: data,
+    var response=await Dio().post('https://sunstar-project.progbiz.io/api/Orders/get-survey-pending-paged-list',data: data,
         options: Options(
             headers: appCt.token == null
                 ? {
@@ -459,7 +459,7 @@ print(appCt.token);
 
       ]
     };
-    var response=await Dio().post('https://ssmovers.progbiz.io/api/Orders/get-survey-confirmed-paged-list',data: data,
+    var response=await Dio().post('https://sunstar-project.progbiz.io/api/Orders/get-survey-confirmed-paged-list',data: data,
         options: Options(
             headers: appCt.token == null
                 ? {
@@ -507,7 +507,7 @@ print(appCt.token);
 
       ]
     };
-    var response=await Dio().post('https://ssmovers.progbiz.io/api/Orders/get-survey-cancelled-paged-list',data: data,
+    var response=await Dio().post('https://sunstar-project.progbiz.io/api/Orders/get-survey-cancelled-paged-list',data: data,
         options: Options(
             headers: appCt.token == null
                 ? {
@@ -555,7 +555,7 @@ print(appCt.token);
 
       ]
     };
-    var response=await Dio().post('https://ssmovers.progbiz.io/api/Orders/get-survey-start-work-paged-list',data: data,
+    var response=await Dio().post('https://sunstar-project.progbiz.io/api/Orders/get-survey-start-work-paged-list',data: data,
         options: Options(
             headers: appCt.token == null
                 ? {
@@ -602,7 +602,7 @@ print(appCt.token);
 
       ]
     };
-    var response=await Dio().post('https://ssmovers.progbiz.io/api/Orders/get-collection-pending-paged-list',data: data,
+    var response=await Dio().post('https://sunstar-project.progbiz.io/api/Orders/get-collection-pending-paged-list',data: data,
         options: Options(
             headers: appCt.token == null
                 ? {
@@ -648,7 +648,7 @@ print(appCt.token);
 
       ]
     };
-    var response=await Dio().post('https://ssmovers.progbiz.io/api/Orders/get-survey-complete-paged-list',data: data,
+    var response=await Dio().post('https://sunstar-project.progbiz.io/api/Orders/get-survey-complete-paged-list',data: data,
         options: Options(
             headers: appCt.token == null
                 ? {

@@ -16,6 +16,7 @@ import 'package:sunstarmovers/responses/MovingTypeResponse.dart';
 import 'package:sunstarmovers/responses/OrderNumberResponse.dart';
 import 'package:sunstarmovers/responses/ProfileDetailsResponse.dart';
 import 'package:sunstarmovers/responses/SurveyDetailsResponse.dart';
+import 'package:sunstarmovers/responses/TeamLeaderResponse.dart';
 import 'package:sunstarmovers/responses/navSurveyResponse.dart';
 
 class AppController extends GetxController
@@ -33,10 +34,9 @@ class AppController extends GetxController
 
   List<LatestSurveyResponse>? lastestSurvey;
 
-  SurveyDetailsResponse? surveyDetailsResponse;
   MarketingDetailResponse? marketingDetailResponse;
 
-  NavSurveyResponse? navSurveyResponse;
+
 
   MarketingOrderNumberResponse? marketingOrderNumberResponse;
   OrderNumberResponse? orderNumberResponse;
@@ -61,4 +61,6 @@ class AppController extends GetxController
   List<MarketingEmirateResponse>? marketingEmirateResponse;
 
   AllMarketingDetailResponse? allMarketingDetailResponse;
+
+  List<TeamLeaderResponse>? teamLeaderResponse;
 }

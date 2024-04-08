@@ -115,16 +115,20 @@ class _navBarState extends State<navBar> {
                         image: 'assets/Complaints.png',
                         label: 'Complaints',
                         onTap: () {
-                          Navigator.push(context, MaterialPageRoute(builder: (context)=>Complaint()));
+                          Get.to(()=>Complaint(Id: 1,));
                         }),
                     DrawerWidget(
                         image: 'assets/pendingsurvey.png',
                         label: 'Pending Complaints',
-                        onTap: () {}),
+                        onTap: () {
+                          Get.to(()=>Complaint(Id: 2,));
+                        }),
                     DrawerWidget(
                         image: 'assets/closedwork.png',
                         label: 'Closed Complaints',
-                        onTap: () {})
+                        onTap: () {
+                          Get.to(()=>Complaint(Id: 3,));
+                        })
                   ],
                 ),
 
