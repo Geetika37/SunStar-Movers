@@ -1,13 +1,40 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:sunstarmovers/Apis/basicSettings_api.dart';
 import 'package:sunstarmovers/pages/SettingBuildingSheet.dart';
 import 'package:sunstarmovers/pages/SettingTeamLeadsheet.dart';
 import 'package:sunstarmovers/pages/SettingsBuilding.dart';
 import 'package:sunstarmovers/pages/searchBar.dart';
+import 'package:sunstarmovers/pages/showDialog2.dart';
+import 'package:sunstarmovers/responses/TeamLeaderSettingsResponse.dart';
 
-class SettingTeamLead extends StatelessWidget {
+class SettingTeamLead extends StatefulWidget {
   const SettingTeamLead({super.key});
 
   @override
+  State<SettingTeamLead> createState() => _SettingTeamLeadState();
+}
+
+class _SettingTeamLeadState extends State<SettingTeamLead> {
+  TeamLeaderSettingsResponse? teamLeaderSettingsResponse;
+  bool screenLoad=true;
+
+  @override
+  void initState() {
+    getTeamLeadDetails();
+    super.initState();
+  }
+
+  @override
+
+  getTeamLeadDetails()async
+  {
+    teamLeaderSettingsResponse=await BasicSettingApi().teamLeaderSettingsResponse();
+    setState(() {
+      screenLoad=false;
+    });
+  }
+
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
@@ -48,6 +75,16 @@ class SettingTeamLead extends StatelessWidget {
                     {
                       return SettingTeamLeadSheet();
                     }
+                ).then((value)async
+                {
+                  if(value==true)
+                  {
+                    setState(() {
+                      screenLoad=true;
+                    });
+                    await getTeamLeadDetails();
+                  }
+                }
                 );
               },
               icon: ImageIcon(
@@ -62,7 +99,10 @@ class SettingTeamLead extends StatelessWidget {
       ),
 
 
-      body: Padding(
+      body: screenLoad?  Center(
+          child: CircularProgressIndicator(
+            color: Colors.red,
+          )):Padding(
         padding: const EdgeInsets.all(8.0),
         child: ListView(
           children: [
@@ -86,86 +126,68 @@ class SettingTeamLead extends StatelessWidget {
                       ],
                     ),
 
-                    Rows1(text1: 'user1',onTap: (){
-                      showModalBottomSheet(
-                          context: context,
-                          builder: (BuildContext context)
-                          {
-                            return SettingTeamLeadSheet();
-                          }
-                      );
-                    },),
-                    new Divider(color: Colors.grey.shade300,),
-                    Rows1(text1: 'rajeev',onTap: (){
-                      showModalBottomSheet(
-                          context: context,
-                          builder: (BuildContext context)
-                          {
-                            return SettingTeamLeadSheet();
-                          }
-                      );
-                    }),
-                    new Divider(color: Colors.grey.shade300,),
-                    Rows1(text1: 'Test',onTap: (){
-                      showModalBottomSheet(
-                          context: context,
-                          builder: (BuildContext context)
-                          {
-                            return SettingTeamLeadSheet();
-                          }
-                      );
-                    }),
-                    new Divider(color: Colors.grey.shade300,),
-                    Rows1(text1: 'Ware House',onTap: (){
-                      showModalBottomSheet(
-                          context: context,
-                          builder: (BuildContext context)
-                          {
-                            return SettingTeamLeadSheet();
-                          }
-                      );
-                    }),
-                    new Divider(color: Colors.grey.shade300,),
-                    Rows1(text1: 'Office 2',onTap: (){
-                      showModalBottomSheet(
-                          context: context,
-                          builder: (BuildContext context)
-                          {
-                            return SettingTeamLeadSheet();
-                          }
-                      );
-                    }),
-                    new Divider(color: Colors.grey.shade300,),
-                    Rows1(text1: 'home',onTap: (){
-                      showModalBottomSheet(
-                          context: context,
-                          builder: (BuildContext context)
-                          {
-                            return SettingTeamLeadSheet();
-                          }
-                      );
-                    }),
-                    new Divider(color: Colors.grey.shade300,),
-                    Rows1(text1: 'apartments',onTap: (){
-                      showModalBottomSheet(
-                          context: context,
-                          builder: (BuildContext context)
-                          {
-                            return SettingTeamLeadSheet();
-                          }
-                      );
-                    }),
-                    new Divider(color: Colors.grey.shade300,),
-                    Rows1(text1: 'ddd',onTap: (){
-                      showModalBottomSheet(
-                          context: context,
-                          builder: (BuildContext context)
-                          {
-                            return SettingTeamLeadSheet();
-                          }
-                      );
-                    }),
-                    new Divider(color: Colors.grey.shade300,),
+                    ListView.builder(
+                      physics: NeverScrollableScrollPhysics(),
+                        shrinkWrap: true,
+                        itemCount: teamLeaderSettingsResponse!.data!.length,
+                        itemBuilder: (context,index)
+                            {
+                              return Column(
+                                children: [
+                                  Rows1(text1: teamLeaderSettingsResponse!.data![index].teamLeaderName!,
+                                    onTap: (){
+                                    showModalBottomSheet(
+                                        context: context,
+                                        builder: (BuildContext context)
+                                        {
+                                          return SettingTeamLeadSheet();
+                                        }
+                                    ).then((value)async
+                                    {
+                                      if(value==true)
+                                        {
+                                          setState(() {
+                                            screenLoad=true;
+                                          });
+                                          await getTeamLeadDetails();
+                                        }
+                                    }
+                                    );
+                                  },
+
+                                     onTap1: (){
+                                    showDialog(
+                                        context: context,
+                                        builder: (BuildContext context)
+                                        {
+                                          return showDialog2(
+                                              title: 'Confirm',
+                                              subtitle: 'Are you sure you want to delete Team lead.?',
+                                              button1: 'Yes',
+                                              button2: 'Cancel',
+                                            onPressed: ()async
+                                            {
+                                              var isSuceess=await BasicSettingApi().deleteTeamLead(teamLeaderSettingsResponse!.data![index].teamLeaderID);
+                                              Get.back(result: true);
+                                              await getTeamLeadDetails();
+                                            },
+                                          );
+
+                                          ;
+                                        }
+
+                                    );
+                                     },
+
+                                  ),
+                                  new Divider(color: Colors.grey.shade300,),
+                                ],
+                              );
+                            }
+                    ),
+
+
+
                   ],
                 ),
               ),

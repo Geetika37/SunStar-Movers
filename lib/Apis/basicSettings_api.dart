@@ -261,6 +261,163 @@ class BasicSettingApi
   }
 
 
+  // ADD LEAD SOURCE
+
+  Future<bool> LeadSourceSettingAdd(dynamic data)async
+  {
+    var isSuccess;
+    var response=await Dio().post('https://sunstar-project.progbiz.io/api/Orders/save-lead-source',data: data,
+        options: Options(
+            headers: appCt.token == null
+                ? {
+              "Accept": "application/json",
+              "content-type": "application/json",
+              "Accept-Language": "En"
+            }
+                : {
+              "Accept": "application/json",
+              "content-type": "application/json",
+              "Authorization": "Bearer " + appCt.token!,
+              "Accept-Language": "En"
+            })
+    );
+    print(response.data);
+    if(response.statusCode==200)
+      {
+        isSuccess=true;
+      }
+    return isSuccess;
+  }
+
+  // DELETE LEAD SOURCE
+
+  Future<bool> deleteLeadSourceType(int? leadSourceTypeID)async
+  {
+    var isSuccess;
+    var response=await Dio().get('https://sunstar-project.progbiz.io/api/Leads/detete-lead-source/${leadSourceTypeID}',data:{},
+        options: Options(
+            headers: appCt.token == null
+                ? {
+              "Accept": "application/json",
+              "content-type": "application/json",
+              "Accept-Language": "En"
+            }
+                : {
+              "Accept": "application/json",
+              "content-type": "application/json",
+              "Authorization": "Bearer " + appCt.token!,
+              "Accept-Language": "En"
+            })
+    );
+    print(response.data);
+    if(response.statusCode==200)
+      {
+        isSuccess=true;
+      }
+    return isSuccess;
+  }
+
+
+
+
+
+
+
+  // **********TEAM LEAD *********
+// POST TEAM LEAD DETAILS
+
+  Future<TeamLeaderSettingsResponse ?> teamLeaderSettingsResponse()async
+  {
+    TeamLeaderSettingsResponse? teamLeaderSettingsResponse;
+    var data={
+      "pageIndex": 1,
+      "pageSize": 100,
+      "searchString": "",
+      "currentFollowupNature": -1,
+      "filterByIdOptions": [],
+      "filterByDateOptions": [],
+      "filterByBooleanOptions": [],
+      "filterByFieldOptions": []
+    };
+    var response=await Dio().post('https://sunstar-project.progbiz.io/api/Common/get-team-leader-paged-list',data: data,
+        options: Options(
+            headers: appCt.token == null
+                ? {
+              "Accept": "application/json",
+              "content-type": "application/json",
+              "Accept-Language": "En"
+            }
+                : {
+              "Accept": "application/json",
+              "content-type": "application/json",
+              "Authorization": "Bearer " + appCt.token!,
+              "Accept-Language": "En"
+            })
+    );
+    print(response.data);
+    if(response.statusCode==200)
+    {
+      teamLeaderSettingsResponse=TeamLeaderSettingsResponse.fromJson(response.data);
+    }
+    return teamLeaderSettingsResponse;
+  }
+
+
+  // ADD TEAM LEAD
+  Future<bool> TeamLeadTypeSettingAdd(dynamic data)async
+  {
+    var isSuccess;
+    var response=await Dio().post('https://sunstar-project.progbiz.io/api/Orders/save-team-leaders',data: data,
+        options: Options(
+            headers: appCt.token == null
+                ? {
+              "Accept": "application/json",
+              "content-type": "application/json",
+              "Accept-Language": "En"
+            }
+                : {
+              "Accept": "application/json",
+              "content-type": "application/json",
+              "Authorization": "Bearer " + appCt.token!,
+              "Accept-Language": "En"
+            })
+    );
+    print(response.data);
+    if(response.statusCode==200)
+      {
+        isSuccess=true;
+      }
+    return isSuccess;
+  }
+
+
+  // DELETE TEAM LEAD
+
+  Future<bool> deleteTeamLead(int? teamLeadTypeId)async
+  {
+    var isSuccess;
+    var response=await Dio().get('https://sunstar-project.progbiz.io/api/Common/detete-team-leader/${teamLeadTypeId}',data: {},
+        options: Options(
+            headers: appCt.token == null
+                ? {
+              "Accept": "application/json",
+              "content-type": "application/json",
+              "Accept-Language": "En"
+            }
+                : {
+              "Accept": "application/json",
+              "content-type": "application/json",
+              "Authorization": "Bearer " + appCt.token!,
+              "Accept-Language": "En"
+            })
+    );
+    print(response.data);
+    if(response.statusCode==200)
+      {
+        isSuccess=true;
+      }
+    return isSuccess;
+  }
 
 
 
