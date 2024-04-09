@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:sunstarmovers/Apis/basicSettings_api.dart';
 import 'package:sunstarmovers/pages/SettingBuildingSheet.dart';
 import 'package:sunstarmovers/pages/searchBar.dart';
+import 'package:sunstarmovers/pages/showDialog2.dart';
 import 'package:sunstarmovers/responses/BuildingTypeSettingsResponse.dart';
 
 class SettingsBuilding extends StatefulWidget {
@@ -64,11 +66,22 @@ class _SettingsBuildingState extends State<SettingsBuilding> {
           IconButton(
               onPressed: () {
                 showModalBottomSheet(
+                  isScrollControlled: true,
                     context: context,
                     builder: (BuildContext context)
                     {
                       return SettingBuildingSheet();
                     }
+                ).then((value) async
+                {
+                  if(value=true)
+                  {
+                    setState(() {
+                      screenLoad=true;
+                    });
+                    await getBuildingTypeSettingResponse();
+                  }
+                }
                 );
               },
               icon: ImageIcon(
@@ -118,8 +131,28 @@ class _SettingsBuildingState extends State<SettingsBuilding> {
                               return Column(
                                 children: [
                                   Rows1(
-                                    buildingTypeId: buildingTypeSettingsResponse!.data![index].buildingTypeID,
+                                    Id: buildingTypeSettingsResponse!.data![index].buildingTypeID,
                                     text1: buildingTypeSettingsResponse!.data![index].buildingTypeName!,
+                                    onTap1: ()
+                                    {
+                                      showDialog(
+                                          context: context,
+                                          builder: (BuildContext context)
+                                          {
+                                            return showDialog2(
+                                                title: 'Confirm',
+                                                subtitle: 'Are you sure you want to delete this building type.?',
+                                                button1: 'Yes',
+                                                button2: 'Cancel',
+                                              onPressed: ()async{
+                                                  var isSuccess=await BasicSettingApi().deleteBuildingType(buildingTypeSettingsResponse!.data![index].buildingTypeID);
+                                                  Get.back(result: true);
+                                                  await getBuildingTypeSettingResponse();
+                                              },
+                                            );
+                                          }
+                                      );
+                                    },
                                     onTap: (){
                                     showModalBottomSheet(
                                         context: context,
@@ -130,12 +163,12 @@ class _SettingsBuildingState extends State<SettingsBuilding> {
                                     ).then((value) async
                                     {
                                       if(value=true)
-                                        {
-                                          setState(() {
-                                            screenLoad=true;
-                                          });
-                                          await getBuildingTypeSettingResponse();
-                                        }
+                                      {
+                                        setState(() {
+                                          screenLoad=true;
+                                        });
+                                        await getBuildingTypeSettingResponse();
+                                      }
                                     }
                                     );
                                   },),
@@ -240,11 +273,12 @@ class _SettingsBuildingState extends State<SettingsBuilding> {
 
 
 class Rows1 extends StatelessWidget {
-  final int? buildingTypeId;
-  final String? buildingTypeName;
+  final int? Id;
+  final String? Name;
   final String text1;
   final Function() onTap;
-  const Rows1({super.key, required this.text1, required this.onTap, this.buildingTypeId, this.buildingTypeName});
+  final Function()? onTap1;
+  const Rows1({super.key, required this.text1, required this.onTap,  this.onTap1, this.Id, this.Name});
 
   @override
   Widget build(BuildContext context) {
@@ -256,7 +290,7 @@ class Rows1 extends StatelessWidget {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.end,
           children: [
-            IconButton(onPressed: (){}, icon: Image.asset('assets/trash-04.png')),
+            IconButton(onPressed: onTap1, icon: Image.asset('assets/trash-04.png')),
             IconButton(onPressed: onTap
             , icon: Image.asset('assets/edit-05.png')),
           ],

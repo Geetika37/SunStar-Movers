@@ -139,6 +139,7 @@ flutter:
     - assets/homeColor.png
     - assets/calenderColor.png
     - assets/accountcolor.png
+    - assets/calender_schedule.png
 
   #   - images/a_dot_ham.jpeg
 
