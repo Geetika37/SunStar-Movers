@@ -27,7 +27,7 @@ class MarketingApi
         "filterByBooleanOptions": [],
         "filterByFieldOptions": []
     };
-    var response=await Dio().post('https://ssmovers.progbiz.io/api/Marketing/get-marketing-paged-list',data: data,
+    var response=await Dio().post('https://sunstar-project.progbiz.io/api/Marketing/get-marketing-paged-list',data: data,
         options: Options(
             headers: appCt.token == null
                 ? {
@@ -56,7 +56,7 @@ class MarketingApi
   Future<MarketingOrderNumberResponse ?> marketingOrderNumber()async
   {
     MarketingOrderNumberResponse? marketingOrderNumberResponse;
-    var response=await Dio().get('https://ssmovers.progbiz.io/api/Marketing/get-marketing-number',data: {},
+    var response=await Dio().get('https://sunstar-project.progbiz.io/api/Marketing/get-marketing-number',data: {},
         options: Options(
             headers: appCt.token == null
                 ? {
@@ -86,7 +86,7 @@ class MarketingApi
   Future<bool> MarketingAdd(dynamic data)async
   {
     var isSuccess;
-    var response=await Dio().post('https://ssmovers.progbiz.io/api/Marketing/save-marketing',data: data,
+    var response=await Dio().post('https://sunstar-project.progbiz.io/api/Marketing/save-marketing',data: data,
         options: Options(
             headers: appCt.token == null
                 ? {
@@ -121,7 +121,7 @@ class MarketingApi
       "readDataOnSearch": false,
       "dropdownMode": 0
     };
-    var response=await Dio().post('https://ssmovers.progbiz.io/api/Common/get-list-of-activities',data: data,
+    var response=await Dio().post('https://sunstar-project.progbiz.io/api/Common/get-list-of-activities',data: data,
         options: Options(
             headers: appCt.token == null
                 ? {
@@ -160,7 +160,7 @@ class MarketingApi
       "readDataOnSearch": false,
       "dropdownMode": 0
     };
-    var response=await Dio().post('https://ssmovers.progbiz.io/api/Common/get-list-of-emirates',data: data,
+    var response=await Dio().post('https://sunstar-project.progbiz.io/api/Common/get-list-of-emirates',data: data,
         options: Options(
             headers: appCt.token == null
                 ? {
@@ -192,7 +192,7 @@ class MarketingApi
   {
     AllMarketingDetailResponse? allMarketingDetailResponse;
     print(appCt.token);
-    var response=await Dio().get('https://ssmovers.progbiz.io/api/Marketing/get-all-marketing-view-data/${marketingId}',data: {},
+    var response=await Dio().get('https://sunstar-project.progbiz.io/api/Marketing/get-all-marketing-view-data/${marketingId}',data: {},
         options: Options(
             headers: appCt.token == null
                 ? {
@@ -222,7 +222,43 @@ class MarketingApi
   {
     var isSuccess;
     print(appCt.token);
-    var response=await Dio().get('https://ssmovers.progbiz.io/api/Marketing/detete-activity/${marketingId}',data: {},
+    var response=await Dio().get('https://sunstar-project.progbiz.io/api/Marketing/detete-activity/${marketingId}',data: {},
+        options: Options(
+            headers: appCt.token == null
+                ? {
+              "Accept": "application/json",
+              "content-type": "application/json",
+              "Accept-Language": "En"
+            }
+                : {
+              "Accept": "application/json",
+              "content-type": "application/json",
+              "Authorization": "Bearer " + appCt.token!,
+              "Accept-Language": "En"
+            })
+    );
+    print(response.data);
+    if(response.statusCode==200)
+      {
+        isSuccess=true;
+      }
+    return isSuccess;
+  }
+
+
+  // POST COMMENT SURVEY
+  Future<bool> commentMarketing({String? remark,int? MarketingId })async
+  {
+    var isSuccess;
+    print(appCt.token);
+    var data={
+      "isDeleted": false,
+      "feedBackID": 0,
+      "feedBack": remark,
+      "entityID": 0,
+      "marketingID": MarketingId
+    };
+    var response=await Dio().post('https://sunstar-project.progbiz.io/api/Marketing/save-marketing-feedback',data: data,
         options: Options(
             headers: appCt.token == null
                 ? {

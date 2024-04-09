@@ -1,12 +1,38 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:sunstarmovers/Apis/basicSettings_api.dart';
 import 'package:sunstarmovers/pages/SettingLeadSourcesheet.dart';
 import 'package:sunstarmovers/pages/SettingsBuilding.dart';
 import 'package:sunstarmovers/pages/searchBar.dart';
+import 'package:sunstarmovers/pages/showDialog2.dart';
+import 'package:sunstarmovers/responses/LeadSourceSettingsResponse.dart';
 
-class SettingLeadSource extends StatelessWidget {
+class SettingLeadSource extends StatefulWidget {
   const SettingLeadSource({super.key});
 
   @override
+  State<SettingLeadSource> createState() => _SettingLeadSourceState();
+}
+
+class _SettingLeadSourceState extends State<SettingLeadSource> {
+  LeadSourceSettingsResponse? leadSourceSettingsResponse;
+  bool screenLoad=true;
+
+  @override
+  void initState() {
+    getLeadSourceDetails();
+    super.initState();
+  }
+  @override
+
+  getLeadSourceDetails()async
+  {
+    leadSourceSettingsResponse=await BasicSettingApi().leadSourceSettings();
+    setState(() {
+      screenLoad=false;
+    });
+  }
+
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
@@ -47,6 +73,16 @@ class SettingLeadSource extends StatelessWidget {
                     {
                       return SettingLeadSourceSheet();
                     }
+                ).then((value) async
+                    {
+                      if(value==true)
+                        {
+                          setState(() {
+                            screenLoad=true;
+                          });
+                          await getLeadSourceDetails();
+                        }
+                    }
                 );
               },
               icon: ImageIcon(
@@ -61,7 +97,10 @@ class SettingLeadSource extends StatelessWidget {
       ),
 
 
-      body: Padding(
+      body:screenLoad?  Center(
+          child: CircularProgressIndicator(
+            color: Colors.red,
+          )): Padding(
         padding: const EdgeInsets.all(8.0),
         child: ListView(
           children: [
@@ -85,86 +124,64 @@ class SettingLeadSource extends StatelessWidget {
                       ],
                     ),
 
-                    Rows1(text1: 'Whatsapp',onTap: (){
-                      showModalBottomSheet(
-                          context: context,
-                          builder: (BuildContext context)
-                          {
-                            return SettingLeadSourceSheet();
-                          }
-                      );
-                    },),
-                    new Divider(color: Colors.grey.shade300,),
-                    Rows1(text1: 'Office',onTap: (){
-                      showModalBottomSheet(
-                          context: context,
-                          builder: (BuildContext context)
-                          {
-                            return SettingLeadSourceSheet();
-                          }
-                      );
-                    }),
-                    new Divider(color: Colors.grey.shade300,),
-                    Rows1(text1: 'Thomas',onTap: (){
-                      showModalBottomSheet(
-                          context: context,
-                          builder: (BuildContext context)
-                          {
-                            return SettingLeadSourceSheet();
-                          }
-                      );
-                    }),
-                    new Divider(color: Colors.grey.shade300,),
-                    Rows1(text1: 'Geetika',onTap: (){
-                      showModalBottomSheet(
-                          context: context,
-                          builder: (BuildContext context)
-                          {
-                            return SettingLeadSourceSheet();
-                          }
-                      );
-                    }),
-                    new Divider(color: Colors.grey.shade300,),
-                    Rows1(text1: 'Office 2',onTap: (){
-                      showModalBottomSheet(
-                          context: context,
-                          builder: (BuildContext context)
-                          {
-                            return SettingLeadSourceSheet();
-                          }
-                      );
-                    }),
-                    new Divider(color: Colors.grey.shade300,),
-                    Rows1(text1: 'Thomas davaid',onTap: (){
-                      showModalBottomSheet(
-                          context: context,
-                          builder: (BuildContext context)
-                          {
-                            return SettingLeadSourceSheet();
-                          }
-                      );
-                    }),
-                    new Divider(color: Colors.grey.shade300,),
-                    Rows1(text1: 'Test',onTap: (){
-                      showModalBottomSheet(
-                          context: context,
-                          builder: (BuildContext context)
-                          {
-                            return SettingLeadSourceSheet();
-                          }
-                      );
-                    }),
-                    new Divider(color: Colors.grey.shade300,),
-                    Rows1(text1: 'ddd',onTap: (){
-                      showModalBottomSheet(
-                          context: context,
-                          builder: (BuildContext context)
-                          {
-                            return SettingLeadSourceSheet();
-                          }
-                      );
-                    }),
-                    new Divider(color: Colors.grey.shade300,),
+                    ListView.builder(
+                      physics: NeverScrollableScrollPhysics(),
+                        shrinkWrap: true,
+                        itemCount: leadSourceSettingsResponse!.data!.length,
+                        itemBuilder: (context,index)
+                            {
+                              return Column(
+                                children: [
+                                  Rows1(
+                                    text1: leadSourceSettingsResponse!.data![index].leadSourseName!,
+                                    onTap: (){
+                                    showModalBottomSheet(
+                                        context: context,
+                                        builder: (BuildContext context)
+                                        {
+                                          return SettingLeadSourceSheet(leadSourceID: leadSourceSettingsResponse!.data![index].leadSourceID,leadSourceName: leadSourceSettingsResponse!.data![index].leadSourseName,);
+                                        }
+                                    ).then((value)async
+                                    {
+                                      if(value==true)
+                                        {
+                                          setState(() {
+                                            screenLoad=true;
+                                          });
+                                          await getLeadSourceDetails();
+                                        }
+                                    }
+                                    );
+                                  },
+
+                                  onTap1: (){
+                                      showDialog(
+                                          context: context,
+                                          builder: (BuildContext context)
+                                          {
+                                            return showDialog2(
+                                                title: 'Confirm',
+                                                subtitle: 'Are you sure you want to delete Lead Source.?',
+                                                button1: 'Yes',
+                                                button2: 'Cancel',
+                                              onPressed: ()async{
+                                                  var isSuccess=await BasicSettingApi().deleteLeadSourceType(leadSourceSettingsResponse!.data![index].leadSourceID);
+                                                  Get.back(result: true);
+                                                  await getLeadSourceDetails();
+                                              },
+                                            );
+                                          }
+                                      );
+                                  },
+                                  ),
+                                  new Divider(color: Colors.grey.shade300,),
+                                ],
+                              );
+                            }
+                    ),
+
+
+
                   ],
                 ),
               ),

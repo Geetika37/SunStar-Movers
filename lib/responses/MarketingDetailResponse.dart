@@ -1,3 +1,5 @@
+import 'package:flutter/material.dart';
+
 class AllMarketingDetailResponse {
   int? marketingID;
   int? marketingNo;
@@ -24,7 +26,7 @@ class AllMarketingDetailResponse {
   String? emirates;
   int? userID;
   String? nationality;
-  // List<Null>? feedback;
+  List<Feedback>? feedback;
 
   AllMarketingDetailResponse(
       {this.marketingID,
@@ -52,7 +54,7 @@ class AllMarketingDetailResponse {
         this.emirates,
         this.userID,
         this.nationality,
-        // this.feedback
+        this.feedback
       });
 
   AllMarketingDetailResponse.fromJson(Map<String, dynamic> json) {
@@ -81,12 +83,12 @@ class AllMarketingDetailResponse {
     emirates = json['emirates'];
     userID = json['userID'];
     nationality = json['nationality'];
-    // if (json['feedback'] != null) {
-    //   feedback = <Null>[];
-    //   json['feedback'].forEach((v) {
-    //     feedback!.add(new Null.fromJson(v));
-    //   });
-    // }
+    if (json['feedback'] != null) {
+      feedback = <Feedback>[];
+      json['feedback'].forEach((v) {
+        feedback!.add(new Feedback.fromJson(v));
+      });
+    }
   }
 
   Map<String, dynamic> toJson() {
@@ -116,9 +118,44 @@ class AllMarketingDetailResponse {
     data['emirates'] = this.emirates;
     data['userID'] = this.userID;
     data['nationality'] = this.nationality;
-    // if (this.feedback != null) {
-    //   data['feedback'] = this.feedback!.map((v) => v.toJson()).toList();
-    // }
+    if (this.feedback != null) {
+      data['feedback'] = this.feedback!.map((v) => v.toJson()).toList();
+    }
+    return data;
+  }
+}
+
+
+
+class Feedback {
+  int? feedBackID;
+  String? feedBack;
+  int? entityID;
+  int? marketingID;
+  String? name;
+
+  Feedback(
+      {this.feedBackID,
+        this.feedBack,
+        this.entityID,
+        this.marketingID,
+        this.name});
+
+  Feedback.fromJson(Map<String, dynamic> json) {
+    feedBackID = json['feedBackID'];
+    feedBack = json['feedBack'];
+    entityID = json['entityID'];
+    marketingID = json['marketingID'];
+    name = json['name'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['feedBackID'] = this.feedBackID;
+    data['feedBack'] = this.feedBack;
+    data['entityID'] = this.entityID;
+    data['marketingID'] = this.marketingID;
+    data['name'] = this.name;
     return data;
   }
 }

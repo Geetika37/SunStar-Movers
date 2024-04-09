@@ -14,7 +14,7 @@ class DashboardApi
   Future<DashboardCountResponse ?> dashboardCountResponse() async
   {
     DashboardCountResponse? dashboardCountResponse;
-    var response=await Dio().get('https://ssmovers.progbiz.io/api/Dashboard/get-dashboard-count',data: {},
+    var response=await Dio().get('https://sunstar-project.progbiz.io/api/Dashboard/get-dashboard-count',data: {},
         options: Options(
             headers: appCt.token == null
                 ? {
@@ -43,7 +43,7 @@ class DashboardApi
   Future<List<LatestSurveyResponse> ?>  LastestSurvey() async
   {
     List<LatestSurveyResponse>? latestSurveyResponse;
-    var response=await Dio().get('https://ssmovers.progbiz.io/api/Dashboard/get-latest-survey-list',data: {},
+    var response=await Dio().get('https://sunstar-project.progbiz.io/api/Dashboard/get-latest-survey-list',data: {},
         options: Options(
             headers: appCt.token == null
                 ? {

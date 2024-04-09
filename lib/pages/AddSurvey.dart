@@ -138,10 +138,8 @@ class _AddSurveyState extends State<AddSurvey> {
   getEmirate() async {
     appCt.emiratesResponse = await SurveyApi().emirate();
     if (widget.allSurveyResponse != null) {
-      _emirate = appCt.emiratesResponse!.firstWhere(
-          (element) => element.id == appCt.allSurveyResponse?.emirateIDFrom);
-      _emirate1 = appCt.emiratesResponse!.firstWhere(
-          (element) => element.id == appCt.allSurveyResponse?.emirateIDTo);
+      _emirate = appCt.emiratesResponse!.firstWhere((element) => element.id == appCt.allSurveyResponse?.emirateIDFrom);
+      _emirate1 = appCt.emiratesResponse!.firstWhere((element) => element.id == appCt.allSurveyResponse?.emirateIDTo);
     }
 
     setState(() {
@@ -714,8 +712,7 @@ class _AddSurveyState extends State<AddSurvey> {
                                           onTap: () {
                                             Get.back(result: true);
                                             Get.back(result: true);
-                                            // Navigator.pop(context);
-                                            // Navigator.pop(context);
+
                                           },
                                         );
                                       });

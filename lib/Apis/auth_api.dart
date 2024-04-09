@@ -42,7 +42,7 @@ class AuthApi
     };
 
     print(data);
-    var response =await Dio().post('https://ssmovers.progbiz.io/api/Auth/login',data: data,
+    var response =await Dio().post('https://sunstar-project.progbiz.io/api/Auth/login',data: data,
         options: Options(
         headers: appCt.token == null
             ? {

@@ -207,9 +207,9 @@ class _HomePageState extends State<HomePage> {
                                 image2: 'assets/calendar.png',
                                 image3: 'assets/clock.png',
                                 percentage: '${ct.lastestSurvey![index].leadQuality}',
-                                bgcolor: circularProg.firstWhere((element) => element.value==ct.surveyDetailsResponse!.data![index].leadQuality).backgroundColor!,
-                                fgcolor: circularProg.firstWhere((element) => element.value==ct.surveyDetailsResponse!.data![index].leadQuality).foregroundColor!,
-                                textColor: circularProg.firstWhere((element) => element.value==ct.surveyDetailsResponse!.data![index].leadQuality).backgroundColor!,
+                                bgcolor: circularProg.firstWhere((element) => element.value==ct.lastestSurvey![index].leadQuality).backgroundColor!,
+                                fgcolor: circularProg.firstWhere((element) => element.value==ct.lastestSurvey![index].leadQuality).foregroundColor!,
+                                textColor: circularProg.firstWhere((element) => element.value==ct.lastestSurvey![index].leadQuality).backgroundColor!,
                               ),
                             ],
                           );

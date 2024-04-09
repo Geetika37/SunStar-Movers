@@ -1,15 +1,45 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:sunstarmovers/Apis/complaint_Api.dart';
+import 'package:sunstarmovers/enums/enum.dart';
 import 'package:sunstarmovers/pages/BottomSheetCommon.dart';
 import 'package:sunstarmovers/pages/ButtonnElevated.dart';
+import 'package:sunstarmovers/pages/Complaint.dart';
+import 'package:sunstarmovers/pages/ComplaintAddDetails.dart';
 import 'package:sunstarmovers/pages/ComplaintClose.dart';
 import 'package:sunstarmovers/pages/Row3.dart';
 import 'package:sunstarmovers/pages/SurveyDetails.dart';
+import 'package:sunstarmovers/responses/AllComplaintResponse.dart';
+import 'package:sunstarmovers/responses/ComplaintResponse.dart';
 
-class ComplaintDetails extends StatelessWidget {
-  final String status;
-  const ComplaintDetails({super.key, required this.status});
+class ComplaintDetails extends StatefulWidget {
+  final int?  complaintId;
+
+  const ComplaintDetails({super.key,this.complaintId});
 
   @override
+  State<ComplaintDetails> createState() => _ComplaintDetailsState();
+}
+
+class _ComplaintDetailsState extends State<ComplaintDetails> {
+  AllComplaintResponse? allComplaintResponse;
+  bool screenLoad = true;
+
+  @override
+  void initState() {
+    getDetails();
+    super.initState();
+  }
+  @override
+
+  getDetails()async
+  {
+    allComplaintResponse=await ComplaintApi().allComplaint(compalintId: widget.complaintId);
+    setState(() {
+      screenLoad=false;
+    });
+  }
+
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
@@ -50,8 +80,23 @@ class ComplaintDetails extends StatelessWidget {
                   context: context,
                   builder: (BuildContext context)
                   {
-                    return BottomShet1(title: 'Remark', hintName: 'Remark', labelName: 'Remark', buttonName1: 'Done', buttonName2: 'Close',);
+                    return BottomShet1(
+                      value: false,
+                      ComplaintId: widget.complaintId,
+                      title: 'Remark',
+                      hintName: 'Remark',
+                      labelName: 'Remark',
+                      buttonName1: 'Done',
+                      buttonName2: 'Close',
+                    );
                   }
+              ).then((value) async
+              {
+                setState(() {
+                  screenLoad=true;
+                });
+                await getDetails();
+              }
               );
             },
             icon: ImageIcon(
@@ -62,7 +107,7 @@ class ComplaintDetails extends StatelessWidget {
 
           IconButton(
             onPressed: () {
-              Navigator.pop(context);
+              Get.to(()=>ComplaintAddDetails(refNo: allComplaintResponse!.surveyNo.toString(),complaintDetails: allComplaintResponse!.complaintDetails,));
             },
             icon: ImageIcon(
               AssetImage('assets/back.png'),
@@ -72,7 +117,12 @@ class ComplaintDetails extends StatelessWidget {
         ],
       ),
 
-      body: Padding(
+      body: screenLoad
+          ? Center(
+          child: CircularProgressIndicator(
+            color: Colors.red,
+          ))
+          : Padding(
         padding: const EdgeInsets.all(13.0),
         child: Stack(
           children:[
@@ -92,11 +142,11 @@ class ComplaintDetails extends StatelessWidget {
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text3(name3: 'Zack Snyder'),
-                        CustomerDetail(title: 'Company Name : ', title1: 'Progbiz'),
-                        CustomerDetail(title: 'Phone : ', title1: '+971 5436 78645'),
-                        CustomerDetail(title: 'Whatsapp No : ', title1: '+971 5436 78645'),
-                        CustomerDetail(title: 'Salesman : ', title1: 'ssmovers ss'),
+                        Text3(name3: '${allComplaintResponse?.customerName ?? ''}'),
+                        CustomerDetail(title: 'Company Name : ', title1: '${allComplaintResponse?.companyName ?? ''}'),
+                        CustomerDetail(title: 'Phone : ', title1: '${allComplaintResponse?.customerPhone ?? ''}'),
+                        CustomerDetail(title: 'Whatsapp No : ', title1: '${allComplaintResponse?.customerPhone2 ?? ''}'),
+                        CustomerDetail(title: 'Salesman : ', title1: '${allComplaintResponse?.staffName ?? ''}'),
                       ],
                     )
                   ],
@@ -119,20 +169,20 @@ class ComplaintDetails extends StatelessWidget {
                   ),
                   child: Column(
                     children: [
-                      SurveyRow(title3: 'Ref No', title4: '24'),
-                      SurveyRow(title3: 'Date ', title4: '14/03/2024 '),
-                      SurveyRow(title3: 'Ouoted Price', title4: '4500.0'),
-                      SurveyRow(title3: 'Requirement', title4: 'Rajeev team'),
-                      SurveyRow(title3: 'Closed Date', title4: '23/01/2024'),
-                      SurveyRow(title3: 'Place From', title4: 'Kannur'),
-                      SurveyRow(title3: 'Emirate From', title4: 'chalod'),
-                      SurveyRow(title3: 'Place To', title4: 'chakkarakkal'),
-                      SurveyRow(title3: 'Emirate To', title4: 'Ajman'),
-                      SurveyRow(title3: 'Building Type', title4: 'Flat'),
-                      SurveyRow(title3: 'Moving type', title4: 'Local Move'),
-                      SurveyRow(title3: 'Final Volume', title4: '3 truck'),
-                      SurveyRow(title3: 'Final Amount', title4: '4000.0'),
-                      SurveyRow(title3: 'Collected box', title4: '20'),
+                      SurveyRow(title3: 'Ref No', title4:'${allComplaintResponse?.surveyNo ?? ''}' ),
+                      SurveyRow(title3: 'Date ', title4: '${allComplaintResponse?.date ?? ''}'),
+                      SurveyRow(title3: 'Ouoted Price', title4: '${allComplaintResponse?.quotedPrice ?? ''}'),
+                      SurveyRow(title3: 'Requirement', title4: '${allComplaintResponse?.requirement ?? ''}'),
+                      SurveyRow(title3: 'Closed Date', title4: '${allComplaintResponse?.closedDate ?? ''}'),
+                      SurveyRow(title3: 'Place From', title4: '${allComplaintResponse?.placeFrom ?? ''}'),
+                      SurveyRow(title3: 'Emirate From', title4: '${allComplaintResponse?.emiratesFrom ?? ''}'),
+                      SurveyRow(title3: 'Place To', title4: '${allComplaintResponse?.placeTo ?? ''}'),
+                      SurveyRow(title3: 'Emirate To', title4: '${allComplaintResponse?.emiratesTo ?? ''}'),
+                      SurveyRow(title3: 'Building Type', title4: '${allComplaintResponse?.buildingTypeName ?? ''}'),
+                      SurveyRow(title3: 'Moving type', title4: '${allComplaintResponse?.movingTypeName ?? ''}'),
+                      SurveyRow(title3: 'Final Volume', title4: '${allComplaintResponse?.finalVolume ?? ''}'),
+                      SurveyRow(title3: 'Final Amount', title4: '${allComplaintResponse?.finalAmount ?? ''}'),
+                      SurveyRow(title3: 'Collected box', title4: '${allComplaintResponse?.boxCollected ?? ''}'),
 
                     ],
                   ),
@@ -152,10 +202,12 @@ class ComplaintDetails extends StatelessWidget {
                   ),
                   child: Column(
                     children: [
-                      SurveyRow(title3: 'Complaint Date ', title4: '14/03/2024'),
-                      SurveyRow(title3: 'Complaint Date ', title4: 'test'),
-                      SurveyRow(title3: 'Complaint Status', title4: 'Pending'),
-                      SurveyRow(title3: 'Comment', title4: 'test comment'),
+                      SurveyRow(title3: 'Complaint Date ', title4: '${allComplaintResponse?.complaintDate ?? ''}'),
+                      SurveyRow(title3: 'Complaint  ', title4: '${allComplaintResponse?.complaintDetails ?? ''}'),
+                      SurveyRow(title3: 'Complaint Status',
+                          title4: complaintStatusList.firstWhere((element) => element.id==allComplaintResponse?.complaintStatus).value ??''
+                      ),
+                      SurveyRow(title3: 'Comment', title4: '${allComplaintResponse?.comment ?? ''}'),
                     ],
                   ),
                 ),
@@ -171,7 +223,8 @@ class ComplaintDetails extends StatelessWidget {
                 child: Container(
                   height: 55,
                   color: Colors.white,
-                  child:status == 'Pending'? ButtonnElevated(
+                  child:allComplaintResponse!.complaintStatus==ComplaintStatus.Pending.index
+                  ? ButtonnElevated(
                     buttonName: 'Close Complaint',
                     onPressed: (){
                       showModalBottomSheet(
@@ -179,7 +232,7 @@ class ComplaintDetails extends StatelessWidget {
                           isScrollControlled: true,
                           builder: (BuildContext context)
                           {
-                            return ComplaintClose();
+                            return ComplaintClose(complaintID: widget.complaintId,);
                           }
                       );
                     },

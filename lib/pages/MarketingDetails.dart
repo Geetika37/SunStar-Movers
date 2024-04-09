@@ -3,7 +3,9 @@ import 'package:get/get.dart';
 import 'package:sunstarmovers/Apis/marketing_api.dart';
 import 'package:sunstarmovers/controller/appController.dart';
 import 'package:sunstarmovers/pages/BottomSheetCommon.dart';
+import 'package:sunstarmovers/pages/BottomSheetMarkRemark.dart';
 import 'package:sunstarmovers/pages/ButtonnElevated.dart';
+import 'package:sunstarmovers/pages/MarketingAdd.dart';
 import 'package:sunstarmovers/pages/Row3.dart';
 import 'package:sunstarmovers/pages/SurveyDetails.dart';
 
@@ -75,8 +77,19 @@ class _MarketingDetailsState extends State<MarketingDetails> {
                     context: context,
                     builder: (BuildContext context)
                     {
-                      return BottomShet1(title: 'Activity Remark', hintName: 'Feedback', labelName: 'Feedback', buttonName1: 'Done', buttonName2: 'Close',);
+                      return BottomSheetRemark(MarketingId: widget.MarketingId,title: 'Activity Remark', hintName: 'Feedback', labelName: 'Feedback',
+                          buttonName1: 'Done', buttonName2: 'Close');
                     }
+                ).then((value) async
+                {
+                  if(value==true)
+                    {
+                      setState(() {
+                        screenLoad=true;
+                      });
+                      await getDetails();
+                    }
+                }
                 );
               },
               icon: ImageIcon(
@@ -87,7 +100,19 @@ class _MarketingDetailsState extends State<MarketingDetails> {
 
           IconButton(
               onPressed: () {
-                Navigator.pop(context);
+                Navigator.push(context, MaterialPageRoute(builder: (context)=>MarketingAdd(allMarketingDetailResponse: appCt.allMarketingDetailResponse,))).
+                then((value) async
+                {
+                  if(value==true)
+                    {
+                      setState(() {
+                        screenLoad=true;
+                      });
+                      await getDetails();
+                    }
+                }
+
+                );
               },
               icon: ImageIcon(
                 AssetImage('assets/back.png'),
@@ -154,7 +179,60 @@ class _MarketingDetailsState extends State<MarketingDetails> {
                           SurveyRow(title3: 'Activity Details', title4: '${ct.allMarketingDetailResponse?.activityDetails??''}'),
                         ],
                       ),
-                    )
+                    ),
+
+                    SizedBox(height: 10,),
+
+                    new Divider(
+                      color: Colors.grey.shade300,
+                    ),
+
+                    SizedBox(height: 5,),
+
+                    Text(
+                      'FeedBack',
+                      style: TextStyle(
+                          fontWeight: FontWeight.w600,
+                          fontFamily: 'Poppins',
+                          fontSize: 20),
+                    ),
+                    SizedBox(
+                      height: 10,
+                    ),
+
+                    Container(
+                      padding: EdgeInsets.all(10),
+                      decoration: BoxDecoration(
+                          border: Border.all(width: 1, color: Colors.grey.shade500),
+                          borderRadius: BorderRadius.circular(8)),
+                      child: ListView.builder(
+                          physics: NeverScrollableScrollPhysics(),
+                          shrinkWrap: true,
+                          itemCount: appCt.allMarketingDetailResponse!.feedback!.length,
+                          itemBuilder: (context,index)
+                              {
+                                return Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+
+                                  children: [
+                                    Text(appCt.allMarketingDetailResponse!.feedback![index].name??'',style: TextStyle(color: Colors.grey),),
+                                    Padding(
+                                      padding: const EdgeInsets.all(8.0),
+                                      child: Row(
+                                        children: [
+                                          Icon(Icons.keyboard_control_sharp,size: 10,color: Colors.grey,),
+                                          Text(appCt.allMarketingDetailResponse!.feedback![index].feedBack??''),
+                                        ],
+                                      ),
+                                    ),
+                                    SizedBox(height: 10,),
+                                  ],
+                                );
+                              }
+                      ),
+                    ),
+                    SizedBox(height: 100,),
+
 
                   ],
                 );

@@ -13,9 +13,9 @@ class TextField1 extends StatelessWidget {
   final double? top;
   final double? bottom;
   final TextInputType? keyBoardType;
+final Function(String)? onChanged;
 
-
-  const TextField1({super.key, required this.hintName, required this.labelText, this.image1, this.controller, this.validator, this.isKey = false, this.onTap, this.right =9, this.left =9, this.top = 9, this.bottom = 9, this.keyBoardType = TextInputType.text});
+  const TextField1({super.key, required this.hintName, required this.labelText, this.image1, this.controller, this.validator, this.isKey = false, this.onTap, this.right =9, this.left =9, this.top = 9, this.bottom = 9, this.keyBoardType = TextInputType.text,this.onChanged});
 
   @override
   Widget build(BuildContext context) {
@@ -23,7 +23,7 @@ class TextField1 extends StatelessWidget {
       onTap: onTap,
       validator: validator,
       readOnly: isKey,
-
+onChanged: onChanged,
       controller: controller,
       keyboardType: keyBoardType,
       decoration: InputDecoration(
