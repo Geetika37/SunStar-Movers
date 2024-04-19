@@ -423,4 +423,209 @@ class BasicSettingApi
 
 
 
+
+
+
+
+  // **********EMIRATE*********
+// POST EMIRATE DETAILS
+
+  Future<EmirateSettingsResponse ?> emirateSettings()async
+  {
+    EmirateSettingsResponse? emirateSettingsResponse;
+    var data={
+      "pageIndex": 1,
+      "pageSize": 100,
+      "searchString": "",
+      "currentFollowupNature": -1,
+      "filterByIdOptions": [],
+      "filterByDateOptions": [],
+      "filterByBooleanOptions": [],
+      "filterByFieldOptions": []
+    };
+    var response=await Dio().post('https://sunstar-project.progbiz.io/api/Common/get-emirates-paged-list',data: data,
+        options: Options(
+            headers: appCt.token == null
+                ? {
+              "Accept": "application/json",
+              "content-type": "application/json",
+              "Accept-Language": "En"
+            }
+                : {
+              "Accept": "application/json",
+              "content-type": "application/json",
+              "Authorization": "Bearer " + appCt.token!,
+              "Accept-Language": "En"
+            })
+    );
+    print(response.data);
+    if(response.statusCode==200)
+    {
+      emirateSettingsResponse=EmirateSettingsResponse.fromJson(response.data);
+    }
+    return emirateSettingsResponse;
+  }
+
+
+  // ADD EMIRATE SETTING
+
+  Future<bool> EmirateSettingAdd(dynamic data) async
+  {
+    var isSuccess;
+    var response=await Dio().post('https://sunstar-project.progbiz.io/api/Orders/save-emirates',data: data,
+        options: Options(
+            headers: appCt.token == null
+                ? {
+              "Accept": "application/json",
+              "content-type": "application/json",
+              "Accept-Language": "En"
+            }
+                : {
+              "Accept": "application/json",
+              "content-type": "application/json",
+              "Authorization": "Bearer " + appCt.token!,
+              "Accept-Language": "En"
+            })
+    );
+    print(response.data);
+    if(response.statusCode==200)
+      {
+        isSuccess=true;
+      }
+    return isSuccess;
+  }
+
+  //DELETE EMIRATE TYPE
+
+  Future<bool> deleteEmirateType(int? emirateID)async
+  {
+    var isSuccess;
+    var response=await Dio().get('https://sunstar-project.progbiz.io/api/Common/detete-emirates/${emirateID}',data: {},
+        options: Options(
+            headers: appCt.token == null
+                ? {
+              "Accept": "application/json",
+              "content-type": "application/json",
+              "Accept-Language": "En"
+            }
+                : {
+              "Accept": "application/json",
+              "content-type": "application/json",
+              "Authorization": "Bearer " + appCt.token!,
+              "Accept-Language": "En"
+            })
+    );
+    print(response.data);
+    if(response.statusCode==200)
+      {
+        isSuccess=true;
+      }
+    return isSuccess;
+  }
+
+
+
+
+
+
+
+
+
+// **********ACTIVITY*********
+// POST ACTIVITY DETAILS
+
+  Future<ActivitySettingsResponse ?> activitySettings()async
+  {
+    ActivitySettingsResponse? activitySettingsResponse;
+    var data={
+      "pageIndex": 1,
+      "pageSize": 100,
+      "searchString": "",
+      "currentFollowupNature": -1,
+      "filterByIdOptions": [],
+      "filterByDateOptions": [],
+      "filterByBooleanOptions": [],
+      "filterByFieldOptions": []
+    };
+    var response=await Dio().post('https://sunstar-project.progbiz.io/api/Common/get-marketing-type-paged-list',data: data,
+        options: Options(
+            headers: appCt.token == null
+                ? {
+              "Accept": "application/json",
+              "content-type": "application/json",
+              "Accept-Language": "En"
+            }
+                : {
+              "Accept": "application/json",
+              "content-type": "application/json",
+              "Authorization": "Bearer " + appCt.token!,
+              "Accept-Language": "En"
+            })
+    );
+    print(response.data);
+    if(response.statusCode==200)
+    {
+      activitySettingsResponse=ActivitySettingsResponse.fromJson(response.data);
+    }
+    return activitySettingsResponse;
+  }
+
+
+  // ADD ACTIVITY DETAILS
+
+  Future<bool> ActivitySettingAdd(dynamic data)async
+  {
+    var isSuccess;
+    var response=await Dio().post('https://sunstar-project.progbiz.io/api/Marketing/save-marketing-type',data: data,
+        options: Options(
+            headers: appCt.token == null
+                ? {
+              "Accept": "application/json",
+              "content-type": "application/json",
+              "Accept-Language": "En"
+            }
+                : {
+              "Accept": "application/json",
+              "content-type": "application/json",
+              "Authorization": "Bearer " + appCt.token!,
+              "Accept-Language": "En"
+            })
+    );
+    print(response.data);
+    if(response.statusCode==200)
+      {
+        isSuccess=true;
+      }
+    return isSuccess;
+  }
+
+
+  // DELETE ACTIVITYY
+
+  Future<bool> deleteActivityType(int? activityID)async
+  {
+    var isSuccess;
+    var response=await Dio().get('https://sunstar-project.progbiz.io/api/Common/detete-marketing-type/${activityID}',data: {},
+        options: Options(
+            headers: appCt.token == null
+                ? {
+              "Accept": "application/json",
+              "content-type": "application/json",
+              "Accept-Language": "En"
+            }
+                : {
+              "Accept": "application/json",
+              "content-type": "application/json",
+              "Authorization": "Bearer " + appCt.token!,
+              "Accept-Language": "En"
+            })
+    );
+    print(response.data);
+    if(response.statusCode==200)
+      {
+        isSuccess=true;
+      }
+    return isSuccess;
+  }
+
 }

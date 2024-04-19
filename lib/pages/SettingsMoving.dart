@@ -96,10 +96,7 @@ class _SettingsMovingState extends State<SettingsMoving> {
         ],
       ),
 
-      body: screenLoad?  Center(
-          child: CircularProgressIndicator(
-            color: Colors.red,
-          )): Padding(
+      body:  Padding(
         padding: const EdgeInsets.all(8.0),
         child: ListView(
           children: [

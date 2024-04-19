@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
+import 'package:skeleton_text/skeleton_text.dart';
 import 'package:sunstarmovers/Apis/survey_api.dart';
 import 'package:sunstarmovers/controller/appController.dart';
 import 'package:sunstarmovers/enums/enum.dart';
@@ -9,6 +10,7 @@ import 'package:sunstarmovers/pages/ButtonnElevated.dart';
 import 'package:sunstarmovers/pages/Survey.dart';
 import 'package:sunstarmovers/pages/SurveyPendingConfirm.dart';
 import 'package:sunstarmovers/pages/TextField1.dart';
+import 'package:sunstarmovers/pages/container2.dart';
 import 'package:sunstarmovers/pages/showDialog.dart';
 import 'package:sunstarmovers/responses/AllSurveyResponse.dart';
 import 'package:sunstarmovers/responses/BuildingTypeResponse.dart';
@@ -56,6 +58,18 @@ class _AddSurveyState extends State<AddSurvey> {
   DateTime? _picked1;
   bool? isChecked = false;
   bool screenLoad=true;
+  bool orderNumberLoad=true;
+  bool buildingTypeLoad=true;
+  bool movingTypeLoad=true;
+  bool emirateLoad=true;
+  bool leadSourceLoad=true;
+
+  bool isValidPhoneNumber(String value) {
+    // Regular expression to match a valid phone number pattern
+    // This regex pattern allows exactly 10 digits
+    final RegExp phoneRegex = RegExp(r'^[0-9]{10}$');
+    return phoneRegex.hasMatch(value);
+  }
 
   @override
   void initState() {
@@ -94,6 +108,8 @@ class _AddSurveyState extends State<AddSurvey> {
 
     }
 
+    
+    
     getOrderNumber();
     getBuildingType();
     getMovingType();
@@ -109,7 +125,7 @@ class _AddSurveyState extends State<AddSurvey> {
           appCt.orderNumberResponse?.orderNo?.toString() ?? '';
     }
     setState(() {
-      screenLoad=false;
+      orderNumberLoad=false;
     });
   }
 
@@ -120,7 +136,7 @@ class _AddSurveyState extends State<AddSurvey> {
           (element) => element.id == appCt.allSurveyResponse?.buildingTypeID);
     }
     setState(() {
-      screenLoad=false;
+      buildingTypeLoad=false;
     });
   }
 
@@ -131,7 +147,7 @@ class _AddSurveyState extends State<AddSurvey> {
           (element) => element.id == appCt.allSurveyResponse?.movingTypeID);
     }
     setState(() {
-      screenLoad=false;
+      movingTypeLoad=false;
     });
   }
 
@@ -143,7 +159,7 @@ class _AddSurveyState extends State<AddSurvey> {
     }
 
     setState(() {
-      screenLoad=false;
+      emirateLoad=false;
     });
   }
 
@@ -154,7 +170,7 @@ class _AddSurveyState extends State<AddSurvey> {
           (element) => element.id == appCt.allSurveyResponse?.leadSourceID);
     }
     setState(() {
-      screenLoad=false;
+      leadSourceLoad=false;
     });
   }
 
@@ -197,11 +213,11 @@ class _AddSurveyState extends State<AddSurvey> {
           padding: const EdgeInsets.all(10.0),
           child: Form(
             key: _formKey,
-            child:screenLoad? Center(child: CircularProgressIndicator(color: Colors.red,)): GetBuilder<AppController>(
+            child:GetBuilder<AppController>(
               builder: (ct) {
                 return Column(
                   children: [
-                    TextField1(
+                    orderNumberLoad?SkeletonAnimation(child: Skelton(height: 50,)):TextField1(
                       isKey: true,
                       hintName: 'Ref No',
                       labelText: 'Ref No',
@@ -235,6 +251,7 @@ class _AddSurveyState extends State<AddSurvey> {
                             hintName: 'Survey No',
                             labelText: 'Survey No',
                             controller: _surveyNoController,
+                      keyBoardType: TextInputType.number,
                           )
                         : SizedBox(),
                     SizedBox(
@@ -289,16 +306,24 @@ class _AddSurveyState extends State<AddSurvey> {
                       children: [
                         SizedBox(
                           width: 95,
-                          child: TextField1(validator: (value) {
+                          child: TextField1(
+
+                            validator: (value) {
                               if (value!.isEmpty) {
                                 return ' ';
                               }
-                            },
+                              if (!isValidPhoneNumber(value)) {
+                                return ' ';
+                              }
+                              return null;
+                          },
+                            icon: Icon(Icons.add),
                             hintName: 'ISD', labelText: 'ISD',
                             controller: _ISD1Controller,
                             keyBoardType: TextInputType.number,
                             bottom: 0,
                             left: 0,
+
                           ),
                         ),
                         Expanded(
@@ -307,6 +332,11 @@ class _AddSurveyState extends State<AddSurvey> {
                               if (value!.isEmpty) {
                                 return 'Required';
                               }
+                              // Check if the value matches a valid phone number pattern
+                              if (!isValidPhoneNumber(value)) {
+                                return 'Enter a valid phone number';
+                              }
+                              return null; // Return null if validation passes
                             },
                             top: 0,
                             right: 0,
@@ -411,7 +441,7 @@ class _AddSurveyState extends State<AddSurvey> {
                     SizedBox(
                       height: 10,
                     ),
-                    AppDropdownInput(
+                    buildingTypeLoad?SkeletonAnimation(child: Skelton(height: 50,)):AppDropdownInput(
                       hintText: 'Building Type',
                       validator: (value) {
                         if (_buildingType == null) {
@@ -432,7 +462,7 @@ class _AddSurveyState extends State<AddSurvey> {
                     SizedBox(
                       height: 10,
                     ),
-                    AppDropdownInput(
+                    movingTypeLoad?SkeletonAnimation(child: Skelton(height: 50,)): AppDropdownInput(
                       validator: (value) {
                         if (_movingType == null) {
                           return 'Required';
@@ -492,7 +522,7 @@ class _AddSurveyState extends State<AddSurvey> {
                     SizedBox(
                       height: 10,
                     ),
-                    AppDropdownInput(
+                    emirateLoad?SkeletonAnimation(child: Skelton(height: 50,)): AppDropdownInput(
                       validator: (value) {
                         if (_emirate == null) {
                           return 'Required';
@@ -526,7 +556,7 @@ class _AddSurveyState extends State<AddSurvey> {
                     SizedBox(
                       height: 10,
                     ),
-                    AppDropdownInput(
+                    emirateLoad?SkeletonAnimation(child: Skelton(height: 50,)): AppDropdownInput(
                       value: _emirate1,
                       hintText: 'Emirate',
                       options: appCt.emiratesResponse!,
@@ -556,7 +586,7 @@ class _AddSurveyState extends State<AddSurvey> {
                     SizedBox(
                       height: 10,
                     ),
-                    AppDropdownInput(
+                    leadSourceLoad?SkeletonAnimation(child: Skelton(height: 50,)):AppDropdownInput(
                       validator: (value) {
                         if (_leadSource == null) {
                           return 'Required';

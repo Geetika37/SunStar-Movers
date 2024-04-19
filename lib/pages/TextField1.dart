@@ -13,9 +13,10 @@ class TextField1 extends StatelessWidget {
   final double? top;
   final double? bottom;
   final TextInputType? keyBoardType;
+  final Widget? icon;
 final Function(String)? onChanged;
 
-  const TextField1({super.key, required this.hintName, required this.labelText, this.image1, this.controller, this.validator, this.isKey = false, this.onTap, this.right =9, this.left =9, this.top = 9, this.bottom = 9, this.keyBoardType = TextInputType.text,this.onChanged});
+  const TextField1({super.key, required this.hintName, required this.labelText, this.image1, this.controller, this.validator, this.isKey = false, this.onTap, this.right =9, this.left =9, this.top = 9, this.bottom = 9, this.keyBoardType = TextInputType.text,this.onChanged, this.icon});
 
   @override
   Widget build(BuildContext context) {
@@ -23,13 +24,13 @@ final Function(String)? onChanged;
       onTap: onTap,
       validator: validator,
       readOnly: isKey,
-onChanged: onChanged,
+      onChanged: onChanged,
       controller: controller,
       keyboardType: keyBoardType,
       decoration: InputDecoration(
           isDense: true,
           //contentPadding: EdgeInsets.all(),
-
+          prefixIcon: icon,
 
           hintText: hintName,
           hintStyle: TextStyle(fontFamily: 'Poppins',fontSize: 14,fontWeight: FontWeight.w500,color: Colors.grey.withOpacity(.5)),

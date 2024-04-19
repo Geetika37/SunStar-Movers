@@ -140,7 +140,7 @@ class _SettingTeamLeadState extends State<SettingTeamLead> {
                                         context: context,
                                         builder: (BuildContext context)
                                         {
-                                          return SettingTeamLeadSheet();
+                                          return SettingTeamLeadSheet(teamLeadID: teamLeaderSettingsResponse!.data![index].teamLeaderID,teamLeadName: teamLeaderSettingsResponse!.data![index].teamLeaderName,);
                                         }
                                     ).then((value)async
                                     {

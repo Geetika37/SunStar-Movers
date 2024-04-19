@@ -1,12 +1,40 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:sunstarmovers/Apis/basicSettings_api.dart';
 import 'package:sunstarmovers/pages/SettingEmiratessheet.dart';
 import 'package:sunstarmovers/pages/SettingsBuilding.dart';
 import 'package:sunstarmovers/pages/searchBar.dart';
+import 'package:sunstarmovers/pages/showDialog2.dart';
+import 'package:sunstarmovers/responses/EmirateSettingsResponse.dart';
 
-class SettingEmirate extends StatelessWidget {
+class SettingEmirate extends StatefulWidget {
   const SettingEmirate({super.key});
 
   @override
+  State<SettingEmirate> createState() => _SettingEmirateState();
+}
+
+class _SettingEmirateState extends State<SettingEmirate> {
+  EmirateSettingsResponse? emirateSettingsResponse;
+  bool screenLoad=true;
+
+
+  @override
+  void initState() {
+    getEmirateSettings();
+    super.initState();
+  }
+
+  @override
+
+  getEmirateSettings()async
+  {
+    emirateSettingsResponse=await BasicSettingApi().emirateSettings();
+    setState(() {
+      screenLoad=false;
+    });
+  }
+
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
@@ -47,6 +75,13 @@ class SettingEmirate extends StatelessWidget {
                     {
                       return SettingEmiratesheet();
                     }
+                ).then((value) async
+                {
+                  setState(() {
+                    screenLoad=true;
+                  });
+                  await getEmirateSettings();
+                }
                 );
               },
               icon: ImageIcon(
@@ -62,7 +97,10 @@ class SettingEmirate extends StatelessWidget {
 
 
 
-      body: Padding(
+      body: screenLoad?  Center(
+          child: CircularProgressIndicator(
+            color: Colors.red,
+          )): Padding(
         padding: const EdgeInsets.all(8.0),
         child: ListView(
           children: [
@@ -86,86 +124,65 @@ class SettingEmirate extends StatelessWidget {
                       ],
                     ),
 
-                    Rows1(text1: 'Abu Dhabi',onTap: (){
-                      showModalBottomSheet(
-                          context: context,
-                          builder: (BuildContext context)
-                          {
-                            return SettingEmiratesheet();
-                          }
-                      );
-                    },),
-                    new Divider(color: Colors.grey.shade300,),
-                    Rows1(text1: 'Dubai',onTap: (){
-                      showModalBottomSheet(
-                          context: context,
-                          builder: (BuildContext context)
-                          {
-                            return SettingEmiratesheet();
-                          }
-                      );
-                    }),
-                    new Divider(color: Colors.grey.shade300,),
-                    Rows1(text1: 'Ajman',onTap: (){
-                      showModalBottomSheet(
-                          context: context,
-                          builder: (BuildContext context)
-                          {
-                            return SettingEmiratesheet();
-                          }
-                      );
-                    }),
-                    new Divider(color: Colors.grey.shade300,),
-                    Rows1(text1: 'Fujaah',onTap: (){
-                      showModalBottomSheet(
-                          context: context,
-                          builder: (BuildContext context)
-                          {
-                            return SettingEmiratesheet();
-                          }
-                      );
-                    }),
-                    new Divider(color: Colors.grey.shade300,),
-                    Rows1(text1: 'Office 2',onTap: (){
-                      showModalBottomSheet(
-                          context: context,
-                          builder: (BuildContext context)
-                          {
-                            return SettingEmiratesheet();
-                          }
-                      );
-                    }),
-                    new Divider(color: Colors.grey.shade300,),
-                    Rows1(text1: 'Ras Al Khaimah',onTap: (){
-                      showModalBottomSheet(
-                          context: context,
-                          builder: (BuildContext context)
-                          {
-                            return SettingEmiratesheet();
-                          }
-                      );
-                    }),
-                    new Divider(color: Colors.grey.shade300,),
-                    Rows1(text1: 'apartments',onTap: (){
-                      showModalBottomSheet(
-                          context: context,
-                          builder: (BuildContext context)
-                          {
-                            return SettingEmiratesheet();
-                          }
-                      );
-                    }),
-                    new Divider(color: Colors.grey.shade300,),
-                    Rows1(text1: 'ddd',onTap: (){
-                      showModalBottomSheet(
-                          context: context,
-                          builder: (BuildContext context)
-                          {
-                            return SettingEmiratesheet();
-                          }
-                      );
-                    }),
-                    new Divider(color: Colors.grey.shade300,),
+                    ListView.builder(
+                        physics: NeverScrollableScrollPhysics(),
+                        shrinkWrap: true,
+                        itemCount: emirateSettingsResponse!.data!.length,
+                        itemBuilder: (context,index)
+                            {
+                              return Column(
+                                children: [
+                                  Rows1(text1: emirateSettingsResponse!.data![index].emiratesName!,
+                                    onTap: (){
+                                    showModalBottomSheet(
+                                        context: context,
+                                        builder: (BuildContext context)
+                                        {
+                                          return SettingEmiratesheet(emirateID: emirateSettingsResponse!.data![index].emiratesID,emirateTypeName: emirateSettingsResponse!.data![index].emiratesName,);
+                                        }
+                                    ).then((value)async
+                                    {
+                                      if(value==true)
+                                      {
+                                        setState(() {
+                                          screenLoad=true;
+                                        });
+                                        await getEmirateSettings();
+                                      }
+                                    }
+                                    );
+                                  },
+
+                                    onTap1: (){
+                                    showDialog(
+                                        context: context,
+                                        builder: (BuildContext context)
+                                        {
+                                          return showDialog2(
+                                              title: 'Confirm',
+                                              subtitle: 'Are you sure you want to delete this emirate.?',
+                                              button1: 'Yes',
+                                              button2: 'Cancel',
+                                            onPressed: ()async
+                                            {
+                                              var isSuccess=await BasicSettingApi().deleteEmirateType(emirateSettingsResponse!.data![index].emiratesID);
+                                              Get.back(result: true);
+                                              await getEmirateSettings();
+                                            },
+                                          );
+                                        }
+                                    );
+                                    },
+
+                                  ),
+                                  new Divider(color: Colors.grey.shade300,),
+                                ],
+                              );
+                            }
+                    ),
+
+
+
                   ],
                 ),
               ),

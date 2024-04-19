@@ -7,7 +7,9 @@ import 'package:sunstarmovers/pages/Row3.dart';
 import 'package:sunstarmovers/pages/TextField1.dart';
 
 class SettingTeamLeadSheet extends StatefulWidget {
-  const SettingTeamLeadSheet({super.key});
+  final int? teamLeadID;
+  final String? teamLeadName;
+  const SettingTeamLeadSheet({super.key, this.teamLeadID, this.teamLeadName});
 
   @override
   State<SettingTeamLeadSheet> createState() => _SettingTeamLeadSheetState();
@@ -17,6 +19,11 @@ class _SettingTeamLeadSheetState extends State<SettingTeamLeadSheet> {
   TextEditingController _teamLeadController=TextEditingController();
 
   @override
+
+  void initState() {
+    _teamLeadController.text=widget.teamLeadName??'';
+    super.initState();
+  }
   Widget build(BuildContext context) {
     return SingleChildScrollView(
       padding: const EdgeInsets.all(8.0),

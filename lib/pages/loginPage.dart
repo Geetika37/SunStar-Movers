@@ -13,6 +13,8 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
   TextEditingController userNameCt = TextEditingController();
   TextEditingController passwordCt = TextEditingController();
+  bool secureText=true;
+  bool hasPasswordError = false;
 
   final _formKey=GlobalKey<FormState>();
 
@@ -59,27 +61,36 @@ class _LoginPageState extends State<LoginPage> {
                 height: 25,
               ),
               TextFormField(
-                validator: (value){
-                  if(value!.isEmpty)
-                  {
-                    return 'Required';
-                  }
-                  return null;
-                },
+                validator: validatePassword,
                 controller: passwordCt,
-                obscureText: true,
+                obscureText: secureText,
                 decoration: InputDecoration(
-                    hintText: 'Password',
-                    suffixIcon: Icon(
-                      Icons.lock_outline,
-                      size: 20,
-                    ),
-                    enabledBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(8),
-                        borderSide: BorderSide(color: Colors.red)),
-                    fillColor: Colors.blueAccent.withOpacity(0.1),
-                    filled: true),
+                  hintText: 'Password',
+                  suffixIcon: InkWell(
+                    onTap: (){
+                      setState(() {
+                        secureText=!secureText;
+                      });
+                    },
+                    child: Icon(secureText ? Icons.visibility : Icons.visibility_off),
+                  ),
+                  enabledBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(8),
+                    borderSide: BorderSide(color: Colors.grey),
+                  ),
+                  errorBorder: OutlineInputBorder( // Border for error state
+                    borderRadius: BorderRadius.circular(8),
+                    borderSide: BorderSide(color: Colors.red),
+                  ),
+                  focusedErrorBorder: OutlineInputBorder( // Border for focused error state
+                    borderRadius: BorderRadius.circular(8),
+                    borderSide: BorderSide(color: Colors.red),
+                  ),
+                  fillColor: Colors.blueAccent.withOpacity(0.1),
+                  filled: true,
+                ),
               ),
+
               SizedBox(
                 height: 25,
               ),
@@ -131,4 +142,52 @@ class _LoginPageState extends State<LoginPage> {
       ),
     );
   }
+}
+
+String? validatePassword(String? value) {
+  if (value == null || value.isEmpty) {
+    return 'Password is required';
+  }
+
+  if (!hasMinimumLength(value, 8)) {
+    return 'Password must be at least 8 characters long';
+  }
+
+  if (!hasUppercase(value)) {
+    return 'Password must contain at least one uppercase letter';
+  }
+
+  if (!hasLowercase(value)) {
+    return 'Password must contain at least one lowercase letter';
+  }
+
+  if (!hasDigit(value)) {
+    return 'Password must contain at least one digit';
+  }
+
+  if (!hasSpecialCharacter(value)) {
+    return 'Password must contain at least one special character';
+  }
+
+  return null; // Return null if validation passes
+}
+
+bool hasMinimumLength(String value, int length) {
+  return value.length >= length;
+}
+
+bool hasUppercase(String value) {
+  return RegExp(r'[A-Z]').hasMatch(value);
+}
+
+bool hasLowercase(String value) {
+  return RegExp(r'[a-z]').hasMatch(value);
+}
+
+bool hasDigit(String value) {
+  return RegExp(r'[0-9]').hasMatch(value);
+}
+
+bool hasSpecialCharacter(String value) {
+  return RegExp(r'[!@#\$&*~]').hasMatch(value);
 }

@@ -2,6 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:get/get.dart';
 import 'package:sunstarmovers/controller/appController.dart';
 import 'package:sunstarmovers/responses/LoginResponse.dart';
+import 'package:sunstarmovers/responses/SurveyGraph.dart';
 
 // class AuthApi{
 //   Future<bool> login(String userName, String passwoard)async{
@@ -60,12 +61,56 @@ class AuthApi
     print(response.data);
     if(response.statusCode==200)
       {
-
-        print('11111111111111');
         var data = LoginResponse.fromJson(response.data);
         isSuccess=true;
         appCt.token = data.accessToken;
       }
     return isSuccess;
   }
+
+
+
+
+  // SURVEY GRAPH
+
+  Future<List<SurveyGraph>?> graph(int Id)async
+  {
+    List<SurveyGraph>? surveyGraph;
+
+    var data={
+      "users": [
+        {
+          "tablePrimaryID": null,
+          "id": 3,
+          "label": "",
+          "selected": true
+        }
+      ],
+      "periodTypeID":Id,
+      "startDate": null,
+      "endDate": null
+    };
+    var response=await Dio().post('https://sunstar-project.progbiz.io/api/Dashboard/get-admin-app-survey-graph',data: data,
+        options: Options(
+            headers: appCt.token == null
+                ? {
+              "Accept": "application/json",
+              "content-type": "application/json",
+              "Accept-Language": "En"
+            }
+                : {
+              "Accept": "application/json",
+              "content-type": "application/json",
+              "Authorization": "Bearer " + appCt.token!,
+              "Accept-Language": "En"
+            })
+    );
+    print(response.data);
+    if(response.statusCode==200)
+      {
+        surveyGraph=(response.data as List).map((e) => SurveyGraph.fromJson(e)).toList();
+      }
+    return surveyGraph;
+  }
+
 }

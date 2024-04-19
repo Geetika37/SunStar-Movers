@@ -116,6 +116,14 @@ class _SurveyState extends State<Survey> {
                 bottomLeft: Radius.circular(10))),
         backgroundColor: Colors.red,
         toolbarHeight: 80,
+        leading: IconButton(
+            onPressed: () {
+              Navigator.pop(context);
+            },
+            icon: ImageIcon(
+              AssetImage('assets/chevron-left.png'),
+              color: Colors.white,
+            )),
         title: Padding(
           padding: const EdgeInsets.all(5.0),
           child: Text(
@@ -133,7 +141,16 @@ class _SurveyState extends State<Survey> {
             child: IconButton(
               onPressed: () {
                 Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => AddSurvey()));
+                    MaterialPageRoute(builder: (context) => AddSurvey())).then((value) async
+                {
+                  if(value==true)
+                    {
+                      setState(() {
+                        screenLoad=true;
+                      });
+                      await getSurveyDetails();
+                    }
+                });
               },
               icon: ImageIcon(
                 AssetImage("assets/plus-circle.png"),

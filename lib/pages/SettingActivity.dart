@@ -1,12 +1,39 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:sunstarmovers/Apis/basicSettings_api.dart';
 import 'package:sunstarmovers/pages/SettingActivitySheet.dart';
 import 'package:sunstarmovers/pages/SettingsBuilding.dart';
 import 'package:sunstarmovers/pages/searchBar.dart';
+import 'package:sunstarmovers/pages/showDialog2.dart';
+import 'package:sunstarmovers/responses/ActivitySettingsResponse.dart';
 
-class SettingActivity extends StatelessWidget {
+class SettingActivity extends StatefulWidget {
   const SettingActivity({super.key});
 
   @override
+  State<SettingActivity> createState() => _SettingActivityState();
+}
+
+class _SettingActivityState extends State<SettingActivity> {
+  ActivitySettingsResponse? activitySettingsResponse;
+  bool screenLoad=true;
+
+  @override
+  void initState() {
+    getActivitySetting();
+    super.initState();
+  }
+
+  @override
+
+  getActivitySetting()async
+  {
+    activitySettingsResponse=await BasicSettingApi().activitySettings();
+    setState(() {
+      screenLoad=false;
+    });
+  }
+
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
@@ -47,7 +74,16 @@ class SettingActivity extends StatelessWidget {
                     {
                       return SettingActivitySheet();
                     }
-                );
+                ).then((value) async
+                {
+                  if(value==true)
+                    {
+                      setState(() {
+                        screenLoad=true;
+                      });
+                      await getActivitySetting();
+                    }
+                });
               },
               icon: ImageIcon(
                 AssetImage(
@@ -60,7 +96,10 @@ class SettingActivity extends StatelessWidget {
         ],
       ),
 
-      body: Padding(
+      body: screenLoad?  Center(
+          child: CircularProgressIndicator(
+            color: Colors.red,
+          )):Padding(
         padding: const EdgeInsets.all(8.0),
         child: ListView(
           children: [
@@ -84,86 +123,64 @@ class SettingActivity extends StatelessWidget {
                       ],
                     ),
 
-                    Rows1(text1: 'Visit',onTap: (){
-                      showModalBottomSheet(
-                          context: context,
-                          builder: (BuildContext context)
-                          {
-                            return SettingActivitySheet();
-                          }
-                      );
-                    },),
-                    new Divider(color: Colors.grey.shade300,),
-                    Rows1(text1: 'Marketing',onTap: (){
-                      showModalBottomSheet(
-                          context: context,
-                          builder: (BuildContext context)
-                          {
-                            return SettingActivitySheet();
-                          }
-                      );
-                    }),
-                    new Divider(color: Colors.grey.shade300,),
-                    Rows1(text1: 'Office',onTap: (){
-                      showModalBottomSheet(
-                          context: context,
-                          builder: (BuildContext context)
-                          {
-                            return SettingActivitySheet();
-                          }
-                      );
-                    }),
-                    new Divider(color: Colors.grey.shade300,),
-                    Rows1(text1: 'Ware House',onTap: (){
-                      showModalBottomSheet(
-                          context: context,
-                          builder: (BuildContext context)
-                          {
-                            return SettingActivitySheet();
-                          }
-                      );
-                    }),
-                    new Divider(color: Colors.grey.shade300,),
-                    Rows1(text1: 'Office 2',onTap: (){
-                      showModalBottomSheet(
-                          context: context,
-                          builder: (BuildContext context)
-                          {
-                            return SettingActivitySheet();
-                          }
-                      );
-                    }),
-                    new Divider(color: Colors.grey.shade300,),
-                    Rows1(text1: 'home',onTap: (){
-                      showModalBottomSheet(
-                          context: context,
-                          builder: (BuildContext context)
-                          {
-                            return SettingActivitySheet();
-                          }
-                      );
-                    }),
-                    new Divider(color: Colors.grey.shade300,),
-                    Rows1(text1: 'apartments',onTap: (){
-                      showModalBottomSheet(
-                          context: context,
-                          builder: (BuildContext context)
-                          {
-                            return SettingActivitySheet();
-                          }
-                      );
-                    }),
-                    new Divider(color: Colors.grey.shade300,),
-                    Rows1(text1: 'ddd',onTap: (){
-                      showModalBottomSheet(
-                          context: context,
-                          builder: (BuildContext context)
-                          {
-                            return SettingActivitySheet();
-                          }
-                      );
-                    }),
-                    new Divider(color: Colors.grey.shade300,),
+                    ListView.builder(
+                      physics: NeverScrollableScrollPhysics(),
+                        shrinkWrap: true,
+                        itemCount: activitySettingsResponse!.data!.length,
+                        itemBuilder: (context,index)
+                            {
+                              return Column(
+                                children: [
+                                  Rows1(text1: activitySettingsResponse!.data![index].marketingTypeName!,
+                                    onTap: (){
+                                    showModalBottomSheet(
+                                        context: context,
+                                        builder: (BuildContext context)
+                                        {
+                                          return SettingActivitySheet(activityID: activitySettingsResponse!.data![index].marketingTypeID,activityName: activitySettingsResponse!.data![index].marketingTypeName,);
+                                        }
+                                    ).then((value) async
+                                    {
+                                      if(value==true)
+                                        {
+                                          setState(() {
+                                            screenLoad=true;
+                                          });
+                                          await getActivitySetting();
+                                        }
+                                    }
+                                    );
+                                  },
+
+                                    onTap1: ()
+                                    {
+                                      showDialog(
+                                          context: context,
+                                          builder: (BuildContext context)
+                                          {
+                                            return showDialog2(
+                                                title: 'Confirm',
+                                                subtitle: 'Are you sure you want to delete this activity type.?',
+                                                button1: 'Yes',
+                                                button2: 'Cancel',
+                                                onPressed: ()async{
+                                                  var isSuccess=await BasicSettingApi().deleteActivityType(activitySettingsResponse!.data![index].marketingTypeID);
+                                                  Get.back(result: true);
+                                                  await getActivitySetting();
+                                                },
+                                            );
+                                          }
+                                      );
+                                    },
+
+                                  ),
+                                  new Divider(color: Colors.grey.shade300,),
+                                ],
+                              );
+                            }
+                    ),
+
+
                   ],
                 ),
               ),
